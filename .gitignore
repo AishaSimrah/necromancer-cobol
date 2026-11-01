@@ -1,0 +1,25 @@
+# Dependencies and build output
+node_modules/
+dist/
+build/
+.next/
+coverage/
+
+# Secrets (never commit API keys)
+.env
+.env.local
+*.pem
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.log
+
+# Compiled COBOL binaries
+*.o
+*.exe
+cobol-samples/bin/
+
+# IMPORTANT: do NOT ignore the .kiro directory or anything inside it.
+# The hackathon requires /.kiro (specs, hooks, steering) to be committed.
+# Adding it here could disqualify the submission.

@@ -1,0 +1,47 @@
+       >>SOURCE FORMAT FREE
+IDENTIFICATION DIVISION.
+PROGRAM-ID. PAYROLL.
+*> Weekly pay with overtime and a flat deduction.
+*> Traps for a naive translation:
+*>   - overtime hours (over 40) paid at 1.5x
+*>   - intermediate values are rounded to cents at each COMPUTE
+*>   - deduction is truncated (no ROUNDED) while gross is rounded
+DATA DIVISION.
+WORKING-STORAGE SECTION.
+01 WS-IN-HOURS       PIC X(20).
+01 WS-IN-RATE        PIC X(20).
+01 WS-HOURS          PIC 9(3)V9.
+01 WS-RATE           PIC 9(3)V99.
+01 WS-REG-HOURS      PIC 9(3)V9.
+01 WS-OT-HOURS       PIC 9(3)V9.
+01 WS-REG-PAY        PIC 9(6)V99.
+01 WS-OT-PAY         PIC 9(6)V99.
+01 WS-GROSS          PIC 9(6)V99.
+01 WS-DEDUCT         PIC 9(6)V99.
+01 WS-NET            PIC 9(6)V99.
+01 WS-OUT            PIC Z(5)9.99.
+PROCEDURE DIVISION.
+MAIN-PARA.
+    ACCEPT WS-IN-HOURS
+    ACCEPT WS-IN-RATE
+    COMPUTE WS-HOURS = FUNCTION NUMVAL(WS-IN-HOURS)
+    COMPUTE WS-RATE = FUNCTION NUMVAL(WS-IN-RATE)
+    IF WS-HOURS > 40
+        MOVE 40 TO WS-REG-HOURS
+        COMPUTE WS-OT-HOURS = WS-HOURS - 40
+    ELSE
+        MOVE WS-HOURS TO WS-REG-HOURS
+        MOVE 0 TO WS-OT-HOURS
+    END-IF
+    COMPUTE WS-REG-PAY ROUNDED = WS-REG-HOURS * WS-RATE
+    COMPUTE WS-OT-PAY ROUNDED = WS-OT-HOURS * WS-RATE * 1.5
+    COMPUTE WS-GROSS = WS-REG-PAY + WS-OT-PAY
+    COMPUTE WS-DEDUCT = WS-GROSS * 0.0765
+    COMPUTE WS-NET = WS-GROSS - WS-DEDUCT
+    MOVE WS-GROSS TO WS-OUT
+    DISPLAY "GROSS: " WS-OUT
+    MOVE WS-DEDUCT TO WS-OUT
+    DISPLAY "DEDUCT: " WS-OUT
+    MOVE WS-NET TO WS-OUT
+    DISPLAY "NET: " WS-OUT
+    STOP RUN.
