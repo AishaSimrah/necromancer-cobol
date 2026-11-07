@@ -28,14 +28,14 @@ Code lives in `src/oracle/` (Worker code in `src/oracle/worker/`). Tests live in
     - This gate covers the full Phase B cost (uid switch and `prlimit`) even though Phase A does not use them; Phase A must not start before it passes
     - _Requirements: 11.4, 11.12, 12.4_
 
-- [ ] 2. Phase A: Minimal vertical slice
-  - [ ] 2.1 Define public types and configuration
+- [x] 2. Phase A: Minimal vertical slice
+  - [x] 2.1 Define public types and configuration
     - Create `src/oracle/types.ts` with `Status`, `RunRequest`, `RunResult`, `CompiledHandle` (branded) and `isCompiledHandle`; these signatures are final and MUST NOT change in Phases B and C
     - Create `src/oracle/config.ts` with `OracleConfig`, `ResourceLimits`, `SandboxPolicy` and the full default values from the design (65536 bytes, 30 s, 5 s, 60 s, 1 MiB, `3.1.2`, 8 slots, uid base 20000, run and compile limits, fixed environment allowlist), so later phases only start using fields that already exist
     - Export a `Logger` interface and a `mergeConfig` helper
     - Phase A code reads only the size, timeout, output and image fields; Tasks 5.4 and 5.5 start using the sandbox fields
     - _Requirements: 8.1, 8.3, 8.4, 8.5, 7.8, 12.1, 12.4_
-  - [ ] 2.2 Implement output capture helpers
+  - [x] 2.2 Implement output capture helpers
     - Create `src/oracle/capture.ts` with `appendCapped`, `decodeUtf8` (`TextDecoder` with `ignoreBOM: true`) and `encodeStdin`
     - _Requirements: 1.5, 1.7, 1.8, 5.3, 5.4_
   - [ ]* 2.3 Write property tests for capture helpers
@@ -44,7 +44,7 @@ Code lives in `src/oracle/` (Worker code in `src/oracle/worker/`). Tests live in
     - **Property 10: Output capture is bounded**
     - Tag each test `Feature: cobol-oracle-runner, Property N: <title>`; at least 100 runs
     - **Validates: Requirements 1.5, 1.7, 1.8, 5.3, 5.4**
-  - [ ] 2.4 Implement framing and the Worker protocol types
+  - [x] 2.4 Implement framing and the Worker protocol types
     - Create `src/oracle/protocol.ts` with `WorkerRequest`, `WorkerResponse`, `RawOutcomeFields`, `EndedBy`, `BreachedLimit`, `WorkerMessage`; define the complete protocol now (including `ping` with `withVersion` and the `limit` outcome fields) so the Worker and client can be hardened later without a protocol change
     - Create `src/oracle/framing.ts` with `encodeFrame`, incremental `FrameDecoder`, `MAX_FRAME_BYTES` (8 MiB) and protocol errors for oversized prefixes and invalid JSON
     - _Requirements: 11.3, 11.5_
@@ -52,26 +52,26 @@ Code lives in `src/oracle/` (Worker code in `src/oracle/worker/`). Tests live in
     - **Property 17: Frame round trip**
     - Use generators `arbWorkerMessage` and `arbChunking` (one byte at a time, several frames per chunk)
     - **Validates: Requirements 11.3, 11.5, 11.12**
-  - [ ] 2.6 Implement the minimal child spawner, work filesystem and test double
+  - [x] 2.6 Implement the minimal child spawner, work filesystem and test double
     - Create `src/oracle/worker/spawner.ts` with `SpawnSpec`, `ChildTermination`, `ChildSpawner` and a real implementation using `child_process.spawn` (`detached`, piped stdio)
     - Phase A scope: swallow `EPIPE` on stdin, cap each stream with `appendCapped`, enforce the timeout and the output cap by killing the process group, and wait for `close`. No `uid`, `gid`, `env` allowlist or `kill -9 -1` sweep yet; Task 5.4 extends this file with them
     - Create `src/oracle/worker/workfs.ts` with a `WorkFs` interface and real implementation: `mkdtemp` handle directories, write `prog.cob`, recursive removal that logs failures and does not throw. Task 5.1 extends this file with ownership and modes
     - Create `tests/oracle/doubles/fake-spawner.ts` that returns scripted terminations and records every `SpawnSpec`; Task 5.4 extends it to record uid, gid and env
     - _Requirements: 3.1, 3.2, 3.3, 3.6, 5.3, 5.4, 5.5, 6.2, 6.4, 6.5, 6.6_
-  - [ ] 2.7 Implement the minimal Worker server and entry point
+  - [x] 2.7 Implement the minimal Worker server and entry point
     - Create `src/oracle/worker/server.ts` with transport-agnostic `serve(io, deps)` handling `ping` (reply with pid and `liveHandles`), `compile`, `run`, `release`, `shutdown`
     - Phase A scope: run `cobc -x -free -o prog prog.cob` and `<handle>/prog` directly through the spawner, with the compile timeout, run timeout and output cap; delete the handle directory on compile failure and on `release`; answer `unknown_handle` for unknown handles; run requests one after another or with a simple concurrency counter
     - No slots, no `prlimit`, no per-program uid, no environment allowlist, no `withVersion`; Task 5.5 extends this file with them
     - Create `src/oracle/worker/main.ts` that parses `--policy` (base64 JSON) and `--work-root`, wires stdin and stdout, and logs only to stderr
     - _Requirements: 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 6.2, 6.3, 6.5, 11.2, 11.4, 11.5, 11.8_
-  - [ ] 2.8 Write the Oracle image Dockerfile
+  - [x] 2.8 Write the Oracle image Dockerfile
     - Rewrite `Dockerfile` as a multi-stage build: stage 1 on `node:22.11.0-bookworm-slim` pinned by tag and digest runs `npm ci`, copies the Worker modules and the shared modules the Worker imports (`protocol.ts`, `framing.ts`, `capture.ts`, and `types.ts` or `config.ts` if imported as values) and runs `npm run build:worker`
     - Stage 2 on `ubuntu:24.04` installs `gnucobol` and `libstdc++6` with `--no-install-recommends`, copies the `node` binary and `dist/worker.js` to `/opt/oracle/worker.js` (mode 0555), creates group `oracle-run` and user `oracle` (uid and gid 20000), sets `NECROMANCER_IN_ORACLE_IMAGE=1`, keeps the sample copy and the `interest` compile line, and keeps `USER root`
     - Record the digest used in a comment and in `docs/kiro-log.md`
     - Build the image and confirm `cobc --version` reports 3.1.2 and `node /opt/oracle/worker.js` starts
     - The image is complete for Phase B; Task 5.5 changes only Worker code, not the Dockerfile
     - _Requirements: 7.2, 7.3, 12.3_
-  - [ ] 2.9 Implement basic validation and basic classification
+  - [x] 2.9 Implement basic validation and basic classification
     - Create `src/oracle/validate.ts` with `validateSource` (size in UTF-8 bytes, empty or whitespace only, NUL), `validateInputLines`, `validateTimeout` and `validateRequest` in the fixed check order of the design, with a placeholder step where the scans will run; Task 4.1 extends this file with the scan checks
     - Create `src/oracle/classify.ts` (runner side) mapping Worker outcomes and phase to `RunResult` for `ok` (non-zero exit codes kept), `compile_error`, `timeout` (naming the compile or run phase), `environment_error` (spawn failure) and the output-limit case (`resource_limit`, `truncated: true`); `message` only when the status is not `ok`
     - The `resource_limit` labels for memory, CPU, processes and file size are added by Task 5.2
@@ -80,30 +80,30 @@ Code lives in `src/oracle/` (Worker code in `src/oracle/worker/`). Tests live in
     - **Property 14: RunResult JSON round trip**
     - Use generator `arbRunResult` including `null` exit codes and optional `message`
     - **Validates: Requirements 8.6**
-  - [ ] 2.11 Implement the minimal Worker client and launchers
+  - [x] 2.11 Implement the minimal Worker client and launchers
     - Create `src/oracle/worker-client.ts` with `WorkerTransport`, `WorkerLauncher`, `WorkerClient` (lazy launch, `ping` handshake, id-keyed pending map, `WorkerLostError` thrown to all pending requests on EOF, exit or protocol error, `stop`); remove pending entries on response or loss. No `restart` yet; Task 6.3 extends this file
     - Create `src/oracle/launcher.ts` (selection by `NECROMANCER_IN_ORACLE_IMAGE`), `src/oracle/docker-launcher.ts` and `src/oracle/direct-launcher.ts`
     - Phase A scope: the Docker launcher runs `docker run -i --rm --name necromancer-oracle-<random> <image> node /opt/oracle/worker.js --policy <b64>` and rejects with a message naming a missing Docker daemon or image; the direct launcher spawns `node /opt/oracle/worker.js` with the same stdio. Arguments are passed as an array, never through a shell. Task 6.1 adds network isolation, capability, read-only and kill-fallback flags
     - _Requirements: 7.1, 7.5, 7.6, 11.5_
-  - [ ] 2.12 Implement the minimal handle registry and public API
+  - [x] 2.12 Implement the minimal handle registry and public API
     - Create `src/oracle/handles.ts` and `src/oracle/index.ts` exporting `runCobol`, `compileCobol`, `runCompiled`, `releaseHandle`, `shutdown`, `isCompiledHandle` with the final signatures from the design
     - Phase A scope: validate before any Worker request; resolve every outcome as a `RunResult` and map internal exceptions and launch failures to `environment_error`; omit `message` when `ok`; `runCobol` compiles, runs and releases in a `finally`; unknown or released handles return `invalid_request` without sending a frame; `shutdown` releases all handles, sends `shutdown` and stops the transport
     - No version check, no Worker restart or retry; Task 6.2 adds the version check and Task 6.4 adds recovery, the `bypassScans` test option and the full lifecycle
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.6, 8.1, 8.2, 8.3, 8.4, 11.1, 11.2, 11.3, 11.9, 11.10_
-  - [ ] 2.13 Write the slice smoke test
+  - [x] 2.13 Write the slice smoke test
     - Create `tests/oracle/slice-smoke.test.ts` that compiles `interest.cbl`, `payroll.cbl` and `tax.cbl` once each through `compileCobol`, runs each handle several times through `runCompiled` with the inputs listed in `cobol-samples/EXPECTED.md`, and compares stdout with the verified values
     - Assert that `runCobol` returns the same stdout as a handle run, that an infinite loop returns `timeout`, and that a syntax error returns `compile_error`
     - Runs against the real Oracle image and calls `shutdown()` in `afterAll`
     - _Requirements: 10.3, 11.2, 11.4_
 
-- [ ] 3. Checkpoint - Phase A slice works; the equivalence engine can integrate
+- [~] 3. Checkpoint - Phase A slice works; the equivalence engine can integrate
   - Run `npm run typecheck`, `npm run lint` and `npm test`; the slice smoke test must pass for all three samples against `cobol-samples/EXPECTED.md` through compile once, run many.
   - State clearly to the user that from this point the equivalence engine can integrate against `runCobol`, `compileCobol`, `runCompiled`, `releaseHandle` and `shutdown`, and that these signatures in `src/oracle/types.ts` and `src/oracle/index.ts` do not change in later phases.
   - State clearly that the slice is not yet safe for untrusted COBOL (no scans, no uid separation, no `prlimit`, no network isolation); Phase B closes those gaps.
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 4. Phase B: Source scans
-  - [ ] 4.1 Implement source scanning and wire it into validation
+  - [~] 4.1 Implement source scanning and wire it into validation
     - Create `src/oracle/scan.ts` with `maskCommentsAndLiterals`, `findExternalCall` (any `CALL` token on the masked text) and `findForbiddenConstruct` using the hyphen-aware boundary pattern so `OPENING-BALANCE` does not match `OPEN`
     - Extend (do not replace) `src/oracle/validate.ts` from Task 2.9: fill the placeholder step so `validateRequest` and `compileCobol` run the external call and forbidden construct checks in the fixed order of the design, after NUL and before input lines
     - Messages must name the rejected call or construct; the Phase A size, empty, NUL, input line and timeout checks stay unchanged
@@ -120,12 +120,12 @@ Code lives in `src/oracle/` (Worker code in `src/oracle/worker/`). Tests live in
     - **Validates: Requirements 3.4, 3.5, 4.1, 4.2, 4.3, 4.4, 4.5, 5.1, 5.2, 10.5, 10.11, 10.12, 10.13, 13.1, 13.2, 13.3, 13.4, 13.5, 13.7, 13.8, 13.9, 13.10**
 
 - [ ] 5. Phase B: Per-program sandbox in the Worker
-  - [ ] 5.1 Add slots and work directory ownership
+  - [~] 5.1 Add slots and work directory ownership
     - Create `src/oracle/worker/slots.ts` with a `SlotPool` (uid `uidBase + n`, scratch dir mode 0700, wipe before release, FIFO queue when all slots are busy)
     - Extend (do not replace) `src/oracle/worker/workfs.ts` from Task 2.6: after compile `chown root:oracle-run` and mode 0750 on the handle directory and 0550 on the executable, scratch directory creation and wipe
     - Create an in-memory `WorkFs` double at `tests/oracle/doubles/memory-workfs.ts` that can inject delete failures
     - _Requirements: 6.1, 6.2, 6.4, 6.6, 12.3_
-  - [ ] 5.2 Add limit classification
+  - [~] 5.2 Add limit classification
     - Create `src/oracle/worker/limits.ts` with the pure `classifyChild` function (timer, output cap, `SIGXCPU`, `SIGXFSZ`, memory and process heuristics)
     - Extend (do not replace) `src/oracle/classify.ts` from Task 2.9: map `endedBy = limit` outcomes to `resource_limit` with a message naming memory, CPU time, process count or file size, keeping the Phase A cases unchanged
     - _Requirements: 3.3, 5.4, 12.5_
@@ -133,34 +133,34 @@ Code lives in `src/oracle/` (Worker code in `src/oracle/worker/`). Tests live in
     - **Property 20: Limit classification**
     - Use generator `arbTermination`
     - **Validates: Requirements 3.3, 5.4, 12.5**
-  - [ ] 5.4 Add uid, gid, environment allowlist and kill sweep to the spawner
+  - [~] 5.4 Add uid, gid, environment allowlist and kill sweep to the spawner
     - Extend (do not replace) `src/oracle/worker/spawner.ts` from Task 2.6: pass `uid`, `gid` and a replacing `env` to `spawn`; after a timeout or output cap kill, run `kill -9 -1` as the slot uid and wait for `close` before returning
     - Extend `tests/oracle/doubles/fake-spawner.ts` so it records uid, gid and env of every `SpawnSpec`
     - _Requirements: 3.2, 3.6, 5.5, 6.5, 12.1, 12.3_
-  - [ ] 5.5 Wire sandbox, prlimit and limits into the Worker
+  - [~] 5.5 Wire sandbox, prlimit and limits into the Worker
     - Extend (do not replace) `src/oracle/worker/server.ts` from Task 2.7: take a slot per compile and run, build commands as `prlimit <limits> -- cobc -x -free -o prog prog.cob` and `prlimit <limits> -- <handle>/prog`, pass the fixed environment from the policy with `HOME` set to the slot scratch directory, set cwd to the scratch directory, and classify terminations with `classifyChild`
     - Add `ping` with optional `cobc --version` output and `busySlots`, run concurrent runs up to `workerConcurrency`, free the slot and wipe scratch only after the process group has exited and before answering, and repeat the cheap size, NUL and input checks defensively
     - Extend `src/oracle/worker/main.ts` to log once when uid separation or network isolation is unavailable
     - _Requirements: 6.1, 6.3, 7.3, 11.6, 12.3, 12.4, 12.5, 12.7, 12.8, 12.9_
 
 - [ ] 6. Phase B: Docker isolation, environment check, recovery and lifecycle
-  - [ ] 6.1 Harden the launchers
+  - [~] 6.1 Harden the launchers
     - Extend (do not replace) `src/oracle/docker-launcher.ts` from Task 2.11: add `--network none --memory 1g --pids-limit 256 --read-only --tmpfs /work:rw,exec,nosuid,size=256m --cap-drop ALL` with exactly the six `--cap-add` entries and `--security-opt no-new-privileges`, and a `docker kill` fallback on stop
     - Extend `src/oracle/direct-launcher.ts`: apply the same Sandbox_Policy inside the image, and log once when network isolation is unavailable while keeping every other restriction
     - _Requirements: 7.5, 7.7, 12.6, 12.7, 12.8_
-  - [ ] 6.2 Implement the environment check and wire it into the API
+  - [~] 6.2 Implement the environment check and wire it into the API
     - Create `src/oracle/environment.ts` with `parseCobcVersion` and `ensureEnvironment` that memoizes one in-flight promise, runs `ping` with `withVersion` once, caches a version mismatch permanently with both versions in the message, and does not cache launch failures
     - Extend (do not replace) `src/oracle/index.ts` from Task 2.12: call `ensureEnvironment` before the first Worker request and return `environment_error` for every request after a cached mismatch without launching anything again
     - _Requirements: 7.3, 7.4, 7.5_
-  - [ ] 6.3 Add restart to the Worker client
+  - [~] 6.3 Add restart to the Worker client
     - Extend (do not replace) `src/oracle/worker-client.ts` from Task 2.11: add `restart` (new launch and handshake, no new version check) and make sure no pending entry survives a response or a loss
     - _Requirements: 11.7_
-  - [ ] 6.4 Add Worker-lost recovery and the full handle lifecycle
+  - [~] 6.4 Add Worker-lost recovery and the full handle lifecycle
     - Extend (do not replace) `src/oracle/handles.ts` and `src/oracle/index.ts` from Tasks 2.12 and 6.2: keep the validated source per handle; on `WorkerLostError` restart once and retry once, recompiling on `unknown_handle`; return `environment_error` if the retry also fails and keep the handle registered
     - Make `releaseHandle` idempotent, make `shutdown` wait up to 2 s for the Worker and then kill the transport, and add an internal, test-only `bypassScans` option that is not part of the public types
     - _Requirements: 11.7, 11.8, 11.9_
 
-- [ ] 7. Checkpoint - Phase B hardening complete
+- [~] 7. Checkpoint - Phase B hardening complete
   - Run `npm run typecheck`, `npm run lint` and `npm test`; rebuild the image and re-run the slice smoke test so the Phase A behavior is unchanged.
   - Ensure all tests pass, ask the user if questions arise.
 
@@ -219,7 +219,7 @@ Code lives in `src/oracle/` (Worker code in `src/oracle/worker/`). Tests live in
     - Add a sequential batch of 200 runs per program asserting a mean under 20 ms; report mean and 95th percentile; assert the launcher call count stays at 1 during the timed section
     - _Requirements: 10.9, 11.12_
 
-- [ ] 10. Final checkpoint - Run the sample equivalence suite
+- [~] 10. Final checkpoint - Run the sample equivalence suite
   - Run `npm run typecheck`, `npm run lint`, `scripts/run-samples.sh` (the sample equivalence suite) and `npm test`; ensure all pass, ask the user if questions arise.
 
 ## Notes

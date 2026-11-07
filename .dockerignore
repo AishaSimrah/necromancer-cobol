@@ -1,0 +1,11 @@
+node_modules
+dist
+.git
+.kiro
+docs
+tests
+coverage
+cobol-samples/bin
+*.log
+.env
+.env.local

@@ -31,6 +31,267 @@
         "chatSessionId": "sess_47399cd2-23f4-4632-b8b3-da53a81a784b",
         "timestamp": 1794055105132
       }
+    ],
+    "2.1 Define public types and configuration": [
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055299314
+      },
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055313107
+      },
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055466123
+      }
+    ],
+    "2.2 Implement output capture helpers": [
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055299457
+      },
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055470266
+      },
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055574665
+      }
+    ],
+    "2.4 Implement framing and the Worker protocol types": [
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055299584
+      },
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055470582
+      },
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055575728
+      }
+    ],
+    "2.6 Implement the minimal child spawner, work filesystem and test double": [
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055299689
+      },
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055580039
+      },
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055691654
+      }
+    ],
+    "2.7 Implement the minimal Worker server and entry point": [
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055299822
+      },
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055696049
+      },
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055866849
+      }
+    ],
+    "2.8 Write the Oracle image Dockerfile": [
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055299934
+      },
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055871665
+      },
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794056088844
+      }
+    ],
+    "2.9 Implement basic validation and basic classification": [
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055300041
+      },
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055471488
+      },
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055576074
+      }
+    ],
+    "2.11 Implement the minimal Worker client and launchers": [
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055300158
+      },
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055580606
+      },
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055691410
+      }
+    ],
+    "2.12 Implement the minimal handle registry and public API": [
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055300269
+      },
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055696582
+      },
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055867440
+      }
+    ],
+    "2.13 Write the slice smoke test": [
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055300376
+      },
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794056089409
+      },
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794056219566
+      }
+    ],
+    "3. Checkpoint - Phase A slice works; the equivalence engine can integrate": [
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055300487
+      }
+    ],
+    "4.1 Implement source scanning and wire it into validation": [
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055300595
+      }
+    ],
+    "5.1 Add slots and work directory ownership": [
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055300703
+      }
+    ],
+    "5.2 Add limit classification": [
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055300799
+      }
+    ],
+    "5.4 Add uid, gid, environment allowlist and kill sweep to the spawner": [
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055300923
+      }
+    ],
+    "5.5 Wire sandbox, prlimit and limits into the Worker": [
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055301028
+      }
+    ],
+    "6.1 Harden the launchers": [
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055301143
+      }
+    ],
+    "6.2 Implement the environment check and wire it into the API": [
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055301289
+      }
+    ],
+    "6.3 Add restart to the Worker client": [
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055301425
+      }
+    ],
+    "6.4 Add Worker-lost recovery and the full handle lifecycle": [
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055301630
+      }
+    ],
+    "7. Checkpoint - Phase B hardening complete": [
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055301750
+      }
+    ],
+    "10. Final checkpoint - Run the sample equivalence suite": [
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794055301848
+      }
+    ],
+    "2. Phase A: Minimal vertical slice": [
+      {
+        "executionId": "0606a6ac-4503-4ad5-b2d4-8a04ca5c2072",
+        "chatSessionId": "sess_7e30168f-289f-4680-9f25-9beda19093ee",
+        "timestamp": 1794056219911
+      }
     ]
   }
 }

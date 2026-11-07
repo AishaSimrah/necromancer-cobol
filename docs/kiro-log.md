@@ -44,3 +44,5 @@ Image: ubuntu:24.04 + gnucobol, Node 22.11.0 from node:22.11.0-bookworm-slim, Do
 | (c) program without prlimit (worker-side) | 5.085 | 7.641 |
 
 Worker overhead = (b - c) + a = 1.434 ms, limit 10 ms. PASS, so the C helper fallback is not needed. Phase A may start.
+## Task 2.8: Oracle image Dockerfile
+Multi-stage build. Stage 1 base pinned: `node:22.11.0-bookworm-slim@sha256:f035ba7ffee18f67200e2eb8018e0f13c954ec16338f264940f701997e3c12da` (Docker 29.9.2). Stage 2: ubuntu:24.04 + gnucobol + libstdc++6, node binary and `dist/worker.js` (0555) at `/opt/oracle/worker.js`, group `oracle-run` / user `oracle` (20000), `NECROMANCER_IN_ORACLE_IMAGE=1`, `USER root`. Verified: `cobc --version` = 3.1.2.0; a framed `ping` to `node /opt/oracle/worker.js` returns a `pong`.
