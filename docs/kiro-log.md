@@ -17,12 +17,13 @@ Format: date | hours | what I did in Kiro | what worked | what failed | screensh
 
 | Date | Hrs | Done | Worked | Failed / surprised | Screenshot |
 |---|---|---|---|---|---|
-| 2026-11-02 | | | | | |
+| 2026-11-07 | 2.5 | Spec 1 (COBOL oracle runner) in Kiro: requirements, design, tasks. Used spec mode with Autopilot off, reviewed each phase, used "Analyze requirements". Credits used so far: ~20 of 4000 | Kiro read the steering docs and repo samples; its own requirements analysis caught an ambiguity (13.10: detection rules must apply to any one construct, not only all three) | First draft missed a performance gap (container per run) and security gaps (secrets in environment, no sandbox in direct mode); first design used docker exec per run, which I measured at 143 ms per call and could not meet the 3000 runs in 60 s target, so the design was replaced with a long-lived Worker | |
+
 
 ## Best "before / after" moments (save for the write-up)
-1.
-2.
-3.
+1. Before: container started for every run (about 7 minutes for 3000 runs). After: measured docker exec at 143 ms per call, then redesigned around a long-lived Worker with a 10 ms overhead budget and a spike task as a gate.
+2. Before: requirements covered only the happy path. After: reviewing them found missing security rules (clean environment, unprivileged user, no external CALL, no file I/O or COPY) which Kiro then added.
+3. Before: tasks started with the hardest infrastructure. After: reordered into a minimal working path first, then hardening, then verification, so the equivalence engine can start early.
 
 ## Bugs caught by property-based testing (very important)
 | Input that failed | COBOL output | TS output | Root cause | Fix |
