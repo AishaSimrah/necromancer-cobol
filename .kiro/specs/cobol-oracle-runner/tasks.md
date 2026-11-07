@@ -12,14 +12,14 @@ Code lives in `src/oracle/` (Worker code in `src/oracle/worker/`). Tests live in
 
 ## Tasks
 
-- [ ] 1. Phase A: Scaffold and performance spike
-  - [ ] 1.1 Scaffold the TypeScript project
+- [x] 1. Phase A: Scaffold and performance spike
+  - [x] 1.1 Scaffold the TypeScript project
     - Create `package.json` with exact, pinned versions of `typescript`, `vitest`, `fast-check`, `esbuild`, `eslint`, `@typescript-eslint/*`, `@types/node`
     - Create `tsconfig.json` with `"strict": true`, and an ESLint config with `@typescript-eslint/no-explicit-any` set to error
     - Add scripts: `build:worker` (esbuild bundle of `src/oracle/worker/main.ts` to `dist/worker.js`), `typecheck` (`tsc --noEmit`), `lint`, `test` (`vitest --run`)
     - Create `src/oracle/` and `tests/oracle/` directories with a Vitest config
     - _Requirements: 8.5_
-  - [ ] 1.2 Write and run the spike script
+  - [x] 1.2 Write and run the spike script
     - Add `scripts/spike-worker.mjs` and a throwaway `scripts/Dockerfile.spike` (Ubuntu 24.04, `gnucobol`, `libstdc++6`, Node copied from the pinned `node:22.11.0-bookworm-slim` image) that are not part of the final image
     - In the image, run a minimal framed-stdio echo Worker that spawns `prlimit --as --cpu --nproc --fsize --core -- <compiled interest>` with `uid`, `gid`, `detached` and a fixed `env`
     - Measure mean and 95th percentile over at least 500 sequential runs for: (a) frame round trip only, (b) spawn of `prlimit` plus the program, (c) the program spawned without `prlimit`

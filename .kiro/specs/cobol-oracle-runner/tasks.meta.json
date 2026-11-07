@@ -1,0 +1,36 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Scaffold the TypeScript project": [
+      {
+        "executionId": "c7ba6896-fa9e-402d-b155-bb30dab74521",
+        "chatSessionId": "sess_d84d497a-9eb1-416d-a6b0-4e9fd911e428",
+        "timestamp": 1794054334265
+      },
+      {
+        "executionId": "c7ba6896-fa9e-402d-b155-bb30dab74521",
+        "chatSessionId": "sess_d84d497a-9eb1-416d-a6b0-4e9fd911e428",
+        "timestamp": 1794054681448
+      }
+    ],
+    "1.2 Write and run the spike script": [
+      {
+        "executionId": "aaf10890-c418-47b1-ada4-d26e6e66a964",
+        "chatSessionId": "sess_47399cd2-23f4-4632-b8b3-da53a81a784b",
+        "timestamp": 1794054851312
+      },
+      {
+        "executionId": "aaf10890-c418-47b1-ada4-d26e6e66a964",
+        "chatSessionId": "sess_47399cd2-23f4-4632-b8b3-da53a81a784b",
+        "timestamp": 1794055104862
+      }
+    ],
+    "1. Phase A: Scaffold and performance spike": [
+      {
+        "executionId": "aaf10890-c418-47b1-ada4-d26e6e66a964",
+        "chatSessionId": "sess_47399cd2-23f4-4632-b8b3-da53a81a784b",
+        "timestamp": 1794055105132
+      }
+    ]
+  }
+}

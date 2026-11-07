@@ -1,0 +1,15 @@
+# THROWAWAY: performance spike for the oracle Worker (task 1.2). Not part of the final image.
+FROM node:22.11.0-bookworm-slim AS node
+
+FROM ubuntu:24.04
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends gnucobol libstdc++6 util-linux \
+ && rm -rf /var/lib/apt/lists/*
+COPY --from=node /usr/local/bin/node /usr/local/bin/node
+
+COPY cobol-samples/interest.cbl /tmp/interest.cbl
+RUN cobc -x -free -o /opt/interest /tmp/interest.cbl && chmod 755 /opt/interest
+
+COPY scripts/spike-worker.mjs /opt/spike-worker.mjs
+# Runs as root on purpose: the Worker drops to uid/gid 20000 per child.
+CMD ["node", "/opt/spike-worker.mjs"]

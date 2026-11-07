@@ -1,0 +1,24 @@
+{
+  "name": "necromancer",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Legacy code never dies. Necromancer raises it from the dead, and proves the resurrection is faithful.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build:worker": "esbuild src/oracle/worker/main.ts --bundle --platform=node --target=node22 --format=cjs --outfile=dist/worker.js",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest --run"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "22.20.5",
+    "esbuild": "0.28.2",
+    "eslint": "10.14.0",
+    "fast-check": "4.10.2",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.72.1",
+    "vitest": "5.1.0"
+  }
+}

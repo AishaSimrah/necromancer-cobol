@@ -32,3 +32,15 @@ Format: date | hours | what I did in Kiro | what worked | what failed | screensh
 
 ## Spec vs vibe coding comparison
 Pick one small task. Do it once by vibe coding and once from a spec. Record time, bugs, and quality.
+
+## Spike 1.2: Worker overhead (PASS)
+Image: ubuntu:24.04 + gnucobol, Node 22.11.0 from node:22.11.0-bookworm-slim, Docker 29.9.2. 500 sequential runs after 20 warmup, spawn with uid/gid 20000, detached, fixed env.
+
+| Measurement | mean (ms) | p95 (ms) |
+|---|---|---|
+| (a) frame round trip only | 0.359 | 0.640 |
+| (b) prlimit + program (worker-side) | 6.159 | 9.255 |
+| (b') same incl. frame round trip (client) | 6.641 | 9.774 |
+| (c) program without prlimit (worker-side) | 5.085 | 7.641 |
+
+Worker overhead = (b - c) + a = 1.434 ms, limit 10 ms. PASS, so the C helper fallback is not needed. Phase A may start.
