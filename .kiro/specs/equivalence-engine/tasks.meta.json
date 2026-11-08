@@ -1,0 +1,24 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Write the shrink spike test in `tests/equivalence/shrink-spike.test.ts`": [
+      {
+        "executionId": "ffd6bcda-fee9-4064-9bef-b4bcb09edafa",
+        "chatSessionId": "sess_8f88f098-02db-4b78-bb08-d995f14b6163",
+        "timestamp": 1794124617938
+      },
+      {
+        "executionId": "ffd6bcda-fee9-4064-9bef-b4bcb09edafa",
+        "chatSessionId": "sess_8f88f098-02db-4b78-bb08-d995f14b6163",
+        "timestamp": 1794124690576
+      }
+    ],
+    "1. Spike: fast-check shrinking from a known failing example": [
+      {
+        "executionId": "ffd6bcda-fee9-4064-9bef-b4bcb09edafa",
+        "chatSessionId": "sess_8f88f098-02db-4b78-bb08-d995f14b6163",
+        "timestamp": 1794124690810
+      }
+    ]
+  }
+}

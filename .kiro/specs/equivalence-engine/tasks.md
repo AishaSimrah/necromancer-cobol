@@ -13,8 +13,8 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
 
 ## Tasks
 
-- [ ] 1. Spike: fast-check shrinking from a known failing example
-  - [ ] 1.1 Write the shrink spike test in `tests/equivalence/shrink-spike.test.ts`
+- [x] 1. Spike: fast-check shrinking from a known failing example
+  - [x] 1.1 Write the shrink spike test in `tests/equivalence/shrink-spike.test.ts`
     - Use `fc.check(fc.asyncProperty(fc.tuple(fc.bigInt(...), fc.bigInt(...)), ...), { examples: [[start]], seed, numRuns: 1, endOnFailure: false })` with a property that fails above a threshold
     - Assert the counterexample is smaller than the starting example, proving `examples` entries are shrunk
     - Also write a second test of the fallback: a greedy loop over `arb.shrink(value, undefined)` that keeps the first still-failing candidate and stops at a call limit
