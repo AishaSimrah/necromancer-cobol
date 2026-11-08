@@ -67,7 +67,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
     - Run `npx vitest --run tests/equivalence` (including Properties 1 and 2), the full `npx vitest --run`, and `npx tsc --noEmit`; fix any failures
 
 - [ ] 5. Evidence groups and classification
-  - [ ] 5.1 Create `src/equivalence/classify.ts`
+  - [x] 5.1 Create `src/equivalence/classify.ts`
     - Define `EvidenceGroup`, `GROUP_ORDER` and `classifyVector` using decimal.js with precedence overflow, half-unit, zero or maximum, standard; an unsigned negative counts as overflow, `-0` does not
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6_
   - [ ] 5.2 Attach groups to cases and add group summaries to the report

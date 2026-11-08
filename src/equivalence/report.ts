@@ -1,3 +1,5 @@
+import type { EvidenceGroup } from "./classify.js";
+
 /**
  * Minimal report for the vertical slice. Later tasks extend it with groups,
  * inconclusive handling, shrinking and the mismatch list cap.
@@ -28,8 +30,7 @@ export interface EquivalenceReport {
 export interface ProgressEvent {
   readonly completed: number;
   readonly target: number;
-  /** Evidence group name; narrowed to `EvidenceGroup` once classify.ts exists. */
-  readonly group: string;
+  readonly group: EvidenceGroup;
   readonly matched: number;
   readonly mismatches: number;
   readonly inconclusive: number;
