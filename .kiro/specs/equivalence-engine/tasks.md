@@ -21,7 +21,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
     - Record in a comment at the top of the file which approach the installed fast-check version supports; the `shrink.ts` implementation in task 9.1 uses that approach
     - _Requirements: 8.1, 8.3, 8.5_
 
-- [ ] 2. Minimal end-to-end slice (real Oracle, correct interest Candidate)
+- [x] 2. Minimal end-to-end slice (real Oracle, correct interest Candidate)
   - [x] 2.1 Create the basic generator, minimal scaled arithmetic and the INTEREST descriptors
     - `src/equivalence/scaled.ts`: `pow10`, `fieldMaxUnits`, `formatScaled` (plain decimal text, never `-0`, no exponent) and `parseScaled`, using `bigint` only
     - `src/equivalence/descriptors.ts`: `FieldDescriptor` and `INTEREST` (principal 7/2, rate 3/2, years 2/0, all unsigned)
@@ -39,7 +39,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
     - `run.ts`: minimal `runEquivalence({ source, fields, candidate, caseCount?, seed?, oracle? })` with inline defaults (caseCount 1000, fixed seed when absent): `compileCobol` once, sequential `runCompiled` per case, strict compare, count matches and mismatches, `releaseHandle` exactly once in `finally`
     - In this slice a non-`ok` Oracle result or a non-handle compile result throws an error so that no score is ever produced from infrastructure failure; task 7 replaces this with proper inconclusive handling
     - _Requirements: 2.1, 2.2, 2.4, 5.3, 5.4, 7.1, 7.2, 7.4, 7.6_
-  - [ ] 2.5 Add the correct interest Candidate and the real-Oracle slice test
+  - [x] 2.5 Add the correct interest Candidate and the real-Oracle slice test
     - Create `tests/equivalence/candidates/interest.ts` with `correctInterestCandidate` (decimal.js clone with precision 60, `store(value, digits, scale)` truncating toward zero, absolute value, modulo 10^digits; ROUND_HALF_UP each year; modulo 10^7; `Z(6)9.99` formatting after the literal `BALANCE: `)
     - Create `tests/equivalence/slice.real.test.ts`: probe Oracle availability once at module top level with `compileCobol` on `cobol-samples/interest.cbl` (release the handle if one is returned) and use `describe.skipIf(!available)`; run `runEquivalence` with INTEREST and the correct Candidate and assert `matchScore === 1` and `mismatchCount === 0`
     - Use a modest case count and Oracle-friendly settings so the test is fast; no test may rely on a known hang

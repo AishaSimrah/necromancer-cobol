@@ -67,6 +67,25 @@
         "chatSessionId": "sess_00407dce-9e75-40ab-b9b2-fa3144be3301",
         "timestamp": 1794125748876
       }
+    ],
+    "2.5 Add the correct interest Candidate and the real-Oracle slice test": [
+      {
+        "executionId": "1b0cd96a-cc36-4cb9-a71a-728dd78694a8",
+        "chatSessionId": "sess_4e46ad3d-2fc8-4c2f-8b17-1b399c234285",
+        "timestamp": 1794125825182
+      },
+      {
+        "executionId": "1b0cd96a-cc36-4cb9-a71a-728dd78694a8",
+        "chatSessionId": "sess_4e46ad3d-2fc8-4c2f-8b17-1b399c234285",
+        "timestamp": 1794125982694
+      }
+    ],
+    "2. Minimal end-to-end slice (real Oracle, correct interest Candidate)": [
+      {
+        "executionId": "1b0cd96a-cc36-4cb9-a71a-728dd78694a8",
+        "chatSessionId": "sess_4e46ad3d-2fc8-4c2f-8b17-1b399c234285",
+        "timestamp": 1794125982941
+      }
     ]
   }
 }
