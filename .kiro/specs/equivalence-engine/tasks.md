@@ -34,7 +34,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
     - `invokeCandidate` passes a fresh copy of the lines, awaits promises, and converts throws, rejections and non-string returns to `{ kind: "error", text }`
     - Strict `===` comparison with no normalization
     - _Requirements: 2.6, 5.1, 5.2, 5.5, 5.7_
-  - [ ] 2.4 Create minimal `report.ts` and `run.ts`
+  - [x] 2.4 Create minimal `report.ts` and `run.ts`
     - `report.ts`: `EquivalenceReport` (minimal: `outcome`, `matchScore`, `seed`, `casesRun`, `conclusiveCount`, `matchedCount`, `mismatchCount`, `mismatches`, `elapsedMs`) and `buildReport` with a single division for `matchScore`
     - `run.ts`: minimal `runEquivalence({ source, fields, candidate, caseCount?, seed?, oracle? })` with inline defaults (caseCount 1000, fixed seed when absent): `compileCobol` once, sequential `runCompiled` per case, strict compare, count matches and mismatches, `releaseHandle` exactly once in `finally`
     - In this slice a non-`ok` Oracle result or a non-handle compile result throws an error so that no score is ever produced from infrastructure failure; task 7 replaces this with proper inconclusive handling

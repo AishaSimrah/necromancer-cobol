@@ -55,6 +55,18 @@
         "chatSessionId": "sess_ce99755c-dc61-4fe7-85ac-43e2bc335250",
         "timestamp": 1794125356131
       }
+    ],
+    "2.4 Create minimal `report.ts` and `run.ts`": [
+      {
+        "executionId": "cac5adb3-4885-47e6-ae69-2c7e9da33cee",
+        "chatSessionId": "sess_00407dce-9e75-40ab-b9b2-fa3144be3301",
+        "timestamp": 1794125678590
+      },
+      {
+        "executionId": "cac5adb3-4885-47e6-ae69-2c7e9da33cee",
+        "chatSessionId": "sess_00407dce-9e75-40ab-b9b2-fa3144be3301",
+        "timestamp": 1794125748876
+      }
     ]
   }
 }
