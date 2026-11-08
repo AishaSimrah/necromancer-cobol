@@ -48,7 +48,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
 - [x] 3. Checkpoint - Slice works end to end
   - Run `npx tsc --noEmit` and `npx vitest --run`; the real-Oracle slice test must pass or be reported as skipped. Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 4. Config validation
+- [x] 4. Config validation
   - [x] 4.1 Create `src/equivalence/config.ts` and complete the descriptors
     - Add `PAYROLL` (hours 3/1, rate 3/2) and `TAX` (income 8/0, unsigned) to `descriptors.ts`, and `validateDescriptors` throwing `EquivalenceConfigError` that names the field and invalid property or the violated list condition (empty, more than 20, duplicate names, name length, digits 1 to 18, scale 0 to 18, integers)
     - `config.ts`: `EquivalenceConfigError`, `Candidate`, `EquivalenceOptions`, `ResolvedConfig` and `resolveConfig` with defaults (caseCount 1000, mismatchListCap 25, shrinkLimit 200), range checks for caseCount, seed (int32), timeBudgetMs, mismatchListCap, shrinkLimit (in that order after descriptors), and a chosen seed when absent
@@ -58,12 +58,12 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
     - Replace the inline defaults; invalid configuration rejects before any Oracle call; the report carries the resolved seed
     - Update `generate.ts` to reject an empty descriptor list or non-positive digits
     - _Requirements: 1.5, 1.6, 3.12, 9.3, 9.8, 9.9, 9.10_
-  - [ ]* 4.3 Write property tests for configuration
+  - [x] 4.3 Write property tests for configuration
     - **Property 1: Invalid configuration is rejected before the Oracle is touched** (at the `resolveConfig` level here; the run-level check is in task 7.7)
     - **Property 2: Valid configuration is accepted**
     - Unit tests: sample descriptor constants for INTEREST, PAYROLL, TAX and defaults
     - **Validates: Requirements 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 8.6, 9.1, 9.2, 9.3, 9.4, 9.8, 9.9, 9.10, 9.14, 9.15**
-  - [ ] 4.4 Run tests for this module
+  - [x] 4.4 Run tests for this module
     - Run `npx vitest --run tests/equivalence` (including Properties 1 and 2), the full `npx vitest --run`, and `npx tsc --noEmit`; fix any failures
 
 - [ ] 5. Evidence groups and classification
