@@ -30,7 +30,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
   - [x] 2.2 Create `src/equivalence/oracle-port.ts`
     - Define `OraclePort` as a `Pick<typeof realOracle, "compileCobol" | "runCompiled" | "releaseHandle" | "isCompiledHandle">` plus `defaultOracle`; re-export `CompiledHandle`, `RunResult`, `Status` types; this is the only file importing `../oracle/index.js`
     - _Requirements: 12.1, 12.2_
-  - [ ] 2.3 Create `src/equivalence/compare.ts`
+  - [x] 2.3 Create `src/equivalence/compare.ts`
     - `invokeCandidate` passes a fresh copy of the lines, awaits promises, and converts throws, rejections and non-string returns to `{ kind: "error", text }`
     - Strict `===` comparison with no normalization
     - _Requirements: 2.6, 5.1, 5.2, 5.5, 5.7_
