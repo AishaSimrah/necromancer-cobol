@@ -1,5 +1,6 @@
 import fc from "fast-check";
 import type { FieldDescriptor } from "./descriptors.js";
+import { EquivalenceConfigError } from "./errors.js";
 import { fieldMaxUnits, formatScaled } from "./scaled.js";
 
 export interface GeneratedCase {
@@ -21,6 +22,14 @@ export function generateCases(
   caseCount: number,
   seed: number,
 ): GeneratedCase[] {
+  if (fields.length === 0) {
+    throw new EquivalenceConfigError("fields: the descriptor list must not be empty");
+  }
+  for (const f of fields) {
+    if (!Number.isInteger(f.digits) || f.digits <= 0) {
+      throw new EquivalenceConfigError(`field "${f.name}" digits: must be a positive integer`);
+    }
+  }
   const randomCount = Math.max(0, caseCount - 2);
   const samples: bigint[][] = fields.map((f, i) =>
     randomCount === 0

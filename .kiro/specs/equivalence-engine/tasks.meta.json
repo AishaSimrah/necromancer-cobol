@@ -110,6 +110,18 @@
         "chatSessionId": "sess_938e3332-8584-4b96-a508-0fd3f5352fb6",
         "timestamp": 1794126814126
       }
+    ],
+    "4.2 Wire `resolveConfig` into `run.ts`": [
+      {
+        "executionId": "b2d2c344-720a-4e6d-bcbc-8b7cc4cec10f",
+        "chatSessionId": "sess_1cac8c26-091a-47e2-a77b-1525eb144d9f",
+        "timestamp": 1794127227195
+      },
+      {
+        "executionId": "b2d2c344-720a-4e6d-bcbc-8b7cc4cec10f",
+        "chatSessionId": "sess_1cac8c26-091a-47e2-a77b-1525eb144d9f",
+        "timestamp": 1794127382118
+      }
     ]
   }
 }

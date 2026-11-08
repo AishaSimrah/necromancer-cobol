@@ -54,7 +54,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
     - `config.ts`: `EquivalenceConfigError`, `Candidate`, `EquivalenceOptions`, `ResolvedConfig` and `resolveConfig` with defaults (caseCount 1000, mismatchListCap 25, shrinkLimit 200), range checks for caseCount, seed (int32), timeBudgetMs, mismatchListCap, shrinkLimit (in that order after descriptors), and a chosen seed when absent
     - Error messages name the setting and its permitted range
     - _Requirements: 1.1, 1.3, 1.4, 1.5, 1.6, 3.12, 8.6, 9.1, 9.2, 9.3, 9.4, 9.8, 9.9, 9.10, 9.14, 9.15_
-  - [ ] 4.2 Wire `resolveConfig` into `run.ts`
+  - [x] 4.2 Wire `resolveConfig` into `run.ts`
     - Replace the inline defaults; invalid configuration rejects before any Oracle call; the report carries the resolved seed
     - Update `generate.ts` to reject an empty descriptor list or non-positive digits
     - _Requirements: 1.5, 1.6, 3.12, 9.3, 9.8, 9.9, 9.10_

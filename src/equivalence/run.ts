@@ -1,32 +1,23 @@
 import { invokeCandidate, outputsEqual, type Candidate } from "./compare.js";
-import type { FieldDescriptor } from "./descriptors.js";
+import { resolveConfig, type EquivalenceOptions } from "./config.js";
 import { generateCases } from "./generate.js";
-import { defaultOracle, type OraclePort } from "./oracle-port.js";
+import { defaultOracle } from "./oracle-port.js";
 import { buildReport, type EquivalenceReport, type MismatchRecord } from "./report.js";
 
-const DEFAULT_CASE_COUNT = 1000;
-const DEFAULT_SEED = 1;
-
-export interface RunOptions {
-  readonly source: string;
-  readonly fields: readonly FieldDescriptor[];
-  readonly candidate: Candidate;
-  readonly caseCount?: number;
-  readonly seed?: number;
-  readonly oracle?: OraclePort;
-}
+export type RunOptions = EquivalenceOptions;
 
 /**
  * Minimal slice: compile once, run each case sequentially, compare strictly.
  * Any non-ok Oracle result throws, so no score is produced from infrastructure failure.
  */
 export async function runEquivalence(options: RunOptions): Promise<EquivalenceReport> {
-  const oracle = options.oracle ?? defaultOracle;
-  const caseCount = options.caseCount ?? DEFAULT_CASE_COUNT;
-  const seed = options.seed ?? DEFAULT_SEED;
+  // Throws EquivalenceConfigError (rejecting the promise) before any Oracle call.
+  const config = resolveConfig(options);
+  const { caseCount, seed } = config;
+  const oracle = config.oracle ?? defaultOracle;
   const startedAt = Date.now();
 
-  const compiled = await oracle.compileCobol(options.source);
+  const compiled = await oracle.compileCobol(config.source);
   if (!oracle.isCompiledHandle(compiled)) {
     throw new Error(
       `Oracle could not compile the source: ${compiled.status}${
@@ -35,7 +26,7 @@ export async function runEquivalence(options: RunOptions): Promise<EquivalenceRe
     );
   }
 
-  const cases = generateCases(options.fields, caseCount, seed);
+  const cases = generateCases(config.fields, caseCount, seed);
   const mismatches: MismatchRecord[] = [];
   let matchedCount = 0;
   let casesRun = 0;
@@ -50,7 +41,7 @@ export async function runEquivalence(options: RunOptions): Promise<EquivalenceRe
           }`,
         );
       }
-      const outcome = await invokeCandidate(options.candidate, testCase.lines);
+      const outcome = await invokeCandidate(config.candidate, testCase.lines);
       if (outcome.kind === "output" && outputsEqual(result.stdout, outcome.text)) {
         matchedCount++;
       } else {
