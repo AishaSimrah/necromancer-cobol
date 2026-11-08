@@ -22,7 +22,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
     - _Requirements: 8.1, 8.3, 8.5_
 
 - [ ] 2. Minimal end-to-end slice (real Oracle, correct interest Candidate)
-  - [ ] 2.1 Create the basic generator, minimal scaled arithmetic and the INTEREST descriptors
+  - [x] 2.1 Create the basic generator, minimal scaled arithmetic and the INTEREST descriptors
     - `src/equivalence/scaled.ts`: `pow10`, `fieldMaxUnits`, `formatScaled` (plain decimal text, never `-0`, no exponent) and `parseScaled`, using `bigint` only
     - `src/equivalence/descriptors.ts`: `FieldDescriptor` and `INTEREST` (principal 7/2, rate 3/2, years 2/0, all unsigned)
     - `src/equivalence/generate.ts`: simple `generateCases(fields, caseCount, seed)` returning `{ index, lines }` with one plain-decimal line per field and a small deterministic mix (zero, maximum, a few seeded in-range values via `fc.sample` on `fc.bigInt`); no edge corpus, group quotas or `group` field yet

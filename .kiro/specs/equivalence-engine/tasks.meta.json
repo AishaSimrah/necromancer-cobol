@@ -19,6 +19,18 @@
         "chatSessionId": "sess_8f88f098-02db-4b78-bb08-d995f14b6163",
         "timestamp": 1794124690810
       }
+    ],
+    "2.1 Create the basic generator, minimal scaled arithmetic and the INTEREST descriptors": [
+      {
+        "executionId": "a27f0c37-f435-4d67-8a09-3eee5309c4ab",
+        "chatSessionId": "sess_881ffd2e-558e-4892-95a5-5fea53fb0cbb",
+        "timestamp": 1794124879519
+      },
+      {
+        "executionId": "a27f0c37-f435-4d67-8a09-3eee5309c4ab",
+        "chatSessionId": "sess_881ffd2e-558e-4892-95a5-5fea53fb0cbb",
+        "timestamp": 1794124965717
+      }
     ]
   }
 }
