@@ -27,7 +27,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
     - `src/equivalence/descriptors.ts`: `FieldDescriptor` and `INTEREST` (principal 7/2, rate 3/2, years 2/0, all unsigned)
     - `src/equivalence/generate.ts`: simple `generateCases(fields, caseCount, seed)` returning `{ index, lines }` with one plain-decimal line per field and a small deterministic mix (zero, maximum, a few seeded in-range values via `fc.sample` on `fc.bigInt`); no edge corpus, group quotas or `group` field yet
     - _Requirements: 1.2, 3.1, 3.2, 3.10, 3.11_
-  - [ ] 2.2 Create `src/equivalence/oracle-port.ts`
+  - [x] 2.2 Create `src/equivalence/oracle-port.ts`
     - Define `OraclePort` as a `Pick<typeof realOracle, "compileCobol" | "runCompiled" | "releaseHandle" | "isCompiledHandle">` plus `defaultOracle`; re-export `CompiledHandle`, `RunResult`, `Status` types; this is the only file importing `../oracle/index.js`
     - _Requirements: 12.1, 12.2_
   - [ ] 2.3 Create `src/equivalence/compare.ts`
