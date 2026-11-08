@@ -1,4 +1,5 @@
 import fc from "fast-check";
+import { classifyVector, type EvidenceGroup } from "./classify.js";
 import type { FieldDescriptor } from "./descriptors.js";
 import { EquivalenceConfigError } from "./errors.js";
 import { fieldMaxUnits, formatScaled } from "./scaled.js";
@@ -6,6 +7,8 @@ import { fieldMaxUnits, formatScaled } from "./scaled.js";
 export interface GeneratedCase {
   readonly index: number;
   readonly lines: readonly string[];
+  /** Evidence group of the vector, always `classifyVector` of its lines. */
+  readonly group: EvidenceGroup;
 }
 
 /** Per-field seed derived from the run seed, kept in int32 range. */
@@ -47,7 +50,7 @@ export function generateCases(
         index === 0 ? 0n : index === 1 ? fieldMaxUnits(f) : (samples[i]?.[index - 2] ?? 0n);
       return formatScaled(units, f.scale);
     });
-    cases.push({ index, lines });
+    cases.push({ index, lines, group: classifyVector(fields, lines) });
   }
   return cases;
 }

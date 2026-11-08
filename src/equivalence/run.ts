@@ -2,7 +2,7 @@ import { invokeCandidate, outputsEqual, type Candidate } from "./compare.js";
 import { resolveConfig, type EquivalenceOptions } from "./config.js";
 import { generateCases } from "./generate.js";
 import { defaultOracle } from "./oracle-port.js";
-import { buildReport, type EquivalenceReport, type MismatchRecord } from "./report.js";
+import { buildReport, createGroupCounters, type EquivalenceReport, type MismatchRecord } from "./report.js";
 
 export type RunOptions = EquivalenceOptions;
 
@@ -28,6 +28,7 @@ export async function runEquivalence(options: RunOptions): Promise<EquivalenceRe
 
   const cases = generateCases(config.fields, caseCount, seed);
   const mismatches: MismatchRecord[] = [];
+  const groupCounters = createGroupCounters();
   let matchedCount = 0;
   let casesRun = 0;
 
@@ -42,13 +43,17 @@ export async function runEquivalence(options: RunOptions): Promise<EquivalenceRe
         );
       }
       const outcome = await invokeCandidate(config.candidate, testCase.lines);
+      const counter = groupCounters[testCase.group];
       if (outcome.kind === "output" && outputsEqual(result.stdout, outcome.text)) {
         matchedCount++;
+        counter.matched++;
       } else {
+        counter.mismatched++;
         mismatches.push({
           input: testCase.lines,
           oracleOutput: result.stdout,
           candidateOutput: outcome.text,
+          group: testCase.group,
         });
       }
       casesRun++;
@@ -66,6 +71,7 @@ export async function runEquivalence(options: RunOptions): Promise<EquivalenceRe
     casesRun,
     matchedCount,
     mismatches,
+    groupCounters,
     elapsedMs: Date.now() - startedAt,
   });
 }

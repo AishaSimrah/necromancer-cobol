@@ -70,7 +70,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
   - [x] 5.1 Create `src/equivalence/classify.ts`
     - Define `EvidenceGroup`, `GROUP_ORDER` and `classifyVector` using decimal.js with precedence overflow, half-unit, zero or maximum, standard; an unsigned negative counts as overflow, `-0` does not
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6_
-  - [ ] 5.2 Attach groups to cases and add group summaries to the report
+  - [x] 5.2 Attach groups to cases and add group summaries to the report
     - `generate.ts`: set each case's `group` from `classifyVector`
     - `report.ts`/`run.ts`: add `GroupSummary` (conclusive, matched, inconclusive per group), always the four groups in `GROUP_ORDER`, and the `group` on each `MismatchRecord`; counters keep group conclusive counts summing to `conclusiveCount`
     - _Requirements: 4.1, 4.8, 4.9, 5.4, 7.5_

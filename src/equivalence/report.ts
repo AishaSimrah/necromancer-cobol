@@ -1,14 +1,40 @@
-import type { EvidenceGroup } from "./classify.js";
+import { GROUP_ORDER, type EvidenceGroup } from "./classify.js";
 
 /**
- * Minimal report for the vertical slice. Later tasks extend it with groups,
- * inconclusive handling, shrinking and the mismatch list cap.
+ * Report for the vertical slice plus per-group summaries. Later tasks extend it
+ * with inconclusive handling, shrinking and the mismatch list cap.
  */
 
 export interface MismatchRecord {
   readonly input: readonly string[];
   readonly oracleOutput: string;
   readonly candidateOutput: string;
+  readonly group: EvidenceGroup;
+}
+
+export interface GroupSummary {
+  readonly group: EvidenceGroup;
+  readonly conclusive: number;
+  readonly matched: number;
+  readonly inconclusive: number;
+}
+
+/** Mutable per-group tallies kept by the run loop. */
+export interface GroupCounter {
+  matched: number;
+  mismatched: number;
+  inconclusive: number;
+}
+
+export type GroupCounters = Record<EvidenceGroup, GroupCounter>;
+
+export function createGroupCounters(): GroupCounters {
+  return {
+    "field overflow behavior": { matched: 0, mismatched: 0, inconclusive: 0 },
+    "half-unit rounding boundary": { matched: 0, mismatched: 0, inconclusive: 0 },
+    "zero and maximum boundaries": { matched: 0, mismatched: 0, inconclusive: 0 },
+    "standard computation": { matched: 0, mismatched: 0, inconclusive: 0 },
+  };
 }
 
 export type Outcome = "completed" | "inconclusive";
@@ -23,6 +49,8 @@ export interface EquivalenceReport {
   readonly matchedCount: number;
   readonly mismatchCount: number;
   readonly mismatches: readonly MismatchRecord[];
+  /** Always the four groups, in GROUP_ORDER. Conclusive counts sum to `conclusiveCount`. */
+  readonly groups: readonly GroupSummary[];
   readonly elapsedMs: number;
 }
 
@@ -43,6 +71,7 @@ export interface ReportInput {
   readonly casesRun: number;
   readonly matchedCount: number;
   readonly mismatches: readonly MismatchRecord[];
+  readonly groupCounters: GroupCounters;
   readonly elapsedMs: number;
 }
 
@@ -57,6 +86,15 @@ export function buildReport(input: ReportInput): EquivalenceReport {
     matchedCount: input.matchedCount,
     mismatchCount,
     mismatches: input.mismatches,
+    groups: GROUP_ORDER.map((group): GroupSummary => {
+      const c = input.groupCounters[group];
+      return {
+        group,
+        conclusive: c.matched + c.mismatched,
+        matched: c.matched,
+        inconclusive: c.inconclusive,
+      };
+    }),
     elapsedMs: input.elapsedMs,
   };
   if (conclusiveCount === 0) {

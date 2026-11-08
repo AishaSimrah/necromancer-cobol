@@ -158,6 +158,18 @@
         "chatSessionId": "sess_a9a278bd-ed36-42f9-a7b3-3171dddf4e17",
         "timestamp": 1794127665730
       }
+    ],
+    "5.2 Attach groups to cases and add group summaries to the report": [
+      {
+        "executionId": "da68a011-cedc-4b50-83cf-3359816ba78c",
+        "chatSessionId": "sess_7f947970-6ac5-4a35-84e4-ab206dcd6a03",
+        "timestamp": 1794134549954
+      },
+      {
+        "executionId": "da68a011-cedc-4b50-83cf-3359816ba78c",
+        "chatSessionId": "sess_7f947970-6ac5-4a35-84e4-ab206dcd6a03",
+        "timestamp": 1794134638130
+      }
     ]
   }
 }
