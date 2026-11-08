@@ -69,6 +69,8 @@ const fieldArb: fc.Arbitrary<FieldDescriptor> = fc.record({
 });
 
 describe("classifyVector property", () => {
+  // Feature: equivalence-engine, Property 7: Classification matches an independent specification and is total
+  // **Validates: Requirements 4.1, 4.2, 4.3, 4.4, 4.5, 4.6**
   it("matches the independent reference and is total", () => {
     const caseArb = fc
       .array(fieldArb, { minLength: 1, maxLength: 4 })

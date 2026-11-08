@@ -66,7 +66,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
   - [x] 4.4 Run tests for this module
     - Run `npx vitest --run tests/equivalence` (including Properties 1 and 2), the full `npx vitest --run`, and `npx tsc --noEmit`; fix any failures
 
-- [ ] 5. Evidence groups and classification
+- [x] 5. Evidence groups and classification
   - [x] 5.1 Create `src/equivalence/classify.ts`
     - Define `EvidenceGroup`, `GROUP_ORDER` and `classifyVector` using decimal.js with precedence overflow, half-unit, zero or maximum, standard; an unsigned negative counts as overflow, `-0` does not
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6_
@@ -74,11 +74,11 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
     - `generate.ts`: set each case's `group` from `classifyVector`
     - `report.ts`/`run.ts`: add `GroupSummary` (conclusive, matched, inconclusive per group), always the four groups in `GROUP_ORDER`, and the `group` on each `MismatchRecord`; counters keep group conclusive counts summing to `conclusiveCount`
     - _Requirements: 4.1, 4.8, 4.9, 5.4, 7.5_
-  - [ ]* 5.3 Write property test for classification
+  - [x] 5.3 Write property test for classification
     - **Property 7: Classification matches an independent specification and is total**
     - Use an independent decimal.js reference in the test; add examples for `0.005` at scale 2 and a negative unsigned field
     - **Validates: Requirements 4.1, 4.2, 4.3, 4.4, 4.5, 4.6**
-  - [ ] 5.4 Run tests for this module
+  - [x] 5.4 Run tests for this module
     - Run `npx vitest --run tests/equivalence` (including Property 7), the full `npx vitest --run`, and `npx tsc --noEmit`; fix any failures
 
 - [ ] 6. Full edge-case generation
