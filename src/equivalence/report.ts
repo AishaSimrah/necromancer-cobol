@@ -24,6 +24,19 @@ export interface EquivalenceReport {
   readonly elapsedMs: number;
 }
 
+/** Progress snapshot after each finished case. Deliberately has no score field. */
+export interface ProgressEvent {
+  readonly completed: number;
+  readonly target: number;
+  /** Evidence group name; narrowed to `EvidenceGroup` once classify.ts exists. */
+  readonly group: string;
+  readonly matched: number;
+  readonly mismatches: number;
+  readonly inconclusive: number;
+}
+
+export type ProgressCallback = (event: ProgressEvent) => void | Promise<void>;
+
 export interface ReportInput {
   readonly seed: number;
   readonly casesRun: number;

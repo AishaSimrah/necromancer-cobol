@@ -86,6 +86,30 @@
         "chatSessionId": "sess_4e46ad3d-2fc8-4c2f-8b17-1b399c234285",
         "timestamp": 1794125982941
       }
+    ],
+    "3. Checkpoint - Slice works end to end": [
+      {
+        "executionId": "1292a99d-829f-4e0a-a879-c695cc1865c1",
+        "chatSessionId": "sess_2ce77db5-d1fa-48ea-bd96-7b9385b00b0d",
+        "timestamp": 1794126215248
+      },
+      {
+        "executionId": "1292a99d-829f-4e0a-a879-c695cc1865c1",
+        "chatSessionId": "sess_2ce77db5-d1fa-48ea-bd96-7b9385b00b0d",
+        "timestamp": 1794126580910
+      }
+    ],
+    "4.1 Create `src/equivalence/config.ts` and complete the descriptors": [
+      {
+        "executionId": "050516df-9325-4ad9-ba34-fa5aaf1887c2",
+        "chatSessionId": "sess_938e3332-8584-4b96-a508-0fd3f5352fb6",
+        "timestamp": 1794126708930
+      },
+      {
+        "executionId": "050516df-9325-4ad9-ba34-fa5aaf1887c2",
+        "chatSessionId": "sess_938e3332-8584-4b96-a508-0fd3f5352fb6",
+        "timestamp": 1794126814126
+      }
     ]
   }
 }

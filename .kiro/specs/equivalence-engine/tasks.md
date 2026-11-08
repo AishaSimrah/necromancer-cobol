@@ -45,11 +45,11 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
     - Use a modest case count and Oracle-friendly settings so the test is fast; no test may rely on a known hang
     - _Requirements: 11.1, 11.3, 11.8_
 
-- [ ] 3. Checkpoint - Slice works end to end
+- [x] 3. Checkpoint - Slice works end to end
   - Run `npx tsc --noEmit` and `npx vitest --run`; the real-Oracle slice test must pass or be reported as skipped. Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 4. Config validation
-  - [ ] 4.1 Create `src/equivalence/config.ts` and complete the descriptors
+  - [x] 4.1 Create `src/equivalence/config.ts` and complete the descriptors
     - Add `PAYROLL` (hours 3/1, rate 3/2) and `TAX` (income 8/0, unsigned) to `descriptors.ts`, and `validateDescriptors` throwing `EquivalenceConfigError` that names the field and invalid property or the violated list condition (empty, more than 20, duplicate names, name length, digits 1 to 18, scale 0 to 18, integers)
     - `config.ts`: `EquivalenceConfigError`, `Candidate`, `EquivalenceOptions`, `ResolvedConfig` and `resolveConfig` with defaults (caseCount 1000, mismatchListCap 25, shrinkLimit 200), range checks for caseCount, seed (int32), timeBudgetMs, mismatchListCap, shrinkLimit (in that order after descriptors), and a chosen seed when absent
     - Error messages name the setting and its permitted range
