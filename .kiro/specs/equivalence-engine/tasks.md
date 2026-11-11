@@ -90,11 +90,11 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
     - **Property 3: Generated vectors have one plain-decimal line per field** (includes the `parseScaled(formatScaled(x, d), d) === x` round trip)
     - File `tests/equivalence/generate.shape.test.ts`
     - **Validates: Requirements 3.1, 3.2, 3.10, 3.11**
-  - [ ]* 6.3 Write property test for edge coverage
+  - [x] 6.3 Write property test for edge coverage
     - **Property 4: Edge coverage in sets of at least 100 vectors**
     - File `tests/equivalence/generate.coverage.test.ts`
     - **Validates: Requirements 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9**
-  - [ ]* 6.4 Write property test for unsigned fields
+  - [x] 6.4 Write property test for unsigned fields
     - **Property 5: Unsigned fields are non-negative except in a bounded set of vectors**
     - File `tests/equivalence/generate.unsigned.test.ts`
     - **Validates: Requirements 3.9, 3.13**
@@ -102,7 +102,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
     - **Property 6: Generation is deterministic**
     - File `tests/equivalence/generate.determinism.test.ts`
     - **Validates: Requirements 9.7**
-  - [ ]* 6.6 Write property test for group quotas
+  - [x] 6.6 Write property test for group quotas
     - **Property 8: Group quotas and construction agree with classification**
     - File `tests/equivalence/generate.groups.test.ts`
     - **Validates: Requirements 4.7**

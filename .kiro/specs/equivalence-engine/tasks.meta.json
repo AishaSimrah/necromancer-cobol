@@ -7,6 +7,18 @@
     "5.3 Write property test for classification": {
       "status": "passed",
       "lastRunTimestamp": 1794134801815
+    },
+    "6.3 Write property test for edge coverage": {
+      "status": "passed",
+      "lastRunTimestamp": 1794389148879
+    },
+    "6.4 Write property test for unsigned fields": {
+      "status": "passed",
+      "lastRunTimestamp": 1794389291441
+    },
+    "6.6 Write property test for group quotas": {
+      "status": "passed",
+      "lastRunTimestamp": 1794389550888
     }
   },
   "executionHistory": {
@@ -216,6 +228,42 @@
         "executionId": "7a1748c3-dbe0-49e6-8ba8-8e811931b279",
         "chatSessionId": "sess_5aed9f1b-ba4e-4959-9243-0a1d232fb448",
         "timestamp": 1794388947721
+      }
+    ],
+    "6.3 Write property test for edge coverage": [
+      {
+        "executionId": "e76ec6bc-1f17-4600-adf4-f8e7f5feb806",
+        "chatSessionId": "sess_1343d858-653e-4584-b040-aa6bf88c4095",
+        "timestamp": 1794389102723
+      },
+      {
+        "executionId": "e76ec6bc-1f17-4600-adf4-f8e7f5feb806",
+        "chatSessionId": "sess_1343d858-653e-4584-b040-aa6bf88c4095",
+        "timestamp": 1794389181940
+      }
+    ],
+    "6.4 Write property test for unsigned fields": [
+      {
+        "executionId": "e79f79eb-0c6b-44f9-99fc-e217021191a2",
+        "chatSessionId": "sess_094d29e6-7d5f-48f7-a3b8-b71d61c19eb3",
+        "timestamp": 1794389202565
+      },
+      {
+        "executionId": "e79f79eb-0c6b-44f9-99fc-e217021191a2",
+        "chatSessionId": "sess_094d29e6-7d5f-48f7-a3b8-b71d61c19eb3",
+        "timestamp": 1794389306926
+      }
+    ],
+    "6.6 Write property test for group quotas": [
+      {
+        "executionId": "f80fbe7a-f225-4501-997f-f16556518f01",
+        "chatSessionId": "sess_ff608051-596a-4f60-b975-5b5d5050a6d1",
+        "timestamp": 1794389504552
+      },
+      {
+        "executionId": "f80fbe7a-f225-4501-997f-f16556518f01",
+        "chatSessionId": "sess_ff608051-596a-4f60-b975-5b5d5050a6d1",
+        "timestamp": 1794389576821
       }
     ]
   }

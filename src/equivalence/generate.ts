@@ -9,6 +9,8 @@ export interface GeneratedCase {
   readonly lines: readonly string[];
   /** Evidence group of the vector, always `classifyVector` of its lines. */
   readonly group: EvidenceGroup;
+  /** Group the vector was constructed for. Absent for edge-corpus vectors. */
+  readonly target?: EvidenceGroup;
 }
 
 /** A field value: `units` in units of 10^-decimals. Rendered with formatScaled. */
@@ -26,6 +28,12 @@ const SLOT_CYCLE: readonly Target[] = [
 ];
 const OVERFLOW_KINDS: readonly OverflowKind[] = ["aboveMax", "extraIntegerDigits", "negativeUnsigned"];
 const TARGETS: readonly Target[] = ["std", "bnd", "half", "ovf"];
+const TARGET_GROUP: Readonly<Record<Target, EvidenceGroup>> = {
+  std: "standard computation",
+  bnd: "zero and maximum boundaries",
+  half: "half-unit rounding boundary",
+  ovf: "field overflow behavior",
+};
 
 /** Edge corpus kinds, in order. Constant size regardless of field count. */
 const CORPUS_KINDS = [
@@ -217,9 +225,14 @@ export function generateCases(
   const used = new Map<Target, number>();
 
   const cases: GeneratedCase[] = [];
-  const push = (values: readonly Value[]): void => {
+  const push = (values: readonly Value[], target?: EvidenceGroup): void => {
     const lines = render(values);
-    cases.push({ index: cases.length, lines, group: classifyVector(fields, lines) });
+    const group = classifyVector(fields, lines);
+    cases.push(
+      target === undefined
+        ? { index: cases.length, lines, group }
+        : { index: cases.length, lines, group, target },
+    );
   };
 
   for (let k = 0; k < corpusSize; k++) {
@@ -249,7 +262,7 @@ export function generateCases(
       const p = candidates[s.pick % candidates.length] as number;
       values[p] = overflowValue(fields[p] as FieldDescriptor, s.cols[p] as Column, slot.kind);
     }
-    push(values);
+    push(values, TARGET_GROUP[slot.target]);
   }
   return cases;
 }
