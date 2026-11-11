@@ -70,7 +70,10 @@ export interface EquivalenceReport {
   readonly conclusiveCount: number;
   readonly matchedCount: number;
   readonly mismatchCount: number;
+  /** The first `mismatchListCap` Mismatches in execution order. */
   readonly mismatches: readonly MismatchRecord[];
+  /** True when `mismatchCount` exceeds the number of listed Mismatches (cap reached). */
+  readonly mismatchListTruncated: boolean;
   /** At most one per group, in GROUP_ORDER; none for groups without a Mismatch. */
   readonly shrunkExamples: readonly ShrunkExample[];
   /** Oracle calls spent shrinking per group. Not included in `casesRun`. */
@@ -108,7 +111,12 @@ export interface ReportInput {
   readonly seed: number;
   readonly casesRun: number;
   readonly matchedCount: number;
+  /** Mismatches in execution order; may already be capped by the caller. */
   readonly mismatches: readonly MismatchRecord[];
+  /** Exact Mismatch count; defaults to `mismatches.length`. */
+  readonly mismatchCount?: number;
+  /** Maximum number of Mismatches to list; defaults to no cap. */
+  readonly mismatchListCap?: number;
   readonly groupCounters: GroupCounters;
   readonly inconclusiveCases?: readonly InconclusiveCase[];
   readonly shrunkExamples?: readonly ShrunkExample[];
@@ -144,7 +152,11 @@ export function buildUnavailableReport(input: UnavailableInput): EquivalenceRepo
 
 /** Builds the report. `matchScore` uses exactly one division: matched / conclusive. */
 export function buildReport(input: ReportInput): EquivalenceReport {
-  const mismatchCount = input.mismatches.length;
+  const mismatchCount = input.mismatchCount ?? input.mismatches.length;
+  const listed =
+    input.mismatchListCap !== undefined
+      ? input.mismatches.slice(0, input.mismatchListCap)
+      : input.mismatches;
   const conclusiveCount = input.matchedCount + mismatchCount;
   const inconclusiveCases = input.inconclusiveCases ?? [];
   const inconclusiveByStatus: Partial<Record<OracleStatus, number>> = {};
@@ -161,7 +173,8 @@ export function buildReport(input: ReportInput): EquivalenceReport {
     conclusiveCount,
     matchedCount: input.matchedCount,
     mismatchCount,
-    mismatches: input.mismatches,
+    mismatches: listed,
+    mismatchListTruncated: mismatchCount > listed.length,
     shrunkExamples: input.shrunkExamples ?? [],
     shrinkOracleCalls: input.shrinkOracleCalls ?? createShrinkCalls(),
     groups: GROUP_ORDER.map((group): GroupSummary => {

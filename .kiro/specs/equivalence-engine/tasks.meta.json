@@ -557,6 +557,18 @@
         "chatSessionId": "sess_9caaf3f1-bc1f-48f9-b5e0-29b421f76a20",
         "timestamp": 1794403324422
       }
+    ],
+    "10.1 Implement the cap in `report.ts` and `run.ts`": [
+      {
+        "executionId": "c14aa7a4-d026-4f06-b903-c188c30f1370",
+        "chatSessionId": "sess_f5d41b9c-7b78-412f-bd3b-708db29741cf",
+        "timestamp": 1794403423947
+      },
+      {
+        "executionId": "c14aa7a4-d026-4f06-b903-c188c30f1370",
+        "chatSessionId": "sess_f5d41b9c-7b78-412f-bd3b-708db29741cf",
+        "timestamp": 1794403502763
+      }
     ]
   }
 }

@@ -64,6 +64,7 @@ export async function runEquivalence(options: RunOptions): Promise<EquivalenceRe
   const shrunkExamples: ShrunkExample[] = [];
   const shrinkOracleCalls = createShrinkCalls();
   let matchedCount = 0;
+  let mismatchCount = 0;
   let casesRun = 0;
   let aborted = false;
   let budgetReached = false;
@@ -78,7 +79,7 @@ export async function runEquivalence(options: RunOptions): Promise<EquivalenceRe
         target,
         group,
         matched: matchedCount,
-        mismatches: mismatches.length,
+        mismatches: mismatchCount,
         inconclusive: inconclusiveCases.length,
       });
     } catch {
@@ -122,7 +123,9 @@ export async function runEquivalence(options: RunOptions): Promise<EquivalenceRe
           candidateOutput: outcome.text,
           group: testCase.group,
         };
-        mismatches.push(record);
+        mismatchCount++;
+        // Only the first `mismatchListCap` are stored; the first per group is kept separately for shrinking.
+        if (mismatches.length < config.mismatchListCap) mismatches.push(record);
         if (!firstMismatch.has(testCase.group)) firstMismatch.set(testCase.group, record);
       }
       await emitProgress(testCase.group);
@@ -164,6 +167,8 @@ export async function runEquivalence(options: RunOptions): Promise<EquivalenceRe
     casesRun,
     matchedCount,
     mismatches,
+    mismatchCount,
+    mismatchListCap: config.mismatchListCap,
     groupCounters,
     inconclusiveCases,
     shrunkExamples,
