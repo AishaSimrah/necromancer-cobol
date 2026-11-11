@@ -39,3 +39,18 @@ export function correctInterestCandidate(lines: string[]): string {
   }
   return `BALANCE: ${formatZ(balance)}\n`;
 }
+
+/**
+ * Deliberately wrong translation: floating point, no per-year rounding, no input
+ * truncation, no wrap. The only Candidate allowed to use floating point.
+ */
+export function naiveInterestCandidate(lines: string[]): string {
+  const principal = Number.parseFloat(lines[0] ?? "") || 0;
+  const rate = Number.parseFloat(lines[1] ?? "") || 0;
+  const years = Number.parseInt(lines[2] ?? "", 10) || 0;
+  let balance = principal;
+  for (let i = 0; i < years; i++) {
+    balance = balance * (1 + rate / 100);
+  }
+  return `BALANCE: ${balance.toFixed(2).padStart(10)}\n`;
+}

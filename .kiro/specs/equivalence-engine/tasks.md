@@ -218,7 +218,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
     - Run `npx vitest --run tests/equivalence` (including Property 13), the full `npx vitest --run`, and `npx tsc --noEmit`; fix any failures
 
 - [ ] 11. Naive Candidate and years verification (real Oracle)
-  - [ ] 11.1 Add the naive Candidate and the real-Oracle interest tests
+  - [x] 11.1 Add the naive Candidate and the real-Oracle interest tests
     - Add `naiveInterestCandidate` to `tests/equivalence/candidates/interest.ts` (floating point, no per-year rounding, no input truncation, no wrap, `balance.toFixed(2).padStart(10)` after `BALANCE: `)
     - Create `tests/equivalence/interest.real.test.ts` with the same top-level availability probe and `describe.skipIf(!available)`: the correct Candidate with the default Case_Count gives `matchScore === 1` and an empty `mismatches` list; the naive Candidate gives `mismatchCount >= 1`, `0 <= matchScore < 1`, and exactly one Shrunk_Example (input, Oracle output, Candidate output) per group that has a Mismatch and none for others
     - A modest `oracleTimeoutMs` keeps the suite fast; no test may rely on a known hang

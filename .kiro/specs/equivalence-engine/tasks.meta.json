@@ -616,6 +616,18 @@
         "chatSessionId": "sess_830724c4-139a-4499-b717-ef1fb525644e",
         "timestamp": 1794403877837
       }
+    ],
+    "11.1 Add the naive Candidate and the real-Oracle interest tests": [
+      {
+        "executionId": "ef449e3c-2ada-4133-8cb2-00f9d66234d5",
+        "chatSessionId": "sess_a73cfddf-a483-4746-8a8a-f91a0e22b283",
+        "timestamp": 1794404019642
+      },
+      {
+        "executionId": "ef449e3c-2ada-4133-8cb2-00f9d66234d5",
+        "chatSessionId": "sess_a73cfddf-a483-4746-8a8a-f91a0e22b283",
+        "timestamp": 1794404167666
+      }
     ]
   }
 }
