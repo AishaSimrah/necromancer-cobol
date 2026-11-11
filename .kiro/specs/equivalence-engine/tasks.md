@@ -123,7 +123,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
     - Report fields: `inconclusiveCases`, `inconclusiveCount`, `inconclusiveByStatus`, `containsInconclusive`, outcome `inconclusive` with no `matchScore` when there are zero conclusive cases, per-group inconclusive counts
     - Candidate throw, rejection or non-string output on an `ok` result is a Mismatch with the error text; `releaseHandle` runs once in `finally` and a release failure never masks the original error; runtime Oracle errors propagate
     - _Requirements: 2.3, 2.4, 2.5, 2.6, 2.7, 5.6, 5.7, 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 7.3_
-  - [ ]* 7.3 Write property test for strict comparison
+  - [x] 7.3 Write property test for strict comparison
     - **Property 9: Strict comparison and exact counting**
     - File `tests/equivalence/run.compare.test.ts` (fake Oracle)
     - **Validates: Requirements 5.1, 5.2, 5.3, 5.4, 5.5**

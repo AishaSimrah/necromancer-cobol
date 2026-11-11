@@ -19,6 +19,10 @@
     "6.6 Write property test for group quotas": {
       "status": "passed",
       "lastRunTimestamp": 1794389550888
+    },
+    "7.3 Write property test for strict comparison": {
+      "status": "passed",
+      "lastRunTimestamp": 1794390809340
     }
   },
   "executionHistory": {
@@ -307,6 +311,18 @@
         "executionId": "85f97c11-e51d-484b-b511-0ac0a6ec9baa",
         "chatSessionId": "sess_e0095a06-18fc-4848-af40-bf6d904344dd",
         "timestamp": 1794390642972
+      }
+    ],
+    "7.3 Write property test for strict comparison": [
+      {
+        "executionId": "a3fc8c22-a4e6-4fbf-835e-5e33a705dbf7",
+        "chatSessionId": "sess_2714356a-dea1-4c56-b462-ccb84049ddc5",
+        "timestamp": 1794390766905
+      },
+      {
+        "executionId": "a3fc8c22-a4e6-4fbf-835e-5e33a705dbf7",
+        "chatSessionId": "sess_2714356a-dea1-4c56-b462-ccb84049ddc5",
+        "timestamp": 1794390843726
       }
     ]
   }
