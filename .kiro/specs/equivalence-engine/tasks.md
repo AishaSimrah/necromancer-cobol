@@ -117,7 +117,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
   - [x] 7.1 Create the fake Oracle double `tests/equivalence/doubles/fake-oracle.ts`
     - An `OraclePort` with scripted per-call results (or a function of the input), counters for `compileCobol`, `runCompiled` and `releaseHandle`, a call-order log, and options to throw or delay; the real Oracle is never touched
     - _Requirements: 12.2, 12.3, 11.6_
-  - [ ] 7.2 Implement inconclusive handling in `run.ts` and `report.ts`
+  - [x] 7.2 Implement inconclusive handling in `run.ts` and `report.ts`
     - Replace the slice's throw: a non-`ok` `runCompiled` result becomes exactly one `InconclusiveCase` (input, group, status, message or `""`); the Candidate is not invoked for it; it is excluded from the score
     - A non-handle `compileCobol` result returns outcome `oracle_unavailable` with `oracleStatus`, `oracleMessage`, no `matchScore`, `casesRun` 0 and no release call
     - Report fields: `inconclusiveCases`, `inconclusiveCount`, `inconclusiveByStatus`, `containsInconclusive`, outcome `inconclusive` with no `matchScore` when there are zero conclusive cases, per-group inconclusive counts

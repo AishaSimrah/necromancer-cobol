@@ -1,14 +1,22 @@
-import { invokeCandidate, outputsEqual, type Candidate } from "./compare.js";
+import { invokeCandidate, outputsEqual } from "./compare.js";
 import { resolveConfig, type EquivalenceOptions } from "./config.js";
 import { generateCases } from "./generate.js";
 import { defaultOracle } from "./oracle-port.js";
-import { buildReport, createGroupCounters, type EquivalenceReport, type MismatchRecord } from "./report.js";
+import {
+  buildReport,
+  buildUnavailableReport,
+  createGroupCounters,
+  type EquivalenceReport,
+  type InconclusiveCase,
+  type MismatchRecord,
+} from "./report.js";
 
 export type RunOptions = EquivalenceOptions;
 
 /**
- * Minimal slice: compile once, run each case sequentially, compare strictly.
- * Any non-ok Oracle result throws, so no score is produced from infrastructure failure.
+ * Compile once, run each case sequentially, compare strictly.
+ * Non-ok Oracle results are recorded as inconclusive cases and excluded from the score.
+ * Runtime Oracle errors propagate after the handle is released.
  */
 export async function runEquivalence(options: RunOptions): Promise<EquivalenceReport> {
   // Throws EquivalenceConfigError (rejecting the promise) before any Oracle call.
@@ -19,15 +27,17 @@ export async function runEquivalence(options: RunOptions): Promise<EquivalenceRe
 
   const compiled = await oracle.compileCobol(config.source);
   if (!oracle.isCompiledHandle(compiled)) {
-    throw new Error(
-      `Oracle could not compile the source: ${compiled.status}${
-        compiled.message === undefined ? "" : ` (${compiled.message})`
-      }`,
-    );
+    return buildUnavailableReport({
+      seed,
+      status: compiled.status === "ok" ? "environment_error" : compiled.status,
+      message: compiled.message ?? "",
+      elapsedMs: Date.now() - startedAt,
+    });
   }
 
   const cases = generateCases(config.fields, caseCount, seed);
   const mismatches: MismatchRecord[] = [];
+  const inconclusiveCases: InconclusiveCase[] = [];
   const groupCounters = createGroupCounters();
   let matchedCount = 0;
   let casesRun = 0;
@@ -35,15 +45,19 @@ export async function runEquivalence(options: RunOptions): Promise<EquivalenceRe
   try {
     for (const testCase of cases) {
       const result = await oracle.runCompiled(compiled, testCase.lines);
+      const counter = groupCounters[testCase.group];
+      casesRun++;
       if (result.status !== "ok") {
-        throw new Error(
-          `Oracle run failed on case ${testCase.index}: ${result.status}${
-            result.message === undefined ? "" : ` (${result.message})`
-          }`,
-        );
+        counter.inconclusive++;
+        inconclusiveCases.push({
+          input: testCase.lines,
+          group: testCase.group,
+          status: result.status,
+          message: result.message ?? "",
+        });
+        continue;
       }
       const outcome = await invokeCandidate(config.candidate, testCase.lines);
-      const counter = groupCounters[testCase.group];
       if (outcome.kind === "output" && outputsEqual(result.stdout, outcome.text)) {
         matchedCount++;
         counter.matched++;
@@ -56,7 +70,6 @@ export async function runEquivalence(options: RunOptions): Promise<EquivalenceRe
           group: testCase.group,
         });
       }
-      casesRun++;
     }
   } finally {
     try {
@@ -72,6 +85,7 @@ export async function runEquivalence(options: RunOptions): Promise<EquivalenceRe
     matchedCount,
     mismatches,
     groupCounters,
+    inconclusiveCases,
     elapsedMs: Date.now() - startedAt,
   });
 }

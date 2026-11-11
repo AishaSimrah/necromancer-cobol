@@ -1,4 +1,5 @@
 import { GROUP_ORDER, type EvidenceGroup } from "./classify.js";
+import type { Status } from "./oracle-port.js";
 
 /**
  * Report for the vertical slice plus per-group summaries. Later tasks extend it
@@ -37,7 +38,17 @@ export function createGroupCounters(): GroupCounters {
   };
 }
 
-export type Outcome = "completed" | "inconclusive";
+export type OracleStatus = Exclude<Status, "ok">;
+
+export interface InconclusiveCase {
+  readonly input: readonly string[];
+  readonly group: EvidenceGroup;
+  readonly status: OracleStatus;
+  /** Empty string when the Oracle gave none. */
+  readonly message: string;
+}
+
+export type Outcome = "completed" | "inconclusive" | "oracle_unavailable";
 
 export interface EquivalenceReport {
   readonly outcome: Outcome;
@@ -51,7 +62,14 @@ export interface EquivalenceReport {
   readonly mismatches: readonly MismatchRecord[];
   /** Always the four groups, in GROUP_ORDER. Conclusive counts sum to `conclusiveCount`. */
   readonly groups: readonly GroupSummary[];
+  readonly inconclusiveCases: readonly InconclusiveCase[];
+  readonly inconclusiveCount: number;
+  readonly inconclusiveByStatus: Readonly<Partial<Record<OracleStatus, number>>>;
+  readonly containsInconclusive: boolean;
   readonly elapsedMs: number;
+  /** Only for outcome "oracle_unavailable". */
+  readonly oracleStatus?: OracleStatus;
+  readonly oracleMessage?: string;
 }
 
 /** Progress snapshot after each finished case. Deliberately has no score field. */
@@ -72,14 +90,48 @@ export interface ReportInput {
   readonly matchedCount: number;
   readonly mismatches: readonly MismatchRecord[];
   readonly groupCounters: GroupCounters;
+  readonly inconclusiveCases?: readonly InconclusiveCase[];
   readonly elapsedMs: number;
+}
+
+export interface UnavailableInput {
+  readonly seed: number;
+  readonly status: OracleStatus;
+  readonly message: string;
+  readonly elapsedMs: number;
+}
+
+/** Report for a compile failure: nothing ran, no score. */
+export function buildUnavailableReport(input: UnavailableInput): EquivalenceReport {
+  return {
+    ...buildReport({
+      seed: input.seed,
+      casesRun: 0,
+      matchedCount: 0,
+      mismatches: [],
+      groupCounters: createGroupCounters(),
+      elapsedMs: input.elapsedMs,
+    }),
+    outcome: "oracle_unavailable",
+    oracleStatus: input.status,
+    oracleMessage: input.message,
+  };
 }
 
 /** Builds the report. `matchScore` uses exactly one division: matched / conclusive. */
 export function buildReport(input: ReportInput): EquivalenceReport {
   const mismatchCount = input.mismatches.length;
   const conclusiveCount = input.matchedCount + mismatchCount;
+  const inconclusiveCases = input.inconclusiveCases ?? [];
+  const inconclusiveByStatus: Partial<Record<OracleStatus, number>> = {};
+  for (const c of inconclusiveCases) {
+    inconclusiveByStatus[c.status] = (inconclusiveByStatus[c.status] ?? 0) + 1;
+  }
   const base = {
+    inconclusiveCases,
+    inconclusiveCount: inconclusiveCases.length,
+    inconclusiveByStatus,
+    containsInconclusive: inconclusiveCases.length > 0,
     seed: input.seed,
     casesRun: input.casesRun,
     conclusiveCount,
