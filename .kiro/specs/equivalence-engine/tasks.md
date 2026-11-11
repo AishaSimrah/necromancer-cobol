@@ -157,7 +157,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
     - Run `npx vitest --run tests/equivalence` (including Properties 1, 9, 10, 11, 12), the full `npx vitest --run`, and `npx tsc --noEmit`; fix any failures
 
 - [ ] 8. Progress, abort and time budget
-  - [ ] 8.1 Add progress reporting to `run.ts`
+  - [x] 8.1 Add progress reporting to `run.ts`
     - `ProgressEvent` and `ProgressCallback` in `report.ts`; invoke `onProgress` once per finished case with `completed`, `target`, `group`, `matched`, `mismatches`, `inconclusive` (no score field), inside try/catch, awaiting a returned promise and discarding any error
     - _Requirements: 10.1, 10.2, 10.3, 10.4, 10.5, 10.6_
   - [ ] 8.2 Add abort, Time_Budget and Oracle timeout passthrough to `run.ts`

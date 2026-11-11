@@ -399,6 +399,18 @@
         "chatSessionId": "sess_31b0526a-decc-4cf9-832f-91e4faed51c1",
         "timestamp": 1794391472960
       }
+    ],
+    "8.1 Add progress reporting to `run.ts`": [
+      {
+        "executionId": "946e8a7d-3dab-492a-8734-c9a986dbef7a",
+        "chatSessionId": "sess_0ddd44ff-2086-4c91-8052-105b18988e90",
+        "timestamp": 1794391557290
+      },
+      {
+        "executionId": "946e8a7d-3dab-492a-8734-c9a986dbef7a",
+        "chatSessionId": "sess_0ddd44ff-2086-4c91-8052-105b18988e90",
+        "timestamp": 1794391610020
+      }
     ]
   }
 }

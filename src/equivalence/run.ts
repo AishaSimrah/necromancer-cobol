@@ -1,3 +1,4 @@
+import type { EvidenceGroup } from "./classify.js";
 import { invokeCandidate, outputsEqual } from "./compare.js";
 import { resolveConfig, type EquivalenceOptions } from "./config.js";
 import { generateCases } from "./generate.js";
@@ -42,6 +43,23 @@ export async function runEquivalence(options: RunOptions): Promise<EquivalenceRe
   let matchedCount = 0;
   let casesRun = 0;
 
+  const target = cases.length;
+  const emitProgress = async (group: EvidenceGroup): Promise<void> => {
+    if (config.onProgress === undefined) return;
+    try {
+      await config.onProgress({
+        completed: casesRun,
+        target,
+        group,
+        matched: matchedCount,
+        mismatches: mismatches.length,
+        inconclusive: inconclusiveCases.length,
+      });
+    } catch {
+      // Progress reporting must never affect the run.
+    }
+  };
+
   try {
     for (const testCase of cases) {
       const result = await oracle.runCompiled(compiled, testCase.lines);
@@ -55,6 +73,7 @@ export async function runEquivalence(options: RunOptions): Promise<EquivalenceRe
           status: result.status,
           message: result.message ?? "",
         });
+        await emitProgress(testCase.group);
         continue;
       }
       const outcome = await invokeCandidate(config.candidate, testCase.lines);
@@ -70,6 +89,7 @@ export async function runEquivalence(options: RunOptions): Promise<EquivalenceRe
           group: testCase.group,
         });
       }
+      await emitProgress(testCase.group);
     }
   } finally {
     try {
