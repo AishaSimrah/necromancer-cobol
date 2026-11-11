@@ -23,6 +23,14 @@
     "7.3 Write property test for strict comparison": {
       "status": "passed",
       "lastRunTimestamp": 1794390809340
+    },
+    "7.4 Write property test for Candidate failures": {
+      "status": "passed",
+      "lastRunTimestamp": 1794391099062
+    },
+    "7.6 Write property test for inconclusive cases": {
+      "status": "passed",
+      "lastRunTimestamp": 1794391328275
     }
   },
   "executionHistory": {
@@ -342,6 +350,54 @@
         "executionId": "58dcf803-4b2c-42f0-bb08-3813449d26e1",
         "chatSessionId": "sess_36eb4959-b078-4cb4-8259-2436702909f4",
         "timestamp": 1794390965439
+      }
+    ],
+    "7.4 Write property test for Candidate failures": [
+      {
+        "executionId": "0c53ca15-565d-4056-89c9-3ccb168cdaa2",
+        "chatSessionId": "sess_e07d7d84-48f6-4d3e-90fa-723e12d6b43f",
+        "timestamp": 1794391037671
+      },
+      {
+        "executionId": "0c53ca15-565d-4056-89c9-3ccb168cdaa2",
+        "chatSessionId": "sess_e07d7d84-48f6-4d3e-90fa-723e12d6b43f",
+        "timestamp": 1794391144476
+      }
+    ],
+    "7.5 Write property test for the Oracle lifecycle": [
+      {
+        "executionId": "989e09b1-c088-4de5-97d4-f91bd68eb7b9",
+        "chatSessionId": "sess_3410ceea-bfc1-4584-a586-f399489e6f98",
+        "timestamp": 1794391173868
+      },
+      {
+        "executionId": "989e09b1-c088-4de5-97d4-f91bd68eb7b9",
+        "chatSessionId": "sess_3410ceea-bfc1-4584-a586-f399489e6f98",
+        "timestamp": 1794391245156
+      }
+    ],
+    "7.6 Write property test for inconclusive cases": [
+      {
+        "executionId": "a0c28129-4575-4e72-b61a-bb94c80d0eda",
+        "chatSessionId": "sess_0cb90adc-4f32-451d-8be2-2b901432b603",
+        "timestamp": 1794391273694
+      },
+      {
+        "executionId": "a0c28129-4575-4e72-b61a-bb94c80d0eda",
+        "chatSessionId": "sess_0cb90adc-4f32-451d-8be2-2b901432b603",
+        "timestamp": 1794391365343
+      }
+    ],
+    "7.8 Write fake-Oracle unit tests, one per scenario": [
+      {
+        "executionId": "1ce8a507-2644-47d9-9a83-62e2b2fb1cff",
+        "chatSessionId": "sess_31b0526a-decc-4cf9-832f-91e4faed51c1",
+        "timestamp": 1794391395726
+      },
+      {
+        "executionId": "1ce8a507-2644-47d9-9a83-62e2b2fb1cff",
+        "chatSessionId": "sess_31b0526a-decc-4cf9-832f-91e4faed51c1",
+        "timestamp": 1794391472960
       }
     ]
   }

@@ -127,15 +127,15 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
     - **Property 9: Strict comparison and exact counting**
     - File `tests/equivalence/run.compare.test.ts` (fake Oracle)
     - **Validates: Requirements 5.1, 5.2, 5.3, 5.4, 5.5**
-  - [ ]* 7.4 Write property test for Candidate failures
+  - [x] 7.4 Write property test for Candidate failures
     - **Property 10: Candidate failures are Mismatches, never run failures**
     - File `tests/equivalence/run.candidate-failures.test.ts`
     - **Validates: Requirements 2.6, 2.7, 5.6, 5.7**
-  - [ ]* 7.5 Write property test for the Oracle lifecycle
+  - [x] 7.5 Write property test for the Oracle lifecycle
     - **Property 11: Oracle lifecycle**
     - File `tests/equivalence/run.lifecycle.test.ts`
     - **Validates: Requirements 2.1, 2.2, 2.3, 2.4, 2.5**
-  - [ ]* 7.6 Write property test for inconclusive cases
+  - [x] 7.6 Write property test for inconclusive cases
     - **Property 12: Inconclusive cases are recorded and excluded from the score**
     - File `tests/equivalence/run.inconclusive.test.ts`
     - **Validates: Requirements 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 7.1, 7.3**
@@ -143,7 +143,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
     - **Property 1: Invalid configuration is rejected before the Oracle is touched** (run level: the promise rejects and the fake Oracle records 0 calls, including `compileCobol`)
     - File `tests/equivalence/run.config.test.ts`
     - **Validates: Requirements 1.5, 1.6, 8.6, 9.8, 9.9, 9.10, 9.15**
-  - [ ]* 7.8 Write fake-Oracle unit tests, one per scenario
+  - [x] 7.8 Write fake-Oracle unit tests, one per scenario
     - Inconclusive exclusion from the score denominator
     - Handle release on Candidate failure (exactly 1 release)
     - Handle release on Oracle error (exactly 1 release; original error not masked when `releaseHandle` also throws)
