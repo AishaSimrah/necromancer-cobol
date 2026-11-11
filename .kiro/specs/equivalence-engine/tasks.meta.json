@@ -284,6 +284,18 @@
         "chatSessionId": "sess_94dc0feb-d619-4026-b85d-129dfc90863e",
         "timestamp": 1794389680236
       }
+    ],
+    "7.1 Create the fake Oracle double `tests/equivalence/doubles/fake-oracle.ts`": [
+      {
+        "executionId": "1ea6eb1c-9ab4-487d-92d5-f3b43474d339",
+        "chatSessionId": "sess_5aaf8b93-2c6c-4825-bf69-3afa6d1ebd4a",
+        "timestamp": 1794390024746
+      },
+      {
+        "executionId": "1ea6eb1c-9ab4-487d-92d5-f3b43474d339",
+        "chatSessionId": "sess_5aaf8b93-2c6c-4825-bf69-3afa6d1ebd4a",
+        "timestamp": 1794390374892
+      }
     ]
   }
 }

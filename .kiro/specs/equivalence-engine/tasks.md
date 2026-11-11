@@ -114,7 +114,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
     - Run `npx vitest --run tests/equivalence` (including Properties 3 to 6 and 8), the full `npx vitest --run`, and `npx tsc --noEmit`; fix any failures
 
 - [ ] 7. Inconclusive handling and fake Oracle
-  - [ ] 7.1 Create the fake Oracle double `tests/equivalence/doubles/fake-oracle.ts`
+  - [x] 7.1 Create the fake Oracle double `tests/equivalence/doubles/fake-oracle.ts`
     - An `OraclePort` with scripted per-call results (or a function of the input), counters for `compileCobol`, `runCompiled` and `releaseHandle`, a call-order log, and options to throw or delay; the real Oracle is never touched
     - _Requirements: 12.2, 12.3, 11.6_
   - [ ] 7.2 Implement inconclusive handling in `run.ts` and `report.ts`
