@@ -82,7 +82,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
     - Run `npx vitest --run tests/equivalence` (including Property 7), the full `npx vitest --run`, and `npx tsc --noEmit`; fix any failures
 
 - [ ] 6. Full edge-case generation
-  - [ ] 6.1 Extend `src/equivalence/generate.ts` to the full design
+  - [x] 6.1 Extend `src/equivalence/generate.ts` to the full design
     - The 8-kind edge corpus (constant size regardless of field count), then group-interleaved random slots using the 10-slot cycle, per-group `fc.bigInt` arbitraries sampled with `fc.sample` and a derived seed, overflow kinds (`aboveMax`, `extraIntegerDigits`, `negativeUnsigned`), and the negative-unsigned budget of `max(1, floor(0.10 * caseCount))`
     - Format with `formatScaled`; the case `group` stays `classifyVector` of the lines
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 3.10, 3.11, 3.12, 3.13, 4.1, 4.7_

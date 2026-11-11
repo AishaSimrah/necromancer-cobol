@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import fc from "fast-check";
+import { classifyVector } from "../../src/equivalence/classify.js";
 import { INTEREST } from "../../src/equivalence/descriptors.js";
 import { generateCases } from "../../src/equivalence/generate.js";
 import { fieldMaxUnits, formatScaled, parseScaled, pow10 } from "../../src/equivalence/scaled.js";
@@ -59,22 +60,46 @@ describe("generateCases (basic)", () => {
   });
 
   // Feature: equivalence-engine, Property 6 (basic): deterministic for a seed
-  it("is deterministic and in range", () => {
+  it("is deterministic, plain, never emits -0, and has constant-size edge corpus", () => {
     fc.assert(
-      fc.property(fc.integer({ min: -2147483648, max: 2147483647 }), fc.integer({ min: 1, max: 50 }), (seed, n) => {
+      fc.property(fc.integer({ min: -2147483648, max: 2147483647 }), fc.integer({ min: 1, max: 150 }), (seed, n) => {
         const a = generateCases(INTEREST, n, seed);
         expect(a).toEqual(generateCases(INTEREST, n, seed));
         expect(a).toHaveLength(n);
         for (const c of a) {
-          INTEREST.forEach((f, i) => {
-            const u = parseScaled(c.lines[i] ?? "", f.scale);
-            expect(u).not.toBeNull();
-            expect(u as bigint).toBeLessThanOrEqual(fieldMaxUnits(f));
-            expect(u as bigint).toBeGreaterThanOrEqual(0n);
-          });
+          expect(c.group).toBe(classifyVector(INTEREST, c.lines));
+          expect(c.lines).toHaveLength(INTEREST.length);
+          for (const l of c.lines) {
+            expect(l).toMatch(PLAIN);
+            expect(l).not.toMatch(/^-0(\.0+)?$/);
+          }
         }
       }),
-      { numRuns: 100 },
+      { numRuns: 50 },
     );
+  });
+
+  it("covers the edge corpus per field in 100 vectors and bounds negative unsigned", () => {
+    const cases = generateCases(INTEREST, 100, 3);
+    INTEREST.forEach((f, i) => {
+      const vals = cases.map((c) => c.lines[i] ?? "");
+      const units = vals.map((v) => parseScaled(v, f.scale + 3) as bigint);
+      const max = fieldMaxUnits(f) * 1000n;
+      const unit = 1000n;
+      expect(units).toContain(0n);
+      expect(units).toContain(max);
+      expect(units).toContain(max - unit);
+      expect(units).toContain(max + unit);
+      expect(vals.some((v) => (v.split(".")[1]?.length ?? 0) > f.scale)).toBe(true);
+      if (f.scale > 0) expect(vals.some((v) => /5$/.test(v) && (v.split(".")[1]?.length ?? 0) === f.scale + 1)).toBe(true);
+      const negatives = vals.filter((v) => v.startsWith("-")).length;
+      expect(negatives).toBeGreaterThanOrEqual(1);
+      expect(negatives).toBeLessThanOrEqual(10);
+    });
+  });
+
+  it("rejects empty descriptors and non-positive digits", () => {
+    expect(() => generateCases([], 10, 1)).toThrow();
+    expect(() => generateCases([{ name: "a", digits: 0, scale: 0, signed: false }], 10, 1)).toThrow();
   });
 });
