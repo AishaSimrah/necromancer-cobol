@@ -182,7 +182,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
   - [x] 8.6 Run tests for this module
     - Run `npx vitest --run tests/equivalence` (including Properties 16 and 17), the full `npx vitest --run`, and `npx tsc --noEmit`; fix any failures
 
-- [ ] 9. Shrinking
+- [x] 9. Shrinking
   - [x] 9.1 Create `src/equivalence/shrink.ts`
     - Implement `shrinkGroup(ctx, start)` using the approach confirmed by the spike (task 1.1): `fc.check` with `examples: [[startUnits]]` over a `bigint` tuple at scale `scale + 3`, or the `arb.shrink` greedy fallback
     - The property answers the starting example from the recorded Mismatch (no Oracle call), stops calling the Oracle at the limit or on abort, treats non-`ok` results as not failing, and keeps the last failing case as `best`; `limitReached` is set only for the limit
@@ -199,7 +199,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
     - Shrinking starts after all cases finish; limit reached sets the flag; abort during shrinking keeps best-so-far and skips later groups; a Candidate mismatching in at least two groups gives exactly one example per mismatching group and `casesRun` is unchanged
     - File `tests/equivalence/shrink.unit.test.ts`
     - _Requirements: 8.7, 8.9, 8.11, 12.10_
-  - [ ] 9.5 Run tests for this module
+  - [x] 9.5 Run tests for this module
     - Run `npx vitest --run tests/equivalence` (including Property 14), the full `npx vitest --run`, and `npx tsc --noEmit`; fix any failures
 
 - [ ] 10. Mismatch list cap
