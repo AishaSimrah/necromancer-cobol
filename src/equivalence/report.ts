@@ -1,5 +1,6 @@
 import { GROUP_ORDER, type EvidenceGroup } from "./classify.js";
 import type { Status } from "./oracle-port.js";
+import type { ShrunkExample } from "./shrink.js";
 
 /**
  * Report for the vertical slice plus per-group summaries. Later tasks extend it
@@ -38,6 +39,16 @@ export function createGroupCounters(): GroupCounters {
   };
 }
 
+/** Zeroed per-group shrink Oracle call counts. */
+export function createShrinkCalls(): Record<EvidenceGroup, number> {
+  return {
+    "field overflow behavior": 0,
+    "half-unit rounding boundary": 0,
+    "zero and maximum boundaries": 0,
+    "standard computation": 0,
+  };
+}
+
 export type OracleStatus = Exclude<Status, "ok">;
 
 export interface InconclusiveCase {
@@ -60,6 +71,10 @@ export interface EquivalenceReport {
   readonly matchedCount: number;
   readonly mismatchCount: number;
   readonly mismatches: readonly MismatchRecord[];
+  /** At most one per group, in GROUP_ORDER; none for groups without a Mismatch. */
+  readonly shrunkExamples: readonly ShrunkExample[];
+  /** Oracle calls spent shrinking per group. Not included in `casesRun`. */
+  readonly shrinkOracleCalls: Readonly<Record<EvidenceGroup, number>>;
   /** Always the four groups, in GROUP_ORDER. Conclusive counts sum to `conclusiveCount`. */
   readonly groups: readonly GroupSummary[];
   readonly inconclusiveCases: readonly InconclusiveCase[];
@@ -96,6 +111,8 @@ export interface ReportInput {
   readonly mismatches: readonly MismatchRecord[];
   readonly groupCounters: GroupCounters;
   readonly inconclusiveCases?: readonly InconclusiveCase[];
+  readonly shrunkExamples?: readonly ShrunkExample[];
+  readonly shrinkOracleCalls?: Readonly<Record<EvidenceGroup, number>>;
   readonly elapsedMs: number;
   readonly budgetReached?: boolean;
   readonly aborted?: boolean;
@@ -145,6 +162,8 @@ export function buildReport(input: ReportInput): EquivalenceReport {
     matchedCount: input.matchedCount,
     mismatchCount,
     mismatches: input.mismatches,
+    shrunkExamples: input.shrunkExamples ?? [],
+    shrinkOracleCalls: input.shrinkOracleCalls ?? createShrinkCalls(),
     groups: GROUP_ORDER.map((group): GroupSummary => {
       const c = input.groupCounters[group];
       return {

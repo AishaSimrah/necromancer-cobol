@@ -1,4 +1,4 @@
-import type { EvidenceGroup } from "./classify.js";
+import { GROUP_ORDER, type EvidenceGroup } from "./classify.js";
 import { invokeCandidate, outputsEqual } from "./compare.js";
 import { resolveConfig, type EquivalenceOptions } from "./config.js";
 import { generateCases } from "./generate.js";
@@ -7,10 +7,12 @@ import {
   buildReport,
   buildUnavailableReport,
   createGroupCounters,
+  createShrinkCalls,
   type EquivalenceReport,
   type InconclusiveCase,
   type MismatchRecord,
 } from "./report.js";
+import { shrinkGroup, type ShrinkContext, type ShrunkExample } from "./shrink.js";
 
 export type RunOptions = EquivalenceOptions;
 
@@ -58,6 +60,9 @@ export async function runEquivalence(options: RunOptions): Promise<EquivalenceRe
   const mismatches: MismatchRecord[] = [];
   const inconclusiveCases: InconclusiveCase[] = [];
   const groupCounters = createGroupCounters();
+  const firstMismatch = new Map<EvidenceGroup, MismatchRecord>();
+  const shrunkExamples: ShrunkExample[] = [];
+  const shrinkOracleCalls = createShrinkCalls();
   let matchedCount = 0;
   let casesRun = 0;
   let aborted = false;
@@ -111,14 +116,40 @@ export async function runEquivalence(options: RunOptions): Promise<EquivalenceRe
         counter.matched++;
       } else {
         counter.mismatched++;
-        mismatches.push({
+        const record: MismatchRecord = {
           input: testCase.lines,
           oracleOutput: result.stdout,
           candidateOutput: outcome.text,
           group: testCase.group,
-        });
+        };
+        mismatches.push(record);
+        if (!firstMismatch.has(testCase.group)) firstMismatch.set(testCase.group, record);
       }
       await emitProgress(testCase.group);
+    }
+
+    // Shrink each group that has a Mismatch, in GROUP_ORDER; stop once aborted.
+    for (const group of GROUP_ORDER) {
+      const start = firstMismatch.get(group);
+      if (start === undefined) continue;
+      if (isAborted(signal)) {
+        aborted = true;
+        break;
+      }
+      const shrinkCtx: ShrinkContext = {
+        oracle,
+        handle: compiled,
+        candidate: config.candidate,
+        fields: config.fields,
+        seed,
+        limit: config.shrinkLimit,
+        ...(oracleTimeoutMs !== undefined ? { runTimeoutMs: oracleTimeoutMs } : {}),
+        ...(signal !== undefined ? { signal } : {}),
+      };
+      const shrunk = await shrinkGroup(shrinkCtx, start);
+      shrunkExamples.push(shrunk.example);
+      shrinkOracleCalls[group] = shrunk.oracleCalls;
+      if (isAborted(signal)) aborted = true;
     }
   } finally {
     try {
@@ -135,6 +166,8 @@ export async function runEquivalence(options: RunOptions): Promise<EquivalenceRe
     mismatches,
     groupCounters,
     inconclusiveCases,
+    shrunkExamples,
+    shrinkOracleCalls,
     elapsedMs: now() - startedAt,
     budgetReached,
     aborted,

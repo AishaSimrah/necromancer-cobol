@@ -122,7 +122,8 @@ describe("Property 11: Oracle lifecycle", () => {
           } else {
             check(returned && report !== undefined, "report returned despite release outcome");
             check(report?.casesRun === caseCount, "all cases ran");
-            check(oracle.runCalls === caseCount, "one runCompiled per case");
+            const shrinkCalls = Object.values(report?.shrinkOracleCalls ?? {}).reduce((a, b) => a + b, 0);
+            check(oracle.runCalls === caseCount + shrinkCalls, "one runCompiled per case plus shrink calls");
           }
         },
       ),

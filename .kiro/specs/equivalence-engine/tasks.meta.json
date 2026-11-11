@@ -39,6 +39,10 @@
     "8.4 Write property test for Oracle timeout passthrough": {
       "status": "passed",
       "lastRunTimestamp": 1794401784535
+    },
+    "9.3 Write property test for shrinking": {
+      "status": "passed",
+      "lastRunTimestamp": 1794402881711
     }
   },
   "executionHistory": {
@@ -497,6 +501,42 @@
         "executionId": "085aeeaa-3fa4-403e-986c-540221b20660",
         "chatSessionId": "sess_60f02d56-d251-4feb-bc82-ac3caef0bd96",
         "timestamp": 1794402476942
+      }
+    ],
+    "9.2 Wire shrinking into `run.ts` and the report": [
+      {
+        "executionId": "2962365f-4ab2-4a87-94b0-80d67d184b3c",
+        "chatSessionId": "sess_6de656e6-0fc6-42b8-9af5-86ed2e4b167d",
+        "timestamp": 1794402574141
+      },
+      {
+        "executionId": "2962365f-4ab2-4a87-94b0-80d67d184b3c",
+        "chatSessionId": "sess_6de656e6-0fc6-42b8-9af5-86ed2e4b167d",
+        "timestamp": 1794402760417
+      }
+    ],
+    "9.3 Write property test for shrinking": [
+      {
+        "executionId": "6eb5f82d-c062-4dcc-ac6d-d67bd09f8823",
+        "chatSessionId": "sess_0dfc8862-0f49-4c82-a2ea-1f6a6fb899dc",
+        "timestamp": 1794402799895
+      },
+      {
+        "executionId": "6eb5f82d-c062-4dcc-ac6d-d67bd09f8823",
+        "chatSessionId": "sess_0dfc8862-0f49-4c82-a2ea-1f6a6fb899dc",
+        "timestamp": 1794402930893
+      }
+    ],
+    "9.4 Write shrinking unit tests": [
+      {
+        "executionId": "c13bbaf4-e99a-44a6-bb66-a1f9f220feb3",
+        "chatSessionId": "sess_f17c8eea-46ab-4558-a6ed-8840578267ec",
+        "timestamp": 1794402964165
+      },
+      {
+        "executionId": "c13bbaf4-e99a-44a6-bb66-a1f9f220feb3",
+        "chatSessionId": "sess_f17c8eea-46ab-4558-a6ed-8840578267ec",
+        "timestamp": 1794403145810
       }
     ]
   }

@@ -42,11 +42,13 @@ describe("Property 9: strict comparison and exact counting", () => {
     await fc.assert(
       fc.asyncProperty(pairsArb, fc.integer({ min: 0, max: 2147483647 }), async (pairs, seed) => {
         const oracle = createFakeOracle({
-          run: ({ callIndex }) => okResult((pairs[callIndex] as readonly [string, string])[0]),
+          // Calls past CASE_COUNT come from shrinking; answer them with a match.
+          run: ({ callIndex }) => okResult(pairs[callIndex]?.[0] ?? ""),
         });
         const seen: string[][] = [];
         const candidate = (lines: string[]): string => {
           const idx = seen.length;
+          if (idx >= CASE_COUNT) return pairs[0]?.[0] ?? ""; // shrink phase: never a Mismatch
           seen.push([...lines]);
           // Mutate the received array: must not leak into the engine or later cases.
           lines.push("mutated");
@@ -64,7 +66,9 @@ describe("Property 9: strict comparison and exact counting", () => {
           oracle,
         });
 
-        const runInputs = oracle.callLog.flatMap((c) => (c.kind === "runCompiled" ? [c.inputLines] : []));
+        const runInputs = oracle.callLog
+          .flatMap((c) => (c.kind === "runCompiled" ? [c.inputLines] : []))
+          .slice(0, CASE_COUNT);
         const expectedMismatches = pairs.filter(([o, c]) => o !== c).length;
 
         check(report.conclusiveCount === CASE_COUNT, "all cases conclusive");

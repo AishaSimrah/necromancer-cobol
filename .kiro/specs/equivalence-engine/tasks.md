@@ -188,14 +188,14 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
     - The property answers the starting example from the recorded Mismatch (no Oracle call), stops calling the Oracle at the limit or on abort, treats non-`ok` results as not failing, and keeps the last failing case as `best`; `limitReached` is set only for the limit
     - Return the `ShrunkExample` and the count of Oracle calls
     - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5, 8.7, 8.8, 8.11_
-  - [ ] 9.2 Wire shrinking into `run.ts` and the report
+  - [x] 9.2 Wire shrinking into `run.ts` and the report
     - After all cases finish, shrink each group with a Mismatch in `GROUP_ORDER`, starting from that group's first Mismatch (remembered during the loop independent of any list cap); skip remaining groups once aborted; add `shrunkExamples` and `shrinkOracleCalls` per group, separate from `casesRun`; no examples for groups without a Mismatch
     - _Requirements: 7.5, 8.1, 8.2, 8.8, 8.9, 8.10, 8.11_
-  - [ ]* 9.3 Write property test for shrinking
+  - [x] 9.3 Write property test for shrinking
     - **Property 14: Shrinking is bounded, separate, and only for failing groups**
     - File `tests/equivalence/shrink.test.ts` (fake Oracle)
     - **Validates: Requirements 8.1, 8.2, 8.3, 8.4, 8.5, 8.8, 8.10**
-  - [ ]* 9.4 Write shrinking unit tests
+  - [x] 9.4 Write shrinking unit tests
     - Shrinking starts after all cases finish; limit reached sets the flag; abort during shrinking keeps best-so-far and skips later groups; a Candidate mismatching in at least two groups gives exactly one example per mismatching group and `casesRun` is unchanged
     - File `tests/equivalence/shrink.unit.test.ts`
     - _Requirements: 8.7, 8.9, 8.11, 12.10_

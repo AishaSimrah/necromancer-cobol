@@ -107,7 +107,8 @@ describe("Property 10: Candidate failures are Mismatches, never run failures", (
       fc.asyncProperty(plansArb, fc.integer({ min: 0, max: 2147483647 }), async (plans, seed) => {
         const oracle = createFakeOracle({
           run: ({ callIndex }) => {
-            const plan = plans[callIndex] as CasePlan;
+            const plan = plans[callIndex];
+            if (plan === undefined) return failResult("timeout", "shrink phase"); // not failing
             return plan.status === "ok" ? okResult(`out-${callIndex}`) : failResult(plan.status, "x");
           },
         });
@@ -115,9 +116,9 @@ describe("Property 10: Candidate failures are Mismatches, never run failures", (
         const okPlans = plans.filter((p) => p.status === "ok");
         let invocations = 0;
         const candidate = (): string | Promise<string> => {
-          const plan = okPlans[invocations] as CasePlan;
+          const plan = okPlans[invocations];
           invocations++;
-          return failingCandidate(plan)();
+          return plan === undefined ? "" : failingCandidate(plan)();
         };
 
         const report = await runEquivalence({
@@ -132,7 +133,8 @@ describe("Property 10: Candidate failures are Mismatches, never run failures", (
 
         const nonOkCount = plans.length - okPlans.length;
         check(report.casesRun === CASE_COUNT, "run continued through all cases");
-        check(oracle.runCalls === CASE_COUNT, "Oracle ran every case");
+        const shrinkCalls = Object.values(report.shrinkOracleCalls).reduce((a, b) => a + b, 0);
+        check(oracle.runCalls === CASE_COUNT + shrinkCalls, "Oracle ran every case (plus shrink calls)");
         check(invocations === okPlans.length, "Candidate invoked only for ok cases");
         check(report.outcome !== "oracle_unavailable", "not an unavailable outcome");
         check(report.mismatchCount === okPlans.length, "every ok case is a Mismatch");
