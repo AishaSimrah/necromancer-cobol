@@ -202,19 +202,19 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
   - [x] 9.5 Run tests for this module
     - Run `npx vitest --run tests/equivalence` (including Property 14), the full `npx vitest --run`, and `npx tsc --noEmit`; fix any failures
 
-- [ ] 10. Mismatch list cap
+- [x] 10. Mismatch list cap
   - [x] 10.1 Implement the cap in `report.ts` and `run.ts`
     - Use `mismatchListCap` from `resolveConfig`: store only the first N Mismatches in execution order, keep `mismatchCount` exact, set `mismatchListTruncated` when `mismatchCount > cap`; report invariants for a clean run (`matchScore === 1`, empty `mismatches` and `shrunkExamples`) and for any Mismatch (`matchScore < 1`)
     - _Requirements: 5.4, 7.5, 7.8, 7.9, 7.10, 7.11, 9.14_
-  - [ ]* 10.2 Write property test for report count invariants
+  - [x] 10.2 Write property test for report count invariants
     - **Property 13: Report count invariants**
     - File `tests/equivalence/run.invariants.test.ts` (fake Oracle)
     - **Validates: Requirements 4.8, 4.9, 7.1, 7.2, 7.4, 7.5, 7.8, 7.9, 7.10, 7.11**
-  - [ ]* 10.3 Write unit test for a cap smaller than mismatchCount
+  - [x] 10.3 Write unit test for a cap smaller than mismatchCount
     - The list length equals the cap, `mismatchCount` is exact, `mismatchListTruncated` is true, and the listed entries are the first in execution order
     - File `tests/equivalence/run.cap.test.ts`
     - _Requirements: 7.5, 7.11, 12.9_
-  - [ ] 10.4 Run tests for this module
+  - [x] 10.4 Run tests for this module
     - Run `npx vitest --run tests/equivalence` (including Property 13), the full `npx vitest --run`, and `npx tsc --noEmit`; fix any failures
 
 - [ ] 11. Naive Candidate and years verification (real Oracle)
