@@ -156,7 +156,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
   - [x] 7.9 Run tests for this module
     - Run `npx vitest --run tests/equivalence` (including Properties 1, 9, 10, 11, 12), the full `npx vitest --run`, and `npx tsc --noEmit`; fix any failures
 
-- [ ] 8. Progress, abort and time budget
+- [x] 8. Progress, abort and time budget
   - [x] 8.1 Add progress reporting to `run.ts`
     - `ProgressEvent` and `ProgressCallback` in `report.ts`; invoke `onProgress` once per finished case with `completed`, `target`, `group`, `matched`, `mismatches`, `inconclusive` (no score field), inside try/catch, awaiting a returned promise and discarding any error
     - _Requirements: 10.1, 10.2, 10.3, 10.4, 10.5, 10.6_
@@ -165,21 +165,21 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
     - Before each case stop on abort (`aborted`) or when `now() - start >= timeBudgetMs` (`budgetReached`), finishing the case in progress; `casesRun` is the completed count; the handle is released
     - Pass `{ runTimeoutMs: oracleTimeoutMs }` to `runCompiled` only when configured; add `now` injection and `elapsedMs`
     - _Requirements: 7.7, 9.5, 9.11, 9.12, 9.13_
-  - [ ]* 8.3 Write property test for progress events
+  - [x] 8.3 Write property test for progress events
     - **Property 16: Progress events are consistent and isolated from results**
     - File `tests/equivalence/run.progress.test.ts`
     - **Validates: Requirements 10.1, 10.2, 10.3, 10.4, 10.5, 10.6**
-  - [ ]* 8.4 Write property test for Oracle timeout passthrough
+  - [x] 8.4 Write property test for Oracle timeout passthrough
     - **Property 17: Oracle timeout passthrough**
     - File `tests/equivalence/run.timeout.test.ts`
     - **Validates: Requirements 9.11**
-  - [ ]* 8.5 Write unit tests for abort and Time_Budget
+  - [x] 8.5 Write unit tests for abort and Time_Budget
     - Time_Budget stop: ends within budget plus 1000 ms, `budgetReached` set, `casesRun` is the completed count
     - Pre-aborted signal: 0 Oracle calls, `aborted`, `casesRun` 0
     - Abort mid-run: stops starting cases, handle released once
     - File `tests/equivalence/run.abort.test.ts`
     - _Requirements: 7.7, 9.5, 9.12, 9.13, 11.6_
-  - [ ] 8.6 Run tests for this module
+  - [x] 8.6 Run tests for this module
     - Run `npx vitest --run tests/equivalence` (including Properties 16 and 17), the full `npx vitest --run`, and `npx tsc --noEmit`; fix any failures
 
 - [ ] 9. Shrinking

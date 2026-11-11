@@ -31,6 +31,14 @@
     "7.6 Write property test for inconclusive cases": {
       "status": "passed",
       "lastRunTimestamp": 1794391328275
+    },
+    "8.3 Write property test for progress events": {
+      "status": "passed",
+      "lastRunTimestamp": 1794401538900
+    },
+    "8.4 Write property test for Oracle timeout passthrough": {
+      "status": "passed",
+      "lastRunTimestamp": 1794401784535
     }
   },
   "executionHistory": {
@@ -422,6 +430,61 @@
         "executionId": "1b79d3d1-609a-43bd-9c44-2ebc1dc0aedd",
         "chatSessionId": "sess_2a337e8f-160e-4826-b18b-224b019e1d1b",
         "timestamp": 1794391853550
+      }
+    ],
+    "8.3 Write property test for progress events": [
+      {
+        "executionId": "afb39317-5757-44ea-804f-6da8d3718929",
+        "chatSessionId": "sess_cff5c0de-f04d-4f54-bbc1-a81878e56086",
+        "timestamp": 1794401239112
+      },
+      {
+        "executionId": "afb39317-5757-44ea-804f-6da8d3718929",
+        "chatSessionId": "sess_cff5c0de-f04d-4f54-bbc1-a81878e56086",
+        "timestamp": 1794401679543
+      }
+    ],
+    "8.4 Write property test for Oracle timeout passthrough": [
+      {
+        "executionId": "aa5348dc-1014-40d2-9596-bad1f2fd3dbf",
+        "chatSessionId": "sess_dc2cc3c5-3b03-4e6a-bc1a-1cb00b93862d",
+        "timestamp": 1794401740087
+      },
+      {
+        "executionId": "aa5348dc-1014-40d2-9596-bad1f2fd3dbf",
+        "chatSessionId": "sess_dc2cc3c5-3b03-4e6a-bc1a-1cb00b93862d",
+        "timestamp": 1794402010937
+      }
+    ],
+    "8.5 Write unit tests for abort and Time_Budget": [
+      {
+        "executionId": "bbf72d28-0076-443a-a470-724ba3cdf2ff",
+        "chatSessionId": "sess_88b0f42d-d80f-4b7d-bca8-6a5664844bfd",
+        "timestamp": 1794402099176
+      },
+      {
+        "executionId": "bbf72d28-0076-443a-a470-724ba3cdf2ff",
+        "chatSessionId": "sess_88b0f42d-d80f-4b7d-bca8-6a5664844bfd",
+        "timestamp": 1794402196709
+      }
+    ],
+    "8.6 Run tests for this module": [
+      {
+        "executionId": "ab23239a-92f6-47b0-a32b-031fd05149ea",
+        "chatSessionId": "sess_23dc3c44-cbb2-49b8-8f65-d98e4bf1a0a4",
+        "timestamp": 1794402227688
+      },
+      {
+        "executionId": "ab23239a-92f6-47b0-a32b-031fd05149ea",
+        "chatSessionId": "sess_23dc3c44-cbb2-49b8-8f65-d98e4bf1a0a4",
+        "timestamp": 1794402292385
+      }
+    ],
+    "8. Progress, abort and time budget": [
+      {
+        "executionId": "ab23239a-92f6-47b0-a32b-031fd05149ea",
+        "chatSessionId": "sess_23dc3c44-cbb2-49b8-8f65-d98e4bf1a0a4",
+        "timestamp": 1794402292554
       }
     ]
   }
