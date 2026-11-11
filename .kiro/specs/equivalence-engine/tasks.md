@@ -113,7 +113,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
   - [x] 6.8 Run tests for this module
     - Run `npx vitest --run tests/equivalence` (including Properties 3 to 6 and 8), the full `npx vitest --run`, and `npx tsc --noEmit`; fix any failures
 
-- [ ] 7. Inconclusive handling and fake Oracle
+- [x] 7. Inconclusive handling and fake Oracle
   - [x] 7.1 Create the fake Oracle double `tests/equivalence/doubles/fake-oracle.ts`
     - An `OraclePort` with scripted per-call results (or a function of the input), counters for `compileCobol`, `runCompiled` and `releaseHandle`, a call-order log, and options to throw or delay; the real Oracle is never touched
     - _Requirements: 12.2, 12.3, 11.6_
@@ -153,7 +153,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
     - Async Candidate rejects (Mismatch with rejection message, exactly 1 release)
     - File `tests/equivalence/run.unit.test.ts`
     - _Requirements: 2.3, 2.4, 2.5, 2.6, 6.2, 6.5, 11.6, 12.9_
-  - [ ] 7.9 Run tests for this module
+  - [x] 7.9 Run tests for this module
     - Run `npx vitest --run tests/equivalence` (including Properties 1, 9, 10, 11, 12), the full `npx vitest --run`, and `npx tsc --noEmit`; fix any failures
 
 - [ ] 8. Progress, abort and time budget
