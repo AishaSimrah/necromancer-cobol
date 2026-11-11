@@ -411,6 +411,18 @@
         "chatSessionId": "sess_0ddd44ff-2086-4c91-8052-105b18988e90",
         "timestamp": 1794391610020
       }
+    ],
+    "8.2 Add abort, Time_Budget and Oracle timeout passthrough to `run.ts`": [
+      {
+        "executionId": "1b79d3d1-609a-43bd-9c44-2ebc1dc0aedd",
+        "chatSessionId": "sess_2a337e8f-160e-4826-b18b-224b019e1d1b",
+        "timestamp": 1794391711141
+      },
+      {
+        "executionId": "1b79d3d1-609a-43bd-9c44-2ebc1dc0aedd",
+        "chatSessionId": "sess_2a337e8f-160e-4826-b18b-224b019e1d1b",
+        "timestamp": 1794391853550
+      }
     ]
   }
 }

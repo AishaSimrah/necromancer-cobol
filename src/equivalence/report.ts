@@ -66,7 +66,12 @@ export interface EquivalenceReport {
   readonly inconclusiveCount: number;
   readonly inconclusiveByStatus: Readonly<Partial<Record<OracleStatus, number>>>;
   readonly containsInconclusive: boolean;
+  /** Non-negative integer milliseconds. */
   readonly elapsedMs: number;
+  /** True when the run stopped because the Time_Budget was reached. */
+  readonly budgetReached: boolean;
+  /** True when the run stopped because the AbortSignal was aborted. */
+  readonly aborted: boolean;
   /** Only for outcome "oracle_unavailable". */
   readonly oracleStatus?: OracleStatus;
   readonly oracleMessage?: string;
@@ -92,6 +97,8 @@ export interface ReportInput {
   readonly groupCounters: GroupCounters;
   readonly inconclusiveCases?: readonly InconclusiveCase[];
   readonly elapsedMs: number;
+  readonly budgetReached?: boolean;
+  readonly aborted?: boolean;
 }
 
 export interface UnavailableInput {
@@ -147,7 +154,9 @@ export function buildReport(input: ReportInput): EquivalenceReport {
         inconclusive: c.inconclusive,
       };
     }),
-    elapsedMs: input.elapsedMs,
+    elapsedMs: Math.max(0, Math.trunc(Number.isFinite(input.elapsedMs) ? input.elapsedMs : 0)),
+    budgetReached: input.budgetReached ?? false,
+    aborted: input.aborted ?? false,
   };
   if (conclusiveCount === 0) {
     return { outcome: "inconclusive", ...base };

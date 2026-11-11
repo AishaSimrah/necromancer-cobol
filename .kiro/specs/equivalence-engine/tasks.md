@@ -160,7 +160,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
   - [x] 8.1 Add progress reporting to `run.ts`
     - `ProgressEvent` and `ProgressCallback` in `report.ts`; invoke `onProgress` once per finished case with `completed`, `target`, `group`, `matched`, `mismatches`, `inconclusive` (no score field), inside try/catch, awaiting a returned promise and discarding any error
     - _Requirements: 10.1, 10.2, 10.3, 10.4, 10.5, 10.6_
-  - [ ] 8.2 Add abort, Time_Budget and Oracle timeout passthrough to `run.ts`
+  - [x] 8.2 Add abort, Time_Budget and Oracle timeout passthrough to `run.ts`
     - Pre-aborted signal: aborted report, `casesRun` 0, 0 Oracle calls, outcome `inconclusive`
     - Before each case stop on abort (`aborted`) or when `now() - start >= timeBudgetMs` (`budgetReached`), finishing the case in progress; `casesRun` is the completed count; the handle is released
     - Pass `{ runTimeoutMs: oracleTimeoutMs }` to `runCompiled` only when configured; add `now` injection and `elapsedMs`

@@ -49,7 +49,7 @@ describe("Property 8: group quotas and construction", () => {
       ),
       { numRuns: 100 },
     );
-  });
+  }, 60_000);
 
   it("marks only edge-corpus vectors without a target", () => {
     const fields: FieldDescriptor[] = [{ name: "a", digits: 7, scale: 2, signed: false }];

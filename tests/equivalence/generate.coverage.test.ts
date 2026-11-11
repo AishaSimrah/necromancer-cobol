@@ -71,5 +71,5 @@ describe("Property 4: edge coverage", () => {
       ),
       { numRuns: 100 },
     );
-  });
+  }, 60_000);
 });

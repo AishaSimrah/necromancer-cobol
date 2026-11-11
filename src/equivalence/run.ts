@@ -14,6 +14,11 @@ import {
 
 export type RunOptions = EquivalenceOptions;
 
+/** Read at call time so TypeScript does not narrow `signal.aborted` across awaits. */
+function isAborted(signal: AbortSignal | undefined): boolean {
+  return signal?.aborted === true;
+}
+
 /**
  * Compile once, run each case sequentially, compare strictly.
  * Non-ok Oracle results are recorded as inconclusive cases and excluded from the score.
@@ -24,7 +29,20 @@ export async function runEquivalence(options: RunOptions): Promise<EquivalenceRe
   const config = resolveConfig(options);
   const { caseCount, seed } = config;
   const oracle = config.oracle ?? defaultOracle;
-  const startedAt = Date.now();
+  const { now, signal, timeBudgetMs, oracleTimeoutMs } = config;
+  const startedAt = now();
+
+  if (isAborted(signal)) {
+    return buildReport({
+      seed,
+      casesRun: 0,
+      matchedCount: 0,
+      mismatches: [],
+      groupCounters: createGroupCounters(),
+      elapsedMs: now() - startedAt,
+      aborted: true,
+    });
+  }
 
   const compiled = await oracle.compileCobol(config.source);
   if (!oracle.isCompiledHandle(compiled)) {
@@ -32,7 +50,7 @@ export async function runEquivalence(options: RunOptions): Promise<EquivalenceRe
       seed,
       status: compiled.status === "ok" ? "environment_error" : compiled.status,
       message: compiled.message ?? "",
-      elapsedMs: Date.now() - startedAt,
+      elapsedMs: now() - startedAt,
     });
   }
 
@@ -42,6 +60,9 @@ export async function runEquivalence(options: RunOptions): Promise<EquivalenceRe
   const groupCounters = createGroupCounters();
   let matchedCount = 0;
   let casesRun = 0;
+  let aborted = false;
+  let budgetReached = false;
+  const runOptions = oracleTimeoutMs !== undefined ? { runTimeoutMs: oracleTimeoutMs } : undefined;
 
   const target = cases.length;
   const emitProgress = async (group: EvidenceGroup): Promise<void> => {
@@ -62,7 +83,15 @@ export async function runEquivalence(options: RunOptions): Promise<EquivalenceRe
 
   try {
     for (const testCase of cases) {
-      const result = await oracle.runCompiled(compiled, testCase.lines);
+      if (isAborted(signal)) {
+        aborted = true;
+        break;
+      }
+      if (timeBudgetMs !== undefined && now() - startedAt >= timeBudgetMs) {
+        budgetReached = true;
+        break;
+      }
+      const result = await oracle.runCompiled(compiled, testCase.lines, runOptions);
       const counter = groupCounters[testCase.group];
       casesRun++;
       if (result.status !== "ok") {
@@ -106,6 +135,8 @@ export async function runEquivalence(options: RunOptions): Promise<EquivalenceRe
     mismatches,
     groupCounters,
     inconclusiveCases,
-    elapsedMs: Date.now() - startedAt,
+    elapsedMs: now() - startedAt,
+    budgetReached,
+    aborted,
   });
 }
