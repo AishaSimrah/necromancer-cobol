@@ -223,7 +223,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
     - Create `tests/equivalence/interest.real.test.ts` with the same top-level availability probe and `describe.skipIf(!available)`: the correct Candidate with the default Case_Count gives `matchScore === 1` and an empty `mismatches` list; the naive Candidate gives `mismatchCount >= 1`, `0 <= matchScore < 1`, and exactly one Shrunk_Example (input, Oracle output, Candidate output) per group that has a Mismatch and none for others
     - A modest `oracleTimeoutMs` keeps the suite fast; no test may rely on a known hang
     - _Requirements: 11.2, 11.3, 11.4, 11.8_
-  - [ ] 11.2 Verify years = 98, 99 and 100 against the real Oracle
+  - [x] 11.2 Verify years = 98, 99 and 100 against the real Oracle
     - Confirm `cobol-samples/interest.cbl` has `WS-YEAR-IDX` as `PIC 999` (already present in the repo); do not change `WS-YEARS` (`PIC 99`)
     - In the same skip-guarded file, add three example tests with principal `1000.00`, rate `5.00`: `years = 98` and `years = 99` return status `ok` and the Oracle output equals the correct Candidate's output; `years = 100` is stored as `00`, runs zero iterations, and the Oracle output equals `BALANCE: ` followed by the principal in `Z(6)9.99` form (`BALANCE:    1000.00`), and equals the correct Candidate's output
     - If any of the three fails, report the discrepancy rather than editing the Candidate to match

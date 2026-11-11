@@ -1,9 +1,9 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { describe, expect, it } from "vitest";
+import { afterAll, describe, expect, it } from "vitest";
 import { INTEREST } from "../../src/equivalence/descriptors.js";
 import { runEquivalence } from "../../src/equivalence/run.js";
-import { compileCobol, isCompiledHandle, releaseHandle, shutdown } from "../../src/oracle/index.js";
+import { compileCobol, isCompiledHandle, releaseHandle, runCompiled, shutdown } from "../../src/oracle/index.js";
 import { correctInterestCandidate, naiveInterestCandidate } from "./candidates/interest.js";
 
 const source = readFileSync(resolve(process.cwd(), "cobol-samples", "interest.cbl"), "utf8");
@@ -25,6 +25,51 @@ async function probeOracle(): Promise<boolean> {
 const available = await probeOracle();
 const LONG = 600_000;
 const ORACLE_TIMEOUT_MS = 10_000;
+
+/** Compile, run once on the given input lines, and always release the handle. */
+async function oracleRun(lines: string[]): Promise<{ status: string; stdout: string }> {
+  const compiled = await compileCobol(source);
+  if (!isCompiledHandle(compiled)) {
+    return { status: compiled.status, stdout: compiled.stdout };
+  }
+  try {
+    const result = await runCompiled(compiled, lines, { runTimeoutMs: ORACLE_TIMEOUT_MS });
+    return { status: result.status, stdout: result.stdout };
+  } finally {
+    await releaseHandle(compiled);
+  }
+}
+
+describe.skipIf(!available)("interest years boundary (real Oracle)", () => {
+  afterAll(async () => {
+    await shutdown();
+  });
+
+  for (const years of ["98", "99"]) {
+    it(
+      `years = ${years} returns ok and matches the correct Candidate`,
+      async () => {
+        const lines = ["1000.00", "5.00", years];
+        const result = await oracleRun(lines);
+        expect(result.status).toBe("ok");
+        expect(result.stdout).toBe(correctInterestCandidate(lines));
+      },
+      LONG,
+    );
+  }
+
+  it(
+    "years = 100 is stored as 00, runs zero iterations and returns the principal",
+    async () => {
+      const lines = ["1000.00", "5.00", "100"];
+      const result = await oracleRun(lines);
+      expect(result.status).toBe("ok");
+      expect(result.stdout).toBe("BALANCE:    1000.00\n");
+      expect(result.stdout).toBe(correctInterestCandidate(lines));
+    },
+    LONG,
+  );
+});
 
 describe.skipIf(!available)("interest equivalence (real Oracle)", () => {
   it(

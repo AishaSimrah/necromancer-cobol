@@ -628,6 +628,18 @@
         "chatSessionId": "sess_a73cfddf-a483-4746-8a8a-f91a0e22b283",
         "timestamp": 1794404167666
       }
+    ],
+    "11.2 Verify years = 98, 99 and 100 against the real Oracle": [
+      {
+        "executionId": "8be2321b-5772-431c-9edf-e3d153dc4e80",
+        "chatSessionId": "sess_203366b6-4851-411f-8a01-e1c3650f3746",
+        "timestamp": 1794404785451
+      },
+      {
+        "executionId": "8be2321b-5772-431c-9edf-e3d153dc4e80",
+        "chatSessionId": "sess_203366b6-4851-411f-8a01-e1c3650f3746",
+        "timestamp": 1794405033068
+      }
     ]
   }
 }
