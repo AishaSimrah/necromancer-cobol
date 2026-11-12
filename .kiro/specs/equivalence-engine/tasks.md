@@ -217,7 +217,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
   - [x] 10.4 Run tests for this module
     - Run `npx vitest --run tests/equivalence` (including Property 13), the full `npx vitest --run`, and `npx tsc --noEmit`; fix any failures
 
-- [ ] 11. Naive Candidate and years verification (real Oracle)
+- [x] 11. Naive Candidate and years verification (real Oracle)
   - [x] 11.1 Add the naive Candidate and the real-Oracle interest tests
     - Add `naiveInterestCandidate` to `tests/equivalence/candidates/interest.ts` (floating point, no per-year rounding, no input truncation, no wrap, `balance.toFixed(2).padStart(10)` after `BALANCE: `)
     - Create `tests/equivalence/interest.real.test.ts` with the same top-level availability probe and `describe.skipIf(!available)`: the correct Candidate with the default Case_Count gives `matchScore === 1` and an empty `mismatches` list; the naive Candidate gives `mismatchCount >= 1`, `0 <= matchScore < 1`, and exactly one Shrunk_Example (input, Oracle output, Candidate output) per group that has a Mismatch and none for others
@@ -228,7 +228,7 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
     - In the same skip-guarded file, add three example tests with principal `1000.00`, rate `5.00`: `years = 98` and `years = 99` return status `ok` and the Oracle output equals the correct Candidate's output; `years = 100` is stored as `00`, runs zero iterations, and the Oracle output equals `BALANCE: ` followed by the principal in `Z(6)9.99` form (`BALANCE:    1000.00`), and equals the correct Candidate's output
     - If any of the three fails, report the discrepancy rather than editing the Candidate to match
     - _Requirements: 11.1, 11.3, 11.8_
-  - [ ] 11.3 Run tests for this module
+  - [x] 11.3 Run tests for this module
     - Run `npx vitest --run tests/equivalence`, the full `npx vitest --run`, and `npx tsc --noEmit`; real-Oracle tests must pass or be reported as skipped; fix any failures
 
 - [ ] 12. Public entry point and module boundaries
