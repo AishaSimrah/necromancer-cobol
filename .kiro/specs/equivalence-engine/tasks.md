@@ -231,36 +231,36 @@ Only `oracle-port.ts` may import from `../oracle/index.js`. Tests live in `tests
   - [x] 11.3 Run tests for this module
     - Run `npx vitest --run tests/equivalence`, the full `npx vitest --run`, and `npx tsc --noEmit`; real-Oracle tests must pass or be reported as skipped; fix any failures
 
-- [ ] 12. Public entry point and module boundaries
-  - [ ] 12.1 Create `src/equivalence/index.ts`
+- [x] 12. Public entry point and module boundaries
+  - [x] 12.1 Create `src/equivalence/index.ts`
     - Export `runEquivalence`, `FieldDescriptor`, `EquivalenceReport`, `ProgressCallback`, `INTEREST`, `PAYROLL`, `TAX`, and the supporting types (`EquivalenceOptions`, `Candidate`, `EvidenceGroup`, `OraclePort`, `EquivalenceConfigError`)
     - _Requirements: 12.6_
-  - [ ]* 12.2 Write module boundary tests in `tests/equivalence/modules.test.ts`
+  - [x] 12.2 Write module boundary tests in `tests/equivalence/modules.test.ts`
     - Static scan of `src/equivalence/**/*.ts`: 0 imports of `src/oracle/*` other than the index (and only in `oracle-port.ts`), 0 imports of analyzer, translator or app (relative or alias), 0 occurrences of `any`
     - Check the exports of `index.ts`; check that with an injected Oracle the real Oracle functions are never called
     - _Requirements: 12.1, 12.2, 12.3, 12.4, 12.5, 12.6_
-  - [ ] 12.3 Run tests for this module
+  - [x] 12.3 Run tests for this module
     - Run `npx vitest --run tests/equivalence`, the full `npx vitest --run`, and `npx tsc --noEmit`; fix any failures
 
-- [ ] 13. Determinism
-  - [ ]* 13.1 Write the determinism property test
+- [x] 13. Determinism
+  - [x] 13.1 Write the determinism property test
     - **Property 15: Same inputs, same report**
     - Run at least 20 distinct Seeds with the fake Oracle, comparing reports with `elapsedMs` removed; file `tests/equivalence/determinism.test.ts`
     - **Validates: Requirements 7.6, 9.6, 9.7, 11.5**
-  - [ ] 13.2 Run tests for this module
+  - [x] 13.2 Run tests for this module
     - Run `npx vitest --run tests/equivalence` (including Property 15), the full `npx vitest --run`, and `npx tsc --noEmit`; fix any failures
 
-- [ ] 14. Type check and full suite
-  - [ ] 14.1 Run type check and full test suite
+- [x] 14. Type check and full suite
+  - [x] 14.1 Run type check and full test suite
     - Run `npx tsc --noEmit` and `npx vitest --run`; fix all errors, confirm real-Oracle tests either pass or are reported as skipped
     - _Requirements: 11.8, 12.5_
 
-- [ ] 15. Sample equivalence suite
-  - [ ] 15.1 Run the sample equivalence suite
+- [x] 15. Sample equivalence suite
+  - [x] 15.1 Run the sample equivalence suite
     - Run `scripts/run-samples.sh` (via bash/Docker as the repo supports) and confirm it passes before declaring the feature done; report any failure to the user
     - _Requirements: 11.3_
 
-- [ ] 16. Final checkpoint - Ensure all tests pass
+- [x] 16. Final checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 ## Notes
