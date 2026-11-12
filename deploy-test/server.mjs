@@ -1,13 +1,15 @@
 import { createServer } from 'node:http';
 import { execFileSync, spawn } from 'node:child_process';
-import { mkdtempSync } from 'node:fs';
+import { mkdirSync, mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 const PORT = Number(process.env.PORT) || 10000;
 const TIMEOUT_MS = 5000;
 
-const workDir = mkdtempSync(join(tmpdir(), 'cobol-'));
+const baseDir = process.env.TMPDIR || tmpdir();
+mkdirSync(baseDir, { recursive: true });
+const workDir = mkdtempSync(join(baseDir, 'cobol-'));
 const binary = join(workDir, 'interest');
 
 // Compile once at startup.
