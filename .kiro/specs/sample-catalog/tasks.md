@@ -24,7 +24,7 @@ Rules for every task:
 ## Tasks
 
 - [ ] 1. Types, static data, markers
-  - [ ] 1.1 Create `src/translator/types.ts`
+  - [x] 1.1 Create `src/translator/types.ts`
     - `SampleId`, `Variant`, `SAMPLE_IDS`, `VARIANTS`, `Curse`, `ExamplePair`, `Provenance`, `SampleData`, `Sample`, `CurseMarker`, `TranslationModule`, `Translation` exactly as in the design
     - Imports only types from `../equivalence/compare.js` and `../equivalence/descriptors.js`; no `node:` imports
     - _Requirements: 1.2, 4.2, 9.4_
