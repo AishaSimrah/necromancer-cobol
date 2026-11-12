@@ -154,7 +154,7 @@ Every translation module has the same two exports, named `candidate` and `proven
 
 ## Static data (`sample-data.ts`)
 
-`SAMPLE_DATA: Readonly<Record<SampleId, SampleData>>`. The `fields` come from `INTEREST`, `PAYROLL`, `TAX` in `descriptors.ts` by reference.
+`SAMPLE_DATA: Readonly<Record<SampleId, SampleData>>`. The `fields` are copies of `INTEREST`, `PAYROLL`, `TAX` from `descriptors.ts` (`copyFields` maps each descriptor object to a fresh object). Only the copies are frozen, so importing `sample-data.ts` never freezes or changes the originals.
 
 Default inputs are the first Example_Pair of each sample (Req 1.5): `["1000","5","3"]`, `["45","20.55"]`, `["300000"]`.
 
@@ -365,7 +365,7 @@ Naive is only required to be `< subtle`. With the subtle candidates above (about
 
 Plain Vitest. Covers Requirements 1 to 5 and 9 and the static scans of 4.5 and 4.7:
 
-- **Shape and order:** `listSamples()` returns ids `interest, payroll, tax`; fields are `toBe` the exported descriptor arrays (reference equality, proves reuse); default input is one of the examples and has one line per field; pact has 3 to 4 entries of at most 80 characters with no line break; trap labels have no `\n`.
+- **Shape and order:** `listSamples()` returns ids `interest, payroll, tax`; fields are `toEqual` the exported descriptor arrays but not the same references (`not.toBe`), and `Object.isFrozen` is false for the exported `INTEREST`, `PAYROLL`, `TAX` after importing `sample-data`; default input is one of the examples and has one line per field; pact has 3 to 4 entries of at most 80 characters with no line break; trap labels have no `\n`.
 - **Source text:** `getSample(id).cobolSource` equals `readFileSync("cobol-samples/<id>.cbl")` read with an `import.meta.url`-based path in the test.
 - **Examples vs EXPECTED.md:** parse the file in the test and compare (Req 2.4).
 - **Curses:** ids unique across the catalog and match `/^[a-z0-9-]+$/`; labels at most 32 characters; lines in range and not blank; keyword guard table above.

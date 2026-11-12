@@ -12,6 +12,28 @@
         "chatSessionId": "sess_c264787d-a157-4ce1-a39a-e93f79c5acaf",
         "timestamp": 1794474590198
       }
+    ],
+    "1.2 Create `src/translator/sample-data.ts`": [
+      {
+        "executionId": "c824c328-e0b9-4b1c-b25b-39cad754d998",
+        "chatSessionId": "sess_8f5f7346-430e-4a3b-aae1-c93a57114774",
+        "timestamp": 1794475037693
+      },
+      {
+        "executionId": "c824c328-e0b9-4b1c-b25b-39cad754d998",
+        "chatSessionId": "sess_8f5f7346-430e-4a3b-aae1-c93a57114774",
+        "timestamp": 1794475150986
+      },
+      {
+        "executionId": "125e74c7-8325-4b2c-8bb5-b926b1acc0db",
+        "chatSessionId": "sess_8f5f7346-430e-4a3b-aae1-c93a57114774",
+        "timestamp": 1794475252301
+      },
+      {
+        "executionId": "125e74c7-8325-4b2c-8bb5-b926b1acc0db",
+        "chatSessionId": "sess_8f5f7346-430e-4a3b-aae1-c93a57114774",
+        "timestamp": 1794475447159
+      }
     ]
   }
 }

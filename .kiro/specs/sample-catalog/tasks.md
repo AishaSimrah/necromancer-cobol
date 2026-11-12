@@ -28,15 +28,15 @@ Rules for every task:
     - `SampleId`, `Variant`, `SAMPLE_IDS`, `VARIANTS`, `Curse`, `ExamplePair`, `Provenance`, `SampleData`, `Sample`, `CurseMarker`, `TranslationModule`, `Translation` exactly as in the design
     - Imports only types from `../equivalence/compare.js` and `../equivalence/descriptors.js`; no `node:` imports
     - _Requirements: 1.2, 4.2, 9.4_
-  - [ ] 1.2 Create `src/translator/sample-data.ts`
-    - `SAMPLE_DATA` for `interest`, `payroll`, `tax`: name, trap label, `fields` by reference to `INTEREST`, `PAYROLL`, `TAX` from `../equivalence/descriptors.js`, default input (the first example), the eight example pairs, the fidelity pacts, and the ten curses with the ids, chip labels and line numbers from Req 3.3
-    - A `deepFreeze` helper; the exported record and every nested array and object are frozen
+  - [x] 1.2 Create `src/translator/sample-data.ts`
+    - `SAMPLE_DATA` for `interest`, `payroll`, `tax`: name, trap label, `fields` as copies (`copyFields`, one fresh object per descriptor) of `INTEREST`, `PAYROLL`, `TAX` from `../equivalence/descriptors.js`, default input (the first example), the eight example pairs, the fidelity pacts, and the ten curses with the ids, chip labels and line numbers from Req 3.3
+    - A `deepFreeze` helper; the exported record and every nested array and object are frozen, but only the copies, never the exported descriptor arrays
     - _Requirements: 1.1, 1.2, 1.4, 1.5, 1.6, 1.7, 2.1, 2.2, 2.3, 3.1, 3.2, 3.3, 9.5_
   - [ ] 1.3 Create `src/translator/markers.ts`
     - `extractCurseMarkers(source): readonly CurseMarker[]` with regex `/\/\/\s*CURSE:([a-z0-9-]+)/g` applied per line; 1-based line numbers; two markers on one line give two records
     - _Requirements: 5.1, 5.5_
   - [ ] 1.4 Write unit tests in `tests/translator/static-data.test.ts` (no Oracle)
-    - Order of ids; `fields` are the same references as the exported descriptor arrays (`toBe`); default input is one of the examples and has one line per field; pact has 3 to 4 entries of at most 80 characters; trap labels have no line break
+    - Order of ids; `fields` are `toEqual` the exported descriptor arrays and not the same references; `Object.isFrozen` is false for the exported `INTEREST`, `PAYROLL`, `TAX` (also covered by `tests/translator/sample-data.test.ts`); default input is one of the examples and has one line per field; pact has 3 to 4 entries of at most 80 characters; trap labels have no line break
     - Curse ids unique across the catalog and match `/^[a-z0-9-]+$/`; labels at most 32 characters
     - Frozen: `Object.isFrozen` on the record, arrays and curses
     - `extractCurseMarkers`: single marker, two markers on one line, no marker, id with digits and hyphens, 1-based line numbers (unit test plus a fast-check property: inserting a marker at line N yields line N)
