@@ -254,10 +254,10 @@ describe("immutability", () => {
 
 describe("missing translations", () => {
   // Removed in task 13.1, when every sample/variant has a registered translation.
-  it("throws for payroll/correct", () => {
-    const variant: Variant = "correct";
+  it("throws for payroll/naive", () => {
+    const variant: Variant = "naive";
     expect(() => getTranslation("payroll", variant)).toThrow(
-      "No translation registered for payroll/correct",
+      "No translation registered for payroll/naive",
     );
   });
 });

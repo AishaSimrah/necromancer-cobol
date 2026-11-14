@@ -139,7 +139,7 @@ Rules for every task:
   - [x] 8.5 Run this task's tests, the full Vitest suite, `npm run typecheck` and `npm run lint`
 
 - [ ] 9. PAYROLL: `correct`, `naive`, `subtle`
-  - [ ] 9.1 Create `src/translator/translations/payroll.correct.ts`
+  - [x] 9.1 Create `src/translator/translations/payroll.correct.ts`
     - As in the design: `storeUnsigned` for hours (3, 1) and rate (3, 2); the `hours.gt(40)` split; `regPay`, `otPay` rounded then wrapped to 6 digits; `gross`, `deduct`, `net` truncated then wrapped; three `display` lines in the order GROSS, DEDUCT, NET
     - Markers for all four PAYROLL curses; every PAYROLL curse appears at least once
     - Register `payroll/correct`, add to `UNDER_TEST`, add its `it` and the two PAYROLL example-pair `it`s

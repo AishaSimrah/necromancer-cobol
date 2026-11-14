@@ -24,6 +24,7 @@ const UNDER_TEST: readonly UnderTestEntry[] = [
   { sample: "interest", variant: "correct" },
   { sample: "interest", variant: "naive" },
   { sample: "interest", variant: "subtle" },
+  { sample: "payroll", variant: "correct" },
 ];
 
 type RunOutcome =
@@ -164,24 +165,37 @@ describe("sample translations against the real Oracle", () => {
   });
 });
 
-describe("example pairs against the real Oracle", () => {
-  const sample = getSample("interest");
-  const { candidate } = getTranslation("interest", "correct");
-
-  sample.examples.forEach((pair, index) => {
-    it(`interest example ${index + 1} (${pair.input.join(" / ")}) matches Oracle and candidate`, async () => {
-      const compiled = await compileCobol(sample.cobolSource);
-      if (!isCompiledHandle(compiled)) {
-        throw new Error(`Oracle unavailable for interest: ${compiled.status} ${compiled.stderr}`);
-      }
-      try {
-        const result = await runCompiled(compiled, pair.input, { runTimeoutMs: ORACLE_TIMEOUT_MS });
-        expect(result.status).toBe("ok");
-        expect(result.stdout).toBe(pair.output);
-        expect(await candidate([...pair.input])).toBe(pair.output);
-      } finally {
-        await releaseHandle(compiled);
-      }
-    });
+describe("payroll translations against the real Oracle", () => {
+  it("payroll/correct matches the Oracle on every case", () => {
+    const report = reportOf("payroll", "correct");
+    expect(report.matchScore).toBe(1);
+    expect(report.mismatchCount).toBe(0);
+    expect(report.conclusiveCount).toBe(1000);
+    expect(report.inconclusiveCount).toBe(0);
   });
+});
+
+describe("example pairs against the real Oracle", () => {
+  const ids: readonly SampleId[] = ["interest", "payroll"];
+  for (const id of ids) {
+    const sample = getSample(id);
+    const { candidate } = getTranslation(id, "correct");
+
+    sample.examples.forEach((pair, index) => {
+      it(`${id} example ${index + 1} (${pair.input.join(" / ")}) matches Oracle and candidate`, async () => {
+        const compiled = await compileCobol(sample.cobolSource);
+        if (!isCompiledHandle(compiled)) {
+          throw new Error(`Oracle unavailable for ${id}: ${compiled.status} ${compiled.stderr}`);
+        }
+        try {
+          const result = await runCompiled(compiled, pair.input, { runTimeoutMs: ORACLE_TIMEOUT_MS });
+          expect(result.status).toBe("ok");
+          expect(result.stdout).toBe(pair.output);
+          expect(await candidate([...pair.input])).toBe(pair.output);
+        } finally {
+          await releaseHandle(compiled);
+        }
+      });
+    });
+  }
 });
