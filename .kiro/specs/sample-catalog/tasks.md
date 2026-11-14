@@ -55,7 +55,7 @@ Rules for every task:
     - A missing path throws an error whose message contains the `what` label and the resolved path, and a second call does not return a cached value
     - _Requirements: 1.3a, 1.3b_
 
-- [ ] 3. COBOL runtime library
+- [x] 3. COBOL runtime library
   - [x] 3.1 Create `src/translator/cobol-runtime.ts`
     - Isolated `Decimal` clone with `precision: 60`; exports `Dec`, `numval`, `truncTo`, `roundTo` (ROUND_HALF_UP), `storeUnsigned`, `wrap` (abs, then mod 10^digits), `zEdit`, `display` as specified in the design
     - No `number` for field values; no Node imports; no `process` / `Buffer`
@@ -65,10 +65,10 @@ Rules for every task:
     - Unit tests on the values from the example pairs, zero, max, max + one unit, half-unit ties (`0.005`, `2.5` to scale 0), negative input to `storeUnsigned` (absolute value), extra decimals truncated, high-order digits dropped, unparseable text, `zEdit` of zero (`"      0.00"`), `zEdit` width for `Z(6)9.99`, `Z(5)9.99`, `Z(7)9`
     - Property tests (fast-check, `numRuns` 200, fixed seed): `storeUnsigned` result is always in `[0, 10^digits)` and has at most `scale` decimals; `zEdit` output length is constant for a fixed picture; `roundTo(x, s)` is within one unit of `truncTo(x, s)` for non-negative `x`
     - _Requirements: 6.2, 6.3, 6.5, 10.8_
-  - [-] 3.3 Run this task's tests, the full Vitest suite, `npm run typecheck` and `npm run lint`
+  - [x] 3.3 Run this task's tests, the full Vitest suite, `npm run typecheck` and `npm run lint`
 
 - [ ] 4. Thin slice: INTEREST `correct` translation and registry
-  - [ ] 4.1 Create `src/translator/translations/interest.correct.ts`
+  - [x] 4.1 Create `src/translator/translations/interest.correct.ts`
     - Exports `candidate: Candidate` and `provenance: Provenance`, built on `cobol-runtime.ts` as in the design
     - Markers: `CURSE:interest-years-pic99` on the `years` line; `CURSE:interest-yearly-rounding` on the loop line and the compute line; `CURSE:interest-overflow` on the compute line
     - Header comment names the COBOL file and the variant
