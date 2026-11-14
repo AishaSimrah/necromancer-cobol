@@ -25,6 +25,7 @@ const UNDER_TEST: readonly UnderTestEntry[] = [
   { sample: "interest", variant: "naive" },
   { sample: "interest", variant: "subtle" },
   { sample: "payroll", variant: "correct" },
+  { sample: "payroll", variant: "naive" },
 ];
 
 type RunOutcome =
@@ -172,6 +173,17 @@ describe("payroll translations against the real Oracle", () => {
     expect(report.mismatchCount).toBe(0);
     expect(report.conclusiveCount).toBe(1000);
     expect(report.inconclusiveCount).toBe(0);
+  });
+
+  it("payroll/naive is caught: score below 1, mismatches in at least two groups", () => {
+    const report = reportOf("payroll", "naive");
+    expect(report.matchScore).toBeLessThan(1);
+    const groupsWithMismatch = report.groups.filter((g) => g.conclusive - g.matched >= 1);
+    const detail = report.groups.map((g) => `${g.group} ${g.matched}/${g.conclusive}`).join("; ");
+    expect(
+      groupsWithMismatch.length,
+      `groups with mismatches: ${groupsWithMismatch.length} (${detail})`,
+    ).toBeGreaterThanOrEqual(2);
   });
 });
 

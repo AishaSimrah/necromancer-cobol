@@ -145,7 +145,7 @@ Rules for every task:
     - Register `payroll/correct`, add to `UNDER_TEST`, add its `it` and the two PAYROLL example-pair `it`s
     - Run the Oracle test. If the score is below 1, diagnose by looking at the first mismatches in the report. Likely areas: the unsigned `NET` when `gross` wrapped below `deduct`, and the truncation of `otHours`. Fix the translation or the runtime, never the test
     - _Requirements: 4.1, 5.1, 5.2, 6.1 to 6.8, 10.4, 10.5_
-  - [ ] 9.2 Create `src/translator/translations/payroll.naive.ts`
+  - [x] 9.2 Create `src/translator/translations/payroll.naive.ts`
     - As in the design: `parseFloat`, `Math.min` / `Math.max` split, one rounding at the end through `toFixed`, `Math.round(gross * 0.0765 * 100) / 100` for the deduction, `padStart(9)`; header `DELIBERATELY WRONG`; markers on the lines that miss each curse
     - Register, add to `UNDER_TEST`, add its `it` (`matchScore < 1`, two groups). Run the Oracle test and report per-group mismatches. If fewer than two groups mismatch, make it worse in a realistic way
     - _Requirements: 8.1 to 8.4, 10.4_
