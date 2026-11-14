@@ -81,13 +81,13 @@ Rules for every task:
     - A short test in `tests/translator/interest-correct.test.ts`: the three INTEREST example pairs through `candidate` equal the documented outputs (`toBe`)
     - _Requirements: 2.2, 6.8_
 
-- [ ] 5. Thin slice: catalog API
-  - [ ] 5.1 Create `src/translator/catalog.ts` and `src/translator/index.ts`
+- [x] 5. Thin slice: catalog API
+  - [x] 5.1 Create `src/translator/catalog.ts` and `src/translator/index.ts`
     - `listSamples()`, `getSample(id)`, `getTranslation(sampleId, variant)`; runtime validation of arguments with the messages from the design; lazy build and cache; frozen records; `Translation.source` read with `readRepoText("src/translator/translations/<id>.<variant>.ts", ...)`; `markers` from `extractCurseMarkers`; `Sample.cobolSource` read with `readRepoText("cobol-samples/<id>.cbl", ...)`
     - The API never calls `runEquivalence`, never calls a Candidate, never starts the Oracle
     - `index.ts` re-exports the API and the types
     - _Requirements: 1.3, 4.2, 4.3, 5.5, 9.1 to 9.6_
-  - [ ] 5.2 Write `tests/translator/catalog.test.ts` (no Oracle), the parts that apply to the slice
+  - [x] 5.2 Write `tests/translator/catalog.test.ts` (no Oracle), the parts that apply to the slice
     - `listSamples` order and `getSample(id).cobolSource` equals the file read by the test
     - Examples vs `cobol-samples/EXPECTED.md`: the test parses the markdown tables (INTEREST rows `a / b / c`, PAYROLL three back-ticked segments joined with `\n`, TAX) and compares with the catalog; it asserts the number of pairs found per sample (3, 2, 3) so a format change fails loudly
     - Curses: every line number exists and is not blank; the keyword guard table from the design (all ten curses, since the COBOL files already exist)

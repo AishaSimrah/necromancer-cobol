@@ -182,6 +182,52 @@
         "chatSessionId": "sess_7ae63bc3-956f-43af-92f5-c9887954c456",
         "timestamp": 1794640536274
       }
+    ],
+    "5.1 Create `src/translator/catalog.ts` and `src/translator/index.ts`": [
+      {
+        "executionId": "9de8afd7-52b9-4524-ada9-35884f4f3b59",
+        "chatSessionId": "sess_23a74aba-9b1a-4334-b3fa-cbc9ee2f2c72",
+        "timestamp": 1794640580026
+      },
+      {
+        "executionId": "9de8afd7-52b9-4524-ada9-35884f4f3b59",
+        "chatSessionId": "sess_23a74aba-9b1a-4334-b3fa-cbc9ee2f2c72",
+        "timestamp": 1794640680907
+      },
+      {
+        "executionId": "86d7a6c8-6e6e-4b09-b021-8cdaebc9058c",
+        "chatSessionId": "sess_7f9a2286-ee6e-404d-80b3-cc31892c922f",
+        "timestamp": 1794640691390
+      },
+      {
+        "executionId": "fcf76a6d-f99c-400b-995d-5647a3d125b5",
+        "chatSessionId": "sess_81237538-4149-4ebe-b975-9725d989d3be",
+        "timestamp": 1794640759322
+      },
+      {
+        "executionId": "fcf76a6d-f99c-400b-995d-5647a3d125b5",
+        "chatSessionId": "sess_81237538-4149-4ebe-b975-9725d989d3be",
+        "timestamp": 1794640842390
+      }
+    ],
+    "5.2 Write `tests/translator/catalog.test.ts` (no Oracle), the parts that apply to the slice": [
+      {
+        "executionId": "fcf76a6d-f99c-400b-995d-5647a3d125b5",
+        "chatSessionId": "sess_81237538-4149-4ebe-b975-9725d989d3be",
+        "timestamp": 1794640845577
+      },
+      {
+        "executionId": "fcf76a6d-f99c-400b-995d-5647a3d125b5",
+        "chatSessionId": "sess_81237538-4149-4ebe-b975-9725d989d3be",
+        "timestamp": 1794640993088
+      }
+    ],
+    "5. Thin slice: catalog API": [
+      {
+        "executionId": "fcf76a6d-f99c-400b-995d-5647a3d125b5",
+        "chatSessionId": "sess_81237538-4149-4ebe-b975-9725d989d3be",
+        "timestamp": 1794640993404
+      }
     ]
   }
 }
