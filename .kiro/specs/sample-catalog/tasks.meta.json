@@ -151,6 +151,37 @@
         "chatSessionId": "sess_5da668ce-6f0d-46de-a81d-4c2b3be7efa6",
         "timestamp": 1794640259024
       }
+    ],
+    "4.2 Create `src/translator/translations/registry.ts`": [
+      {
+        "executionId": "604a185e-c2ef-447c-8f1c-88cdc1e45f41",
+        "chatSessionId": "sess_d547a591-a10d-43cb-ba44-3921987d64a9",
+        "timestamp": 1794640374312
+      },
+      {
+        "executionId": "604a185e-c2ef-447c-8f1c-88cdc1e45f41",
+        "chatSessionId": "sess_d547a591-a10d-43cb-ba44-3921987d64a9",
+        "timestamp": 1794640454900
+      }
+    ],
+    "4.3 Spot-check without the Oracle": [
+      {
+        "executionId": "a997beaa-dda7-4f75-b853-7c9ad3faf98d",
+        "chatSessionId": "sess_7ae63bc3-956f-43af-92f5-c9887954c456",
+        "timestamp": 1794640474420
+      },
+      {
+        "executionId": "a997beaa-dda7-4f75-b853-7c9ad3faf98d",
+        "chatSessionId": "sess_7ae63bc3-956f-43af-92f5-c9887954c456",
+        "timestamp": 1794640536061
+      }
+    ],
+    "4. Thin slice: INTEREST `correct` translation and registry": [
+      {
+        "executionId": "a997beaa-dda7-4f75-b853-7c9ad3faf98d",
+        "chatSessionId": "sess_7ae63bc3-956f-43af-92f5-c9887954c456",
+        "timestamp": 1794640536274
+      }
     ]
   }
 }

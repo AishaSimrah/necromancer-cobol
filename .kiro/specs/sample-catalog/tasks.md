@@ -67,17 +67,17 @@ Rules for every task:
     - _Requirements: 6.2, 6.3, 6.5, 10.8_
   - [x] 3.3 Run this task's tests, the full Vitest suite, `npm run typecheck` and `npm run lint`
 
-- [ ] 4. Thin slice: INTEREST `correct` translation and registry
+- [x] 4. Thin slice: INTEREST `correct` translation and registry
   - [x] 4.1 Create `src/translator/translations/interest.correct.ts`
     - Exports `candidate: Candidate` and `provenance: Provenance`, built on `cobol-runtime.ts` as in the design
     - Markers: `CURSE:interest-years-pic99` on the `years` line; `CURSE:interest-yearly-rounding` on the loop line and the compute line; `CURSE:interest-overflow` on the compute line
     - Header comment names the COBOL file and the variant
     - _Requirements: 4.1, 4.2, 4.4, 4.6, 5.1, 5.2, 6.1 to 6.5, 6.8_
-  - [ ] 4.2 Create `src/translator/translations/registry.ts`
+  - [x] 4.2 Create `src/translator/translations/registry.ts`
     - Static imports of the translation modules that exist so far, keyed `"<sampleId>/<variant>"`; typed so that a missing key is a clear runtime error `No translation registered for <sample>/<variant>`
     - This partial typing is temporary; task 13.1 tightens it to a complete record
     - _Requirements: 4.1, 4.5_
-  - [ ] 4.3 Spot-check without the Oracle
+  - [x] 4.3 Spot-check without the Oracle
     - A short test in `tests/translator/interest-correct.test.ts`: the three INTEREST example pairs through `candidate` equal the documented outputs (`toBe`)
     - _Requirements: 2.2, 6.8_
 
