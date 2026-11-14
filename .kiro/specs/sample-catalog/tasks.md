@@ -118,7 +118,7 @@ Rules for every task:
     - All must pass. Ask the user if a question comes up. Do not start task 8 before this is green.
 
 - [ ] 8. INTEREST: `naive` and `subtle`
-  - [ ] 8.1 Create `src/translator/translations/interest.naive.ts`
+  - [x] 8.1 Create `src/translator/translations/interest.naive.ts`
     - A copy of `naiveInterestCandidate` from `tests/equivalence/candidates/interest.ts`, as `candidate`, with `provenance`, the header `// DELIBERATELY WRONG: the typical first attempt, floating point and no COBOL field semantics.`, and markers `CURSE:interest-yearly-rounding` (loop line) and `CURSE:interest-overflow` (result line)
     - The `correct` translation from task 4.1 must also be equivalent to `correctInterestCandidate` (checked in 8.4)
     - _Requirements: 4.1, 4.2, 8.1, 8.2, 8.5_
