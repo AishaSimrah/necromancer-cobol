@@ -42,14 +42,14 @@ Rules for every task:
     - `extractCurseMarkers`: single marker, two markers on one line, no marker, id with digits and hyphens, 1-based line numbers (unit test plus a fast-check property: inserting a marker at line N yields line N)
     - _Requirements: 1.1, 1.2, 1.4, 1.5, 1.6, 1.7, 3.1, 5.5, 9.5_
 
-- [ ] 2. Server-only file access
+- [x] 2. Server-only file access
   - [x] 2.1 Create `src/translator/files.ts`
     - `repoPath(relative)` and `readRepoText(relative, what)` using `new URL("../../" + relative, import.meta.url)` and `fileURLToPath`; never `process.cwd()`
     - Cache by resolved path in a `Map` (only successful reads are cached)
     - On failure throw `Error("Cannot read <what> at <resolved path>: <cause message>")`; never return an empty string
     - The only file in `src/translator/` allowed to import `node:*`
     - _Requirements: 1.3, 1.3a, 1.3b, 1.3c, 12.5_
-  - [ ] 2.2 Write unit tests in `tests/translator/files.test.ts` (no Oracle)
+  - [x] 2.2 Write unit tests in `tests/translator/files.test.ts` (no Oracle)
     - Reading `cobol-samples/interest.cbl` equals the bytes read by the test through its own `import.meta.url`-based path
     - The test changes the working directory (`process.chdir` to the OS temp dir inside `try/finally`) and the read still succeeds, proving no `process.cwd()` dependency
     - A missing path throws an error whose message contains the `what` label and the resolved path, and a second call does not return a cached value
