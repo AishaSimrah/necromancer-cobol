@@ -23,7 +23,7 @@ Rules for every task:
 
 ## Tasks
 
-- [ ] 1. Types, static data, markers
+- [x] 1. Types, static data, markers
   - [x] 1.1 Create `src/translator/types.ts`
     - `SampleId`, `Variant`, `SAMPLE_IDS`, `VARIANTS`, `Curse`, `ExamplePair`, `Provenance`, `SampleData`, `Sample`, `CurseMarker`, `TranslationModule`, `Translation` exactly as in the design
     - Imports only types from `../equivalence/compare.js` and `../equivalence/descriptors.js`; no `node:` imports
@@ -35,7 +35,7 @@ Rules for every task:
   - [x] 1.3 Create `src/translator/markers.ts`
     - `extractCurseMarkers(source): readonly CurseMarker[]` with regex `/\/\/\s*CURSE:([a-z0-9-]+)/g` applied per line; 1-based line numbers; two markers on one line give two records
     - _Requirements: 5.1, 5.5_
-  - [ ] 1.4 Write unit tests in `tests/translator/static-data.test.ts` (no Oracle)
+  - [x] 1.4 Write unit tests in `tests/translator/static-data.test.ts` (no Oracle)
     - Order of ids; `fields` are `toEqual` the exported descriptor arrays and not the same references; `Object.isFrozen` is false for the exported `INTEREST`, `PAYROLL`, `TAX` (also covered by `tests/translator/sample-data.test.ts`); default input is one of the examples and has one line per field; pact has 3 to 4 entries of at most 80 characters; trap labels have no line break
     - Curse ids unique across the catalog and match `/^[a-z0-9-]+$/`; labels at most 32 characters
     - Frozen: `Object.isFrozen` on the record, arrays and curses

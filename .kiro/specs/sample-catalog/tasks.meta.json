@@ -46,6 +46,25 @@
         "chatSessionId": "sess_83e3d08c-d4b7-4313-b89a-a98ea92aa174",
         "timestamp": 1794638964238
       }
+    ],
+    "1.4 Write unit tests in `tests/translator/static-data.test.ts` (no Oracle)": [
+      {
+        "executionId": "33359758-fce9-4d64-809c-115eee487953",
+        "chatSessionId": "sess_5f9395b9-3f70-4c9c-8ac7-65f1d174796a",
+        "timestamp": 1794639043898
+      },
+      {
+        "executionId": "33359758-fce9-4d64-809c-115eee487953",
+        "chatSessionId": "sess_5f9395b9-3f70-4c9c-8ac7-65f1d174796a",
+        "timestamp": 1794639181226
+      }
+    ],
+    "1. Types, static data, markers": [
+      {
+        "executionId": "33359758-fce9-4d64-809c-115eee487953",
+        "chatSessionId": "sess_5f9395b9-3f70-4c9c-8ac7-65f1d174796a",
+        "timestamp": 1794639181384
+      }
     ]
   }
 }
