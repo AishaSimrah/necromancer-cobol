@@ -43,7 +43,7 @@ Rules for every task:
     - _Requirements: 1.1, 1.2, 1.4, 1.5, 1.6, 1.7, 3.1, 5.5, 9.5_
 
 - [ ] 2. Server-only file access
-  - [ ] 2.1 Create `src/translator/files.ts`
+  - [x] 2.1 Create `src/translator/files.ts`
     - `repoPath(relative)` and `readRepoText(relative, what)` using `new URL("../../" + relative, import.meta.url)` and `fileURLToPath`; never `process.cwd()`
     - Cache by resolved path in a `Map` (only successful reads are cached)
     - On failure throw `Error("Cannot read <what> at <resolved path>: <cause message>")`; never return an empty string
