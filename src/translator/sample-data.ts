@@ -81,6 +81,7 @@ const PAYROLL_DATA: SampleData = {
       label: "Z(5)9.99 output format",
       lines: [22, 41, 42, 43, 44, 45, 46],
     },
+    { id: "payroll-hours-pic", label: "hours field PIC 9(3)V9", lines: [13, 27] },
   ],
 };
 

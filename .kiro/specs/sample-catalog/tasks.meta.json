@@ -374,6 +374,30 @@
         "chatSessionId": "sess_ce068eba-8995-4aa6-ba6a-2be8ea96b3e8",
         "timestamp": 1794663445649
       }
+    ],
+    "9.3 Create `src/translator/translations/payroll.subtle.ts` and measure": [
+      {
+        "executionId": "145aba09-6601-4a99-99e3-8949928a2aeb",
+        "chatSessionId": "sess_785822ac-ff64-4eb1-b844-8f8b0753919d",
+        "timestamp": 1794663502708
+      },
+      {
+        "executionId": "145aba09-6601-4a99-99e3-8949928a2aeb",
+        "chatSessionId": "sess_785822ac-ff64-4eb1-b844-8f8b0753919d",
+        "timestamp": 1794665328795
+      }
+    ],
+    "9.5 Cleanup after 9.3: add the `payroll-hours-pic` curse": [
+      {
+        "executionId": "4a90dfd3-d191-4b05-8aaa-7b5084dc2fcd",
+        "chatSessionId": "sess_785822ac-ff64-4eb1-b844-8f8b0753919d",
+        "timestamp": 1794665494010
+      },
+      {
+        "executionId": "4a90dfd3-d191-4b05-8aaa-7b5084dc2fcd",
+        "chatSessionId": "sess_785822ac-ff64-4eb1-b844-8f8b0753919d",
+        "timestamp": 1794666031425
+      }
     ]
   }
 }

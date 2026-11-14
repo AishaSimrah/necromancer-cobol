@@ -5,7 +5,7 @@ import { display, numval, roundTo, storeUnsigned, truncTo, wrap, zEdit } from ".
 import type { Provenance } from "../types.js";
 
 export const candidate: Candidate = (lines) => {
-  const hours = storeUnsigned(numval(lines[0] ?? ""), 3, 1);
+  const hours = storeUnsigned(numval(lines[0] ?? ""), 3, 1); // CURSE:payroll-hours-pic
   const rate = storeUnsigned(numval(lines[1] ?? ""), 3, 2);
   const overtime = hours.gt(40); // CURSE:payroll-overtime
   const regHours = overtime ? new Decimal(40) : hours;

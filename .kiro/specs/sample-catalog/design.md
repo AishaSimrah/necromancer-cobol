@@ -198,11 +198,12 @@ The test holds a table `curseId -> keywords` and asserts that at least one of th
 | payroll-compute-rounding | `ROUNDED` |
 | payroll-deduct-truncated | `0.0765` |
 | payroll-z-format | `PIC Z(5)9.99`, `DISPLAY` |
+| payroll-hours-pic | `PIC 9(3)V9`, `WS-HOURS` |
 | tax-brackets | `WHEN` |
 | tax-evaluate-first-match | `EVALUATE` |
 | tax-whole-unit-rounding | `PIC 9(8)`, `ROUNDED` |
 
-Check against the current files: interest line 16 is `PIC 99`, line 17 `PIC 9(7)V99`, line 30 `ROUNDED`; payroll line 29 `IF WS-HOURS > 40`, 37 has `1.5`, 39 has `0.0765`, 22 has `PIC Z(5)9.99`; tax line 13 `PIC 9(8)`, 19 `EVALUATE TRUE`, 20 `WHEN`. Line 28 of tax is `END-EVALUATE`, which contains `EVALUATE`. The `payroll-overtime` list also uses line 37, which contains `* 1.5`.
+Check against the current files: interest line 16 is `PIC 99`, line 17 `PIC 9(7)V99`, line 30 `ROUNDED`; payroll line 13 `PIC 9(3)V9` (`WS-HOURS`), line 27 `COMPUTE WS-HOURS`, line 29 `IF WS-HOURS > 40`, 37 has `1.5`, 39 has `0.0765`, 22 has `PIC Z(5)9.99`; tax line 13 `PIC 9(8)`, 19 `EVALUATE TRUE`, 20 `WHEN`. Line 28 of tax is `END-EVALUATE`, which contains `EVALUATE`. The `payroll-overtime` list also uses line 37, which contains `* 1.5`.
 
 ## File access (`files.ts`)
 
@@ -287,7 +288,7 @@ The two markers on the loop line are written as two comments in one line (`// CU
 **PAYROLL** (`payroll.correct.ts`):
 
 ```ts
-const hours = storeUnsigned(numval(lines[0] ?? ""), 3, 1);
+const hours = storeUnsigned(numval(lines[0] ?? ""), 3, 1);               // CURSE:payroll-hours-pic
 const rate = storeUnsigned(numval(lines[1] ?? ""), 3, 2);
 const overtime = hours.gt(40);                                            // CURSE:payroll-overtime
 const regHours = overtime ? new Decimal(40) : hours;
@@ -338,7 +339,7 @@ Because of this, the choice of the forgotten trap is a measured decision, not a 
 | Sample | 1st (preferred): overflow | 2nd | 3rd |
 |---|---|---|---|
 | interest | no `wrap` on the yearly balance (`CURSE:interest-overflow`). Expected far below 0.90. | no high-order truncation of `years` to PIC 99 (`CURSE:interest-years-pic99`), `years` stored without `mod 100`. Expected about 0.95 to 0.99. | no `abs()` of negative inputs (`storeUnsigned` replaced by truncate + wrap only). Expected about 0.93. |
-| payroll | no `wrap` on `regPay`/`otPay`/`gross` (`CURSE:payroll-compute-rounding`). Expected 0.85 to 0.95. | no high-order truncation of `hours` (hours `mod 1000`). | deduction rounded instead of truncated (`CURSE:payroll-deduct-truncated`). Expected much lower. |
+| payroll | no `wrap` on `regPay`/`otPay`/`gross` (`CURSE:payroll-compute-rounding`). Expected 0.85 to 0.95. | no high-order truncation of `hours` (hours `mod 1000`; `CURSE:payroll-hours-pic`, the field is stored one digit too wide, 9(4)V9 instead of 9(3)V9). Measured 0.933. | deduction rounded instead of truncated (`CURSE:payroll-deduct-truncated`). Expected much lower. |
 | tax | no high-order truncation of `income` (no `mod 10^8`), expected about 0.87 to 0.93 | no `abs()` of a negative `income`, expected about 0.93. | rounding replaced by truncation. Expected about 0.6. |
 
 All numbers in the "Expected" cells are estimates from reading `generate.ts`; they are not measurements. If a sample's candidates all fall outside 0.90 to 0.995, the implementer stops and asks (Req 7.4). Candidate traps are limited to the lists above plus anything the user approves.

@@ -86,6 +86,7 @@ Written in TypeScript strict mode with no `any`. Decimal math uses decimal.js or
    | payroll | `payroll-compute-rounding` | per-COMPUTE rounding | 36, 37 |
    | payroll | `payroll-deduct-truncated` | deduction truncated, not rounded | 39 |
    | payroll | `payroll-z-format` | Z(5)9.99 output format | 22, 41, 42, 43, 44, 45, 46 |
+   | payroll | `payroll-hours-pic` | PIC 9(3)V9 hours width | 13, 27 |
    | tax | `tax-brackets` | progressive brackets | 20, 22, 23, 24, 25, 26, 27 |
    | tax | `tax-evaluate-first-match` | EVALUATE first match | 19, 20, 22, 24, 26, 28 |
    | tax | `tax-whole-unit-rounding` | whole-unit rounding | 13, 23, 25, 27 |

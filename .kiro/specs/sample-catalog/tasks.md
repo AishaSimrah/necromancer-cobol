@@ -29,7 +29,7 @@ Rules for every task:
     - Imports only types from `../equivalence/compare.js` and `../equivalence/descriptors.js`; no `node:` imports
     - _Requirements: 1.2, 4.2, 9.4_
   - [x] 1.2 Create `src/translator/sample-data.ts`
-    - `SAMPLE_DATA` for `interest`, `payroll`, `tax`: name, trap label, `fields` as copies (`copyFields`, one fresh object per descriptor) of `INTEREST`, `PAYROLL`, `TAX` from `../equivalence/descriptors.js`, default input (the first example), the eight example pairs, the fidelity pacts, and the ten curses with the ids, chip labels and line numbers from Req 3.3
+    - `SAMPLE_DATA` for `interest`, `payroll`, `tax`: name, trap label, `fields` as copies (`copyFields`, one fresh object per descriptor) of `INTEREST`, `PAYROLL`, `TAX` from `../equivalence/descriptors.js`, default input (the first example), the eight example pairs, the fidelity pacts, and the curses (eleven after task 9.5) with the ids, chip labels and line numbers from Req 3.3
     - A `deepFreeze` helper; the exported record and every nested array and object are frozen, but only the copies, never the exported descriptor arrays
     - _Requirements: 1.1, 1.2, 1.4, 1.5, 1.6, 1.7, 2.1, 2.2, 2.3, 3.1, 3.2, 3.3, 9.5_
   - [x] 1.3 Create `src/translator/markers.ts`
@@ -90,7 +90,7 @@ Rules for every task:
   - [x] 5.2 Write `tests/translator/catalog.test.ts` (no Oracle), the parts that apply to the slice
     - `listSamples` order and `getSample(id).cobolSource` equals the file read by the test
     - Examples vs `cobol-samples/EXPECTED.md`: the test parses the markdown tables (INTEREST rows `a / b / c`, PAYROLL three back-ticked segments joined with `\n`, TAX) and compares with the catalog; it asserts the number of pairs found per sample (3, 2, 3) so a format change fails loudly
-    - Curses: every line number exists and is not blank; the keyword guard table from the design (all ten curses, since the COBOL files already exist)
+    - Curses: every line number exists and is not blank; the keyword guard table from the design (all eleven curses after task 9.5, since the COBOL files already exist)
     - `getTranslation("interest", "correct")`: `source` equals the file bytes read by the test; provenance fields exact; `date` valid; markers are valid curse ids of `interest`; marker line numbers equal the 1-based line index in `source`; every INTEREST curse appears at least once in the `correct` source
     - API errors: unknown sample id, unknown variant, non-string values; messages name the value and list the valid ones
     - Immutability: frozen records; `getSample("tax") === getSample("tax")`; assignment through a cast throws `TypeError` in strict mode
@@ -141,7 +141,7 @@ Rules for every task:
 - [ ] 9. PAYROLL: `correct`, `naive`, `subtle`
   - [x] 9.1 Create `src/translator/translations/payroll.correct.ts`
     - As in the design: `storeUnsigned` for hours (3, 1) and rate (3, 2); the `hours.gt(40)` split; `regPay`, `otPay` rounded then wrapped to 6 digits; `gross`, `deduct`, `net` truncated then wrapped; three `display` lines in the order GROSS, DEDUCT, NET
-    - Markers for all four PAYROLL curses; every PAYROLL curse appears at least once
+    - Markers for all four PAYROLL curses (five after task 9.5); every PAYROLL curse appears at least once
     - Register `payroll/correct`, add to `UNDER_TEST`, add its `it` and the two PAYROLL example-pair `it`s
     - Run the Oracle test. If the score is below 1, diagnose by looking at the first mismatches in the report. Likely areas: the unsigned `NET` when `gross` wrapped below `deduct`, and the truncation of `otHours`. Fix the translation or the runtime, never the test
     - _Requirements: 4.1, 5.1, 5.2, 6.1 to 6.8, 10.4, 10.5_
@@ -149,11 +149,19 @@ Rules for every task:
     - As in the design: `parseFloat`, `Math.min` / `Math.max` split, one rounding at the end through `toFixed`, `Math.round(gross * 0.0765 * 100) / 100` for the deduction, `padStart(9)`; header `DELIBERATELY WRONG`; markers on the lines that miss each curse
     - Register, add to `UNDER_TEST`, add its `it` (`matchScore < 1`, two groups). Run the Oracle test and report per-group mismatches. If fewer than two groups mismatch, make it worse in a realistic way
     - _Requirements: 8.1 to 8.4, 10.4_
-  - [ ] 9.3 Create `src/translator/translations/payroll.subtle.ts` and measure
+  - [x] 9.3 Create `src/translator/translations/payroll.subtle.ts` and measure
     - Candidate traps in order: (1) no `wrap` on `regPay`, `otPay` and `gross`; (2) `hours` stored without `mod 1000`; (3) deduction rounded instead of truncated. Mark the changed line `NOT HANDLED`
     - Register, add to `UNDER_TEST`, add its `it` and the ordering `it`. Run the Oracle test per trap and record every score. Keep the first in 0.90 to 0.995; if none, STOP and report the scores to the user
     - _Requirements: 5.4, 7.1 to 7.6, 10.4_
   - [ ] 9.4 Run this task's tests, the full Vitest suite, `npm run typecheck` and `npm run lint`
+  - [x] 9.5 Cleanup after 9.3: add the `payroll-hours-pic` curse
+    - `src/translator/sample-data.ts`: add the PAYROLL curse `payroll-hours-pic`, a chip label of at most 32 characters about the hours field width (for example "hours field PIC 9(3)V9"), `lines: [13, 27]`. Line 13 of `cobol-samples/payroll.cbl` is `01 WS-HOURS          PIC 9(3)V9.` and line 27 is `COMPUTE WS-HOURS = FUNCTION NUMVAL(WS-IN-HOURS)`; verify both against the file before writing. Keep the PAYROLL curse order stable and append the new one after `payroll-z-format`
+    - Update the static-data and catalog tests that pin the exact curse set: eleven curses in total, five for PAYROLL, the new id present, the keyword guard table gets `payroll-hours-pic` -> `PIC 9(3)V9`, `WS-HOURS`
+    - `payroll.correct.ts`: add `// CURSE:payroll-hours-pic` to the line that stores `hours` (Req 3.2: every curse appears in `correct`); keep the other markers and the behavior unchanged
+    - `payroll.subtle.ts`: change the marker on the hours line to `// CURSE:payroll-hours-pic` and rewrite its comment to say what the code does: hours is stored in a field one digit too wide (9(4)V9 instead of 9(3)V9), so values of 1000 or more are not wrapped. Keep the `NOT HANDLED` wording (Req 5.4). Update the header comment if it names `payroll-overtime` as the forgotten trap. Add the missing blank line after the imports
+    - Do not change the behavior of any translation or the score. Update marker line numbers in any test that pins them
+    - Run the Oracle test and confirm `payroll/subtle` still scores 0.933 (67 mismatches); report the table. Then run the full Vitest suite, `npm run typecheck` and `npm run lint`
+    - _Requirements: 3.3, 3.2, 3.5, 5.4_
 
 - [ ] 10. TAX: `correct`, `naive`, `subtle`
   - [ ] 10.1 Create `src/translator/translations/tax.correct.ts`

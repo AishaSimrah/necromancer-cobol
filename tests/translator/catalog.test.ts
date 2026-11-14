@@ -76,6 +76,7 @@ const KEYWORDS: Readonly<Record<string, readonly string[]>> = {
   "payroll-compute-rounding": ["ROUNDED"],
   "payroll-deduct-truncated": ["0.0765"],
   "payroll-z-format": ["PIC Z(5)9.99", "DISPLAY"],
+  "payroll-hours-pic": ["PIC 9(3)V9", "WS-HOURS"],
   "tax-brackets": ["WHEN"],
   "tax-evaluate-first-match": ["EVALUATE"],
   "tax-whole-unit-rounding": ["PIC 9(8)", "ROUNDED"],
@@ -254,10 +255,10 @@ describe("immutability", () => {
 
 describe("missing translations", () => {
   // Removed in task 13.1, when every sample/variant has a registered translation.
-  it("throws for payroll/subtle", () => {
-    const variant: Variant = "subtle";
-    expect(() => getTranslation("payroll", variant)).toThrow(
-      "No translation registered for payroll/subtle",
+  it("throws for tax/correct", () => {
+    const variant: Variant = "correct";
+    expect(() => getTranslation("tax", variant)).toThrow(
+      "No translation registered for tax/correct",
     );
   });
 });

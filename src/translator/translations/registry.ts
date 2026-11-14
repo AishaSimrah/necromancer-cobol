@@ -6,6 +6,7 @@ import * as interestNaive from "./interest.naive.js";
 import * as interestSubtle from "./interest.subtle.js";
 import * as payrollCorrect from "./payroll.correct.js";
 import * as payrollNaive from "./payroll.naive.js";
+import * as payrollSubtle from "./payroll.subtle.js";
 
 const REGISTRY: Readonly<Partial<Record<`${SampleId}/${Variant}`, TranslationModule>>> = {
   "interest/correct": interestCorrect,
@@ -13,6 +14,7 @@ const REGISTRY: Readonly<Partial<Record<`${SampleId}/${Variant}`, TranslationMod
   "interest/subtle": interestSubtle,
   "payroll/correct": payrollCorrect,
   "payroll/naive": payrollNaive,
+  "payroll/subtle": payrollSubtle,
 };
 
 export function getTranslationModule(sampleId: SampleId, variant: Variant): TranslationModule {

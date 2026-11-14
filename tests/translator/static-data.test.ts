@@ -60,7 +60,9 @@ describe("curses", () => {
   it("has unique ids that match /^[a-z0-9-]+$/", () => {
     const ids = curses.map((c) => c.id);
     expect(new Set(ids).size).toBe(ids.length);
-    expect(ids).toHaveLength(10);
+    expect(ids).toHaveLength(11);
+    expect(ids).toContain("payroll-hours-pic");
+    expect(SAMPLE_DATA.payroll.curses).toHaveLength(5);
     for (const id of ids) {
       expect(id).toMatch(/^[a-z0-9-]+$/);
     }
