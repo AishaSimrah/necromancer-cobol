@@ -97,8 +97,8 @@ Rules for every task:
     - A not-yet-registered translation (for example `payroll/correct`) throws `No translation registered for payroll/correct` (removed in task 13.1)
     - _Requirements: 1.1 to 1.7, 2.1, 2.4, 3.1 to 3.5, 4.3, 4.4, 5.1 to 5.3, 5.5, 9.1 to 9.5, 10.9_
 
-- [ ] 6. Thin slice: real-Oracle test for INTEREST `correct`
-  - [ ] 6.1 Create `tests/translator/oracle.test.ts`
+- [x] 6. Thin slice: real-Oracle test for INTEREST `correct`
+  - [x] 6.1 Create `tests/translator/oracle.test.ts`
     - Structure from the design: `beforeAll` with probe, then one `standardRun` per `UNDER_TEST` entry (sequential), outcomes stored in a `Map`; `reportOf()` for all assertions; `afterAll` prints the score table and calls `shutdown()`
     - `UNDER_TEST = [{ sample: "interest", variant: "correct" }]`
     - `standardRun` uses `runEquivalence({ source, fields, candidate, caseCount: 1000, seed: 1, oracleTimeoutMs: 10_000 })` with the real Oracle (no `oracle` option) and returns a failed outcome for `oracle_unavailable`, `inconclusive`, `inconclusiveCount > 0`, or a missing `matchScore`
@@ -107,7 +107,7 @@ Rules for every task:
     - `it`s for the three INTEREST example pairs: `compileCobol` once, `runCompiled` per pair, `status === "ok"`, `stdout === pair.output`, then `candidate(input) === pair.output`; `releaseHandle` in `finally`
     - No `skip`, `skipIf`, `runIf`, or `todo` in the file
     - _Requirements: 2.4, 6.8, 10.1 to 10.7_
-  - [ ] 6.2 Run the Oracle test and record the result
+  - [x] 6.2 Run the Oracle test and record the result
     - Run `npx vitest --run tests/translator/oracle.test.ts`
     - If `interest/correct` does not score exactly 1, fix the translation or the runtime (not the test, not the engine) and rerun
     - Note the score table and the elapsed time for the Standard_Run in the working notes for task 14.2
