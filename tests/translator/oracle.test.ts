@@ -20,7 +20,10 @@ interface UnderTestEntry {
 }
 
 /** Grows slice by slice, in the same task that adds a translation. */
-const UNDER_TEST: readonly UnderTestEntry[] = [{ sample: "interest", variant: "correct" }];
+const UNDER_TEST: readonly UnderTestEntry[] = [
+  { sample: "interest", variant: "correct" },
+  { sample: "interest", variant: "naive" },
+];
 
 type RunOutcome =
   | { readonly ok: true; readonly report: EquivalenceReport }
@@ -130,6 +133,17 @@ describe("sample translations against the real Oracle", () => {
     expect(report.mismatchCount).toBe(0);
     expect(report.conclusiveCount).toBe(1000);
     expect(report.inconclusiveCount).toBe(0);
+  });
+
+  it("interest/naive is caught: score below 1, mismatches in at least two groups", () => {
+    const report = reportOf("interest", "naive");
+    expect(report.matchScore).toBeLessThan(1);
+    const groupsWithMismatch = report.groups.filter((g) => g.conclusive - g.matched >= 1);
+    const detail = report.groups.map((g) => `${g.group} ${g.matched}/${g.conclusive}`).join("; ");
+    expect(
+      groupsWithMismatch.length,
+      `groups with mismatches: ${groupsWithMismatch.length} (${detail})`,
+    ).toBeGreaterThanOrEqual(2);
   });
 });
 

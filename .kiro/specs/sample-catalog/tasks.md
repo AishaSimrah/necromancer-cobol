@@ -122,7 +122,7 @@ Rules for every task:
     - A copy of `naiveInterestCandidate` from `tests/equivalence/candidates/interest.ts`, as `candidate`, with `provenance`, the header `// DELIBERATELY WRONG: the typical first attempt, floating point and no COBOL field semantics.`, and markers `CURSE:interest-yearly-rounding` (loop line) and `CURSE:interest-overflow` (result line)
     - The `correct` translation from task 4.1 must also be equivalent to `correctInterestCandidate` (checked in 8.4)
     - _Requirements: 4.1, 4.2, 8.1, 8.2, 8.5_
-  - [ ] 8.2 Register `interest/naive` and add it to `UNDER_TEST`; add its `it` (`matchScore < 1`, mismatches in at least two groups from `report.groups`)
+  - [x] 8.2 Register `interest/naive` and add it to `UNDER_TEST`; add its `it` (`matchScore < 1`, mismatches in at least two groups from `report.groups`)
     - Run the Oracle test; report per-group mismatch counts. If it does not meet the two-group rule, make the naive file worse in a realistic way (Req 8.4, 8.8) and rerun
     - _Requirements: 8.3, 8.4, 10.4_
   - [ ] 8.3 Create `src/translator/translations/interest.subtle.ts` and measure

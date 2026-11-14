@@ -295,6 +295,18 @@
         "chatSessionId": "sess_ae0ecd0d-a990-4e36-94dc-cce2cd3af436",
         "timestamp": 1794641719674
       }
+    ],
+    "8.2 Register `interest/naive` and add it to `UNDER_TEST`; add its `it` (`matchScore < 1`, mismatches in at least two groups from `report.groups`)": [
+      {
+        "executionId": "df848dcf-3e22-4d42-92f5-4499b028dc01",
+        "chatSessionId": "sess_b3e9dba9-312e-4ae2-a66b-3d745c05bad2",
+        "timestamp": 1794641752857
+      },
+      {
+        "executionId": "df848dcf-3e22-4d42-92f5-4499b028dc01",
+        "chatSessionId": "sess_b3e9dba9-312e-4ae2-a66b-3d745c05bad2",
+        "timestamp": 1794641896962
+      }
     ]
   }
 }
