@@ -96,6 +96,37 @@
         "chatSessionId": "sess_a67a19d0-47e6-4dd6-8cc2-52cfdf351cc6",
         "timestamp": 1794639496153
       }
+    ],
+    "3.1 Create `src/translator/cobol-runtime.ts`": [
+      {
+        "executionId": "2807e030-3c63-4353-8844-249adb9231b1",
+        "chatSessionId": "sess_58f6cc3b-291c-4b12-af78-e2ee98561b7e",
+        "timestamp": 1794639603601
+      },
+      {
+        "executionId": "2807e030-3c63-4353-8844-249adb9231b1",
+        "chatSessionId": "sess_58f6cc3b-291c-4b12-af78-e2ee98561b7e",
+        "timestamp": 1794639711672
+      }
+    ],
+    "3.2 Write tests in `tests/translator/cobol-runtime.test.ts` (no Oracle)": [
+      {
+        "executionId": "6daf3c78-c4fd-46e2-9415-c8703b332fa2",
+        "chatSessionId": "sess_c94ed0be-eb3e-44ae-b2b3-3f40ff58f065",
+        "timestamp": 1794639743154
+      },
+      {
+        "executionId": "6daf3c78-c4fd-46e2-9415-c8703b332fa2",
+        "chatSessionId": "sess_c94ed0be-eb3e-44ae-b2b3-3f40ff58f065",
+        "timestamp": 1794639902715
+      }
+    ],
+    "3.3 Run this task's tests, the full Vitest suite, `npm run typecheck` and `npm run lint`": [
+      {
+        "executionId": "d4d5f120-1b29-400f-aad1-1ef07b5c1946",
+        "chatSessionId": "sess_bf9c1f12-c16e-4732-921f-88c1925664d5",
+        "timestamp": 1794640085943
+      }
     ]
   }
 }

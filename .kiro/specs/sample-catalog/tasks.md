@@ -56,16 +56,16 @@ Rules for every task:
     - _Requirements: 1.3a, 1.3b_
 
 - [ ] 3. COBOL runtime library
-  - [ ] 3.1 Create `src/translator/cobol-runtime.ts`
+  - [x] 3.1 Create `src/translator/cobol-runtime.ts`
     - Isolated `Decimal` clone with `precision: 60`; exports `Dec`, `numval`, `truncTo`, `roundTo` (ROUND_HALF_UP), `storeUnsigned`, `wrap` (abs, then mod 10^digits), `zEdit`, `display` as specified in the design
     - No `number` for field values; no Node imports; no `process` / `Buffer`
     - A comment states that `numval` handles plain decimal text and returns 0 for unparseable text
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5_
-  - [ ] 3.2 Write tests in `tests/translator/cobol-runtime.test.ts` (no Oracle)
+  - [x] 3.2 Write tests in `tests/translator/cobol-runtime.test.ts` (no Oracle)
     - Unit tests on the values from the example pairs, zero, max, max + one unit, half-unit ties (`0.005`, `2.5` to scale 0), negative input to `storeUnsigned` (absolute value), extra decimals truncated, high-order digits dropped, unparseable text, `zEdit` of zero (`"      0.00"`), `zEdit` width for `Z(6)9.99`, `Z(5)9.99`, `Z(7)9`
     - Property tests (fast-check, `numRuns` 200, fixed seed): `storeUnsigned` result is always in `[0, 10^digits)` and has at most `scale` decimals; `zEdit` output length is constant for a fixed picture; `roundTo(x, s)` is within one unit of `truncTo(x, s)` for non-negative `x`
     - _Requirements: 6.2, 6.3, 6.5, 10.8_
-  - [ ] 3.3 Run this task's tests, the full Vitest suite, `npm run typecheck` and `npm run lint`
+  - [-] 3.3 Run this task's tests, the full Vitest suite, `npm run typecheck` and `npm run lint`
 
 - [ ] 4. Thin slice: INTEREST `correct` translation and registry
   - [ ] 4.1 Create `src/translator/translations/interest.correct.ts`
