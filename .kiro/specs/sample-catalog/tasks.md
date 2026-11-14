@@ -117,7 +117,7 @@ Rules for every task:
   - [x] 7.1 Run `npm run typecheck`, `npm run lint`, `npm test` (full suite), and the sample equivalence suite
     - All must pass. Ask the user if a question comes up. Do not start task 8 before this is green.
 
-- [ ] 8. INTEREST: `naive` and `subtle`
+- [x] 8. INTEREST: `naive` and `subtle`
   - [x] 8.1 Create `src/translator/translations/interest.naive.ts`
     - A copy of `naiveInterestCandidate` from `tests/equivalence/candidates/interest.ts`, as `candidate`, with `provenance`, the header `// DELIBERATELY WRONG: the typical first attempt, floating point and no COBOL field semantics.`, and markers `CURSE:interest-yearly-rounding` (loop line) and `CURSE:interest-overflow` (result line)
     - The `correct` translation from task 4.1 must also be equivalent to `correctInterestCandidate` (checked in 8.4)
@@ -125,18 +125,18 @@ Rules for every task:
   - [x] 8.2 Register `interest/naive` and add it to `UNDER_TEST`; add its `it` (`matchScore < 1`, mismatches in at least two groups from `report.groups`)
     - Run the Oracle test; report per-group mismatch counts. If it does not meet the two-group rule, make the naive file worse in a realistic way (Req 8.4, 8.8) and rerun
     - _Requirements: 8.3, 8.4, 10.4_
-  - [ ] 8.3 Create `src/translator/translations/interest.subtle.ts` and measure
+  - [x] 8.3 Create `src/translator/translations/interest.subtle.ts` and measure
     - Start from the `correct` file and change exactly one trap, in this order: (1) no `wrap` on the yearly balance (`CURSE:interest-overflow`); (2) `years` stored without `mod 100` (`CURSE:interest-years-pic99`); (3) no absolute value of negative inputs. Put `// CURSE:<id>  NOT HANDLED: <what is missing>` on the changed line and name the chosen trap in the header comment
     - Register `interest/subtle`, add it to `UNDER_TEST`, add its `it` (`matchScore < 1`, `mismatchCount >= 1`) and the per-sample ordering `it` (`naive < subtle < 1`, both scores in the message)
     - Run the Oracle test for each trap tried. Record the score, `mismatchCount` and group counts for every trap tried. Keep the first trap whose score is in 0.90 to 0.995
     - If none of the three is in range, STOP and report the measured scores to the user (Req 7.4). Do not widen the range, and do not continue with PAYROLL until the user answers
     - _Requirements: 4.1, 5.4, 7.1 to 7.6, 10.4_
-  - [ ] 8.4 Write `tests/translator/interest-copies.test.ts` (no Oracle)
+  - [x] 8.4 Write `tests/translator/interest-copies.test.ts` (no Oracle)
     - Import `src/translator/translations/interest.{correct,naive}.ts` and the originals in `tests/equivalence/candidates/interest.ts` (read-only)
     - 200 vectors: the three example pairs, about 40 hand-written boundary vectors (zero, max, max + one unit, `x.xx5` rates, 0 / 99 / 100 years, negative principal, ten-digit principal), and the rest from `fc.sample(vectorArb, { seed: 20260101, numRuns })`; total exactly 200; the vectors are the same on every run
     - For each vector `expect(copy(v)).toBe(original(v))` with the input, the original output and the copy output in the failure message; the `correct` pair always, the `naive` pair unless the naive copy was changed per Req 8.8 (then delete that half in the same change and say so in the report)
     - _Requirements: 8.5, 8.6, 8.7, 8.8_
-  - [ ] 8.5 Run this task's tests, the full Vitest suite, `npm run typecheck` and `npm run lint`
+  - [x] 8.5 Run this task's tests, the full Vitest suite, `npm run typecheck` and `npm run lint`
 
 - [ ] 9. PAYROLL: `correct`, `naive`, `subtle`
   - [ ] 9.1 Create `src/translator/translations/payroll.correct.ts`

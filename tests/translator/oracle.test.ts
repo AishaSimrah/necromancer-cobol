@@ -23,6 +23,7 @@ interface UnderTestEntry {
 const UNDER_TEST: readonly UnderTestEntry[] = [
   { sample: "interest", variant: "correct" },
   { sample: "interest", variant: "naive" },
+  { sample: "interest", variant: "subtle" },
 ];
 
 type RunOutcome =
@@ -144,6 +145,22 @@ describe("sample translations against the real Oracle", () => {
       groupsWithMismatch.length,
       `groups with mismatches: ${groupsWithMismatch.length} (${detail})`,
     ).toBeGreaterThanOrEqual(2);
+  });
+
+  it("interest/subtle is caught: score below 1 with at least one mismatch", () => {
+    const report = reportOf("interest", "subtle");
+    expect(report.matchScore).toBeLessThan(1);
+    expect(report.mismatchCount).toBeGreaterThanOrEqual(1);
+  });
+
+  it("interest ordering: naive < subtle < 1", () => {
+    const naive = reportOf("interest", "naive").matchScore;
+    const subtle = reportOf("interest", "subtle").matchScore;
+    const message = `naive=${String(naive)} subtle=${String(subtle)}`;
+    expect(naive, message).toBeDefined();
+    expect(subtle, message).toBeDefined();
+    expect(naive as number, message).toBeLessThan(subtle as number);
+    expect(subtle as number, message).toBeLessThan(1);
   });
 });
 

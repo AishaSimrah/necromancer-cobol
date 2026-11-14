@@ -307,6 +307,49 @@
         "chatSessionId": "sess_b3e9dba9-312e-4ae2-a66b-3d745c05bad2",
         "timestamp": 1794641896962
       }
+    ],
+    "8.3 Create `src/translator/translations/interest.subtle.ts` and measure": [
+      {
+        "executionId": "58a5baf7-4ac0-4173-8f5f-4d7c6349aaf7",
+        "chatSessionId": "sess_61e567ff-b777-46fd-b83b-c8f9c99da285",
+        "timestamp": 1794641938070
+      },
+      {
+        "executionId": "58a5baf7-4ac0-4173-8f5f-4d7c6349aaf7",
+        "chatSessionId": "sess_61e567ff-b777-46fd-b83b-c8f9c99da285",
+        "timestamp": 1794642204844
+      }
+    ],
+    "8.4 Write `tests/translator/interest-copies.test.ts` (no Oracle)": [
+      {
+        "executionId": "fb3db9c0-dbc0-4618-8b30-c08444b58d77",
+        "chatSessionId": "sess_40242a80-cf2f-47e2-8831-3d7240bca5d9",
+        "timestamp": 1794642240347
+      },
+      {
+        "executionId": "fb3db9c0-dbc0-4618-8b30-c08444b58d77",
+        "chatSessionId": "sess_40242a80-cf2f-47e2-8831-3d7240bca5d9",
+        "timestamp": 1794642388552
+      }
+    ],
+    "8.5 Run this task's tests, the full Vitest suite, `npm run typecheck` and `npm run lint`": [
+      {
+        "executionId": "d09a7462-ea88-4f23-81c8-140ac1efe1d9",
+        "chatSessionId": "sess_b479fc84-5c87-4d61-b12d-a48b84a459a3",
+        "timestamp": 1794642426373
+      },
+      {
+        "executionId": "d09a7462-ea88-4f23-81c8-140ac1efe1d9",
+        "chatSessionId": "sess_b479fc84-5c87-4d61-b12d-a48b84a459a3",
+        "timestamp": 1794642752070
+      }
+    ],
+    "8. INTEREST: `naive` and `subtle`": [
+      {
+        "executionId": "d09a7462-ea88-4f23-81c8-140ac1efe1d9",
+        "chatSessionId": "sess_b479fc84-5c87-4d61-b12d-a48b84a459a3",
+        "timestamp": 1794642752349
+      }
     ]
   }
 }
