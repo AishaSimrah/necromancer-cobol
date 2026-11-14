@@ -113,8 +113,8 @@ Rules for every task:
     - Note the score table and the elapsed time for the Standard_Run in the working notes for task 14.2
     - _Requirements: 6.8, 10.10_
 
-- [ ] 7. Checkpoint: thin slice
-  - [ ] 7.1 Run `npm run typecheck`, `npm run lint`, `npm test` (full suite), and the sample equivalence suite
+- [x] 7. Checkpoint: thin slice
+  - [x] 7.1 Run `npm run typecheck`, `npm run lint`, `npm test` (full suite), and the sample equivalence suite
     - All must pass. Ask the user if a question comes up. Do not start task 8 before this is green.
 
 - [ ] 8. INTEREST: `naive` and `subtle`
