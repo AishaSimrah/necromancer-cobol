@@ -32,7 +32,7 @@ Rules for every task:
     - `SAMPLE_DATA` for `interest`, `payroll`, `tax`: name, trap label, `fields` as copies (`copyFields`, one fresh object per descriptor) of `INTEREST`, `PAYROLL`, `TAX` from `../equivalence/descriptors.js`, default input (the first example), the eight example pairs, the fidelity pacts, and the ten curses with the ids, chip labels and line numbers from Req 3.3
     - A `deepFreeze` helper; the exported record and every nested array and object are frozen, but only the copies, never the exported descriptor arrays
     - _Requirements: 1.1, 1.2, 1.4, 1.5, 1.6, 1.7, 2.1, 2.2, 2.3, 3.1, 3.2, 3.3, 9.5_
-  - [ ] 1.3 Create `src/translator/markers.ts`
+  - [x] 1.3 Create `src/translator/markers.ts`
     - `extractCurseMarkers(source): readonly CurseMarker[]` with regex `/\/\/\s*CURSE:([a-z0-9-]+)/g` applied per line; 1-based line numbers; two markers on one line give two records
     - _Requirements: 5.1, 5.5_
   - [ ] 1.4 Write unit tests in `tests/translator/static-data.test.ts` (no Oracle)
