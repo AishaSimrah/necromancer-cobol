@@ -106,6 +106,7 @@ const TAX_DATA: SampleData = {
     { id: "tax-brackets", label: "progressive brackets", lines: [20, 22, 23, 24, 25, 26, 27] },
     { id: "tax-evaluate-first-match", label: "EVALUATE first match", lines: [19, 20, 22, 24, 26, 28] },
     { id: "tax-whole-unit-rounding", label: "whole-unit rounding", lines: [13, 23, 25, 27] },
+    { id: "tax-unsigned-income", label: "unsigned income PIC 9(8)", lines: [12, 18] },
   ],
 };
 

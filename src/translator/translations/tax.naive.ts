@@ -4,7 +4,7 @@ import type { Candidate } from "../../equivalence/compare.js";
 import type { Provenance } from "../types.js";
 
 export const candidate: Candidate = (lines) => {
-  const income = Number.parseFloat(lines[0] ?? "") || 0; // CURSE:tax-whole-unit-rounding
+  const income = Number.parseFloat(lines[0] ?? "") || 0; // CURSE:tax-unsigned-income
   let rate = 0.3;
   if (income <= 250000) rate = 0; // CURSE:tax-evaluate-first-match
   else if (income <= 500000) rate = 0.05; // CURSE:tax-evaluate-first-match

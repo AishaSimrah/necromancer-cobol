@@ -1,12 +1,13 @@
 // Translates cobol-samples/tax.cbl. Variant: subtle.
-// Forgotten trap: tax-whole-unit-rounding (income is not cut to 8 digits, so no mod 10^8 on the input).
+// Forgotten trap: tax-unsigned-income. A negative income keeps its sign instead of being stored as its
+// absolute value in the unsigned WS-INCOME PIC 9(8). Everything else follows the COBOL.
 import { Decimal } from "decimal.js";
 import type { Candidate } from "../../equivalence/compare.js";
 import { display, numval, roundTo, truncTo, wrap, zEdit } from "../cobol-runtime.js";
 import type { Provenance } from "../types.js";
 
 export const candidate: Candidate = (lines) => {
-  const income = truncTo(numval(lines[0] ?? "").abs(), 0); // CURSE:tax-whole-unit-rounding  NOT HANDLED: high-order digits of income are not dropped (PIC 9(8) keeps only the low 8 digits)
+  const income = truncTo(numval(lines[0] ?? ""), 0).mod("100000000"); // CURSE:tax-unsigned-income  NOT HANDLED: a negative income keeps its sign instead of being stored as its absolute value in the unsigned WS-INCOME PIC 9(8)
   let tax: Decimal;
   // EVALUATE TRUE: the first matching WHEN wins.
   if (income.lte(250000)) { // CURSE:tax-evaluate-first-match

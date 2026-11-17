@@ -90,6 +90,7 @@ Written in TypeScript strict mode with no `any`. Decimal math uses decimal.js or
    | tax | `tax-brackets` | progressive brackets | 20, 22, 23, 24, 25, 26, 27 |
    | tax | `tax-evaluate-first-match` | EVALUATE first match | 19, 20, 22, 24, 26, 28 |
    | tax | `tax-whole-unit-rounding` | whole-unit rounding | 13, 23, 25, 27 |
+   | tax | `tax-unsigned-income` | unsigned income PIC 9(8) | 12, 18 |
 
 4. THE verification tests SHALL check that every Curse line number exists in the COBOL source and that the line is not blank.
 5. IF the COBOL source file is edited so that a Curse line number no longer points at the intended statement, THE verification tests SHOULD fail. The tests SHALL check this by asserting, for each Curse, that at least one of its lines contains a keyword given in the test for that Curse (for example `ROUNDED` for `interest-yearly-rounding`).

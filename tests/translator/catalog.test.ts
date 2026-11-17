@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import { INTEREST, PAYROLL, TAX } from "../../src/equivalence/descriptors.js";
 import type { FieldDescriptor } from "../../src/equivalence/descriptors.js";
 import { getSample, getTranslation, listSamples } from "../../src/translator/catalog.js";
-import type { ExamplePair, Sample, SampleId, Variant } from "../../src/translator/types.js";
+import type { ExamplePair, Sample, SampleId } from "../../src/translator/types.js";
 
 function ownRead(relative: string): string {
   return readFileSync(fileURLToPath(new URL("../../" + relative, import.meta.url)), "utf8");
@@ -80,6 +80,7 @@ const KEYWORDS: Readonly<Record<string, readonly string[]>> = {
   "tax-brackets": ["WHEN"],
   "tax-evaluate-first-match": ["EVALUATE"],
   "tax-whole-unit-rounding": ["PIC 9(8)", "ROUNDED"],
+  "tax-unsigned-income": ["PIC 9(8)", "WS-INCOME"],
 };
 
 describe("curses", () => {
@@ -113,7 +114,7 @@ describe("curses", () => {
     }
   });
 
-  it("covers exactly the ten guarded curses", () => {
+  it("covers exactly the twelve guarded curses", () => {
     expect(allCurses.map(({ curse }) => curse.id).sort()).toEqual(Object.keys(KEYWORDS).sort());
   });
 
@@ -248,18 +249,6 @@ describe("immutability", () => {
       expect(sample.fields).not.toBe(descriptor);
       sample.fields.forEach((field, index) => expect(field).not.toBe(descriptor[index]));
     }
-  });
-});
-
-// ---------- missing translation ----------
-
-describe("missing translations", () => {
-  // Removed in task 13.1, when every sample/variant has a registered translation.
-  it("throws for tax/subtle", () => {
-    const variant: Variant = "subtle";
-    expect(() => getTranslation("tax", variant)).toThrow(
-      "No translation registered for tax/subtle",
-    );
   });
 });
 

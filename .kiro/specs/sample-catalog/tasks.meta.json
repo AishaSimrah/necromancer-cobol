@@ -447,6 +447,42 @@
         "executionId": "cd79eb80-3463-4cae-b8b8-4c80f93be018",
         "chatSessionId": "sess_b176cbfb-dbba-4ccd-a437-19305733e71d",
         "timestamp": 1794921994465
+      },
+      {
+        "executionId": "cd79eb80-3463-4cae-b8b8-4c80f93be018",
+        "chatSessionId": "sess_b176cbfb-dbba-4ccd-a437-19305733e71d",
+        "timestamp": 1794922476495
+      }
+    ],
+    "10.4 Cleanup after 10.3: add the `tax-unsigned-income` curse": [
+      {
+        "executionId": "cd9ed391-20e1-4f4a-a044-fb47c705cf77",
+        "chatSessionId": "sess_b176cbfb-dbba-4ccd-a437-19305733e71d",
+        "timestamp": 1794922656972
+      },
+      {
+        "executionId": "cd9ed391-20e1-4f4a-a044-fb47c705cf77",
+        "chatSessionId": "sess_b176cbfb-dbba-4ccd-a437-19305733e71d",
+        "timestamp": 1794923849988
+      }
+    ],
+    "10.5 Run this task's tests, the full Vitest suite, `npm run typecheck` and `npm run lint`": [
+      {
+        "executionId": "ef15181c-12b4-4282-86f4-7ff2b99293da",
+        "chatSessionId": "sess_b176cbfb-dbba-4ccd-a437-19305733e71d",
+        "timestamp": 1794923915016
+      },
+      {
+        "executionId": "ef15181c-12b4-4282-86f4-7ff2b99293da",
+        "chatSessionId": "sess_b176cbfb-dbba-4ccd-a437-19305733e71d",
+        "timestamp": 1794924594745
+      }
+    ],
+    "10. TAX: `correct`, `naive`, `subtle`": [
+      {
+        "executionId": "ef15181c-12b4-4282-86f4-7ff2b99293da",
+        "chatSessionId": "sess_b176cbfb-dbba-4ccd-a437-19305733e71d",
+        "timestamp": 1794924595059
       }
     ]
   }

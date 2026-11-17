@@ -5,7 +5,7 @@ import { display, numval, roundTo, storeUnsigned, wrap, zEdit } from "../cobol-r
 import type { Provenance } from "../types.js";
 
 export const candidate: Candidate = (lines) => {
-  const income = storeUnsigned(numval(lines[0] ?? ""), 8, 0); // CURSE:tax-whole-unit-rounding
+  const income = storeUnsigned(numval(lines[0] ?? ""), 8, 0); // CURSE:tax-unsigned-income
   let tax: Decimal;
   // EVALUATE TRUE: the first matching WHEN wins.
   if (income.lte(250000)) { // CURSE:tax-evaluate-first-match

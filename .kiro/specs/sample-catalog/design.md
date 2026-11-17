@@ -181,7 +181,7 @@ Fidelity pacts (3 to 4 statements, each at most 80 characters):
 - payroll: "Pays hours over 40 at 1.5x", "Rounds regular and overtime pay to cents at each COMPUTE", "Truncates the 7.65% deduction instead of rounding it", "Prints GROSS, DEDUCT and NET as Z(5)9.99, one per line".
 - tax: "Taxes only the slice of income inside each bracket", "Takes the first matching EVALUATE branch only", "Rounds tax half away from zero to whole units", "Prints TAX as Z(7)9 with a trailing newline".
 
-Curses are exactly the table in Requirement 3.3. Chip labels (at most 32 characters): "per-year rounding", "silent field overflow", "PIC 99 years", "overtime over 40 at 1.5x", "per-COMPUTE rounding", "deduction truncated, not rounded", "Z(5)9.99 output format", "progressive brackets", "EVALUATE first match", "whole-unit rounding". The longest, "deduction truncated, not rounded", has 32 characters.
+Curses are exactly the table in Requirement 3.3. Chip labels (at most 32 characters): "per-year rounding", "silent field overflow", "PIC 99 years", "overtime over 40 at 1.5x", "per-COMPUTE rounding", "deduction truncated, not rounded", "Z(5)9.99 output format", "progressive brackets", "EVALUATE first match", "whole-unit rounding", "hours field PIC 9(3)V9", "unsigned income PIC 9(8)". The longest, "deduction truncated, not rounded", has 32 characters.
 
 Everything is built with `Object.freeze` recursively (a small `deepFreeze` helper in `sample-data.ts`), so a caller cannot change the data (Req 9.5).
 
@@ -202,8 +202,9 @@ The test holds a table `curseId -> keywords` and asserts that at least one of th
 | tax-brackets | `WHEN` |
 | tax-evaluate-first-match | `EVALUATE` |
 | tax-whole-unit-rounding | `PIC 9(8)`, `ROUNDED` |
+| tax-unsigned-income | `PIC 9(8)`, `WS-INCOME` |
 
-Check against the current files: interest line 16 is `PIC 99`, line 17 `PIC 9(7)V99`, line 30 `ROUNDED`; payroll line 13 `PIC 9(3)V9` (`WS-HOURS`), line 27 `COMPUTE WS-HOURS`, line 29 `IF WS-HOURS > 40`, 37 has `1.5`, 39 has `0.0765`, 22 has `PIC Z(5)9.99`; tax line 13 `PIC 9(8)`, 19 `EVALUATE TRUE`, 20 `WHEN`. Line 28 of tax is `END-EVALUATE`, which contains `EVALUATE`. The `payroll-overtime` list also uses line 37, which contains `* 1.5`.
+Check against the current files: interest line 16 is `PIC 99`, line 17 `PIC 9(7)V99`, line 30 `ROUNDED`; payroll line 13 `PIC 9(3)V9` (`WS-HOURS`), line 27 `COMPUTE WS-HOURS`, line 29 `IF WS-HOURS > 40`, 37 has `1.5`, 39 has `0.0765`, 22 has `PIC Z(5)9.99`; tax line 12 `PIC 9(8)` (`WS-INCOME`), line 13 `PIC 9(8)` (`WS-TAX`), line 18 `COMPUTE WS-INCOME`, 19 `EVALUATE TRUE`, 20 `WHEN`. Line 28 of tax is `END-EVALUATE`, which contains `EVALUATE`. The `payroll-overtime` list also uses line 37, which contains `* 1.5`.
 
 ## File access (`files.ts`)
 
@@ -308,7 +309,7 @@ Each of the three lines of output uses `display`, so each ends in `\n`.
 **TAX** (`tax.correct.ts`):
 
 ```ts
-const income = storeUnsigned(numval(lines[0] ?? ""), 8, 0);
+const income = storeUnsigned(numval(lines[0] ?? ""), 8, 0);               // CURSE:tax-unsigned-income
 let tax: Dec;
 if (income.lte(250000)) {                                                 // CURSE:tax-evaluate-first-match  CURSE:tax-brackets
   tax = new Decimal(0);
@@ -340,7 +341,7 @@ Because of this, the choice of the forgotten trap is a measured decision, not a 
 |---|---|---|---|
 | interest | no `wrap` on the yearly balance (`CURSE:interest-overflow`). Expected far below 0.90. | no high-order truncation of `years` to PIC 99 (`CURSE:interest-years-pic99`), `years` stored without `mod 100`. Expected about 0.95 to 0.99. | no `abs()` of negative inputs (`storeUnsigned` replaced by truncate + wrap only). Expected about 0.93. |
 | payroll | no `wrap` on `regPay`/`otPay`/`gross` (`CURSE:payroll-compute-rounding`). Expected 0.85 to 0.95. | no high-order truncation of `hours` (hours `mod 1000`; `CURSE:payroll-hours-pic`, the field is stored one digit too wide, 9(4)V9 instead of 9(3)V9). Measured 0.933. | deduction rounded instead of truncated (`CURSE:payroll-deduct-truncated`). Expected much lower. |
-| tax | no high-order truncation of `income` (no `mod 10^8`), expected about 0.87 to 0.93 | no `abs()` of a negative `income`, expected about 0.93. | rounding replaced by truncation. Expected about 0.6. |
+| tax | no high-order truncation of `income` (no `mod 10^8`), expected about 0.87 to 0.93 | no `abs()` of a negative `income` (`CURSE:tax-unsigned-income`, the unsigned `WS-INCOME PIC 9(8)` stores the absolute value), measured 0.948. | rounding replaced by truncation. Expected about 0.6. |
 
 All numbers in the "Expected" cells are estimates from reading `generate.ts`; they are not measurements. If a sample's candidates all fall outside 0.90 to 0.995, the implementer stops and asks (Req 7.4). Candidate traps are limited to the lists above plus anything the user approves.
 

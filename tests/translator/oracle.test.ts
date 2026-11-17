@@ -21,7 +21,12 @@ interface UnderTestEntry {
 
 /** Grows slice by slice, in the same task that adds a translation. */
 const UNDER_TEST: readonly UnderTestEntry[] = [
-  // TEMP-NARROW-START
+  { sample: "interest", variant: "correct" },
+  { sample: "interest", variant: "naive" },
+  { sample: "interest", variant: "subtle" },
+  { sample: "payroll", variant: "correct" },
+  { sample: "payroll", variant: "naive" },
+  { sample: "payroll", variant: "subtle" },
   { sample: "tax", variant: "correct" },
   { sample: "tax", variant: "naive" },
   { sample: "tax", variant: "subtle" },

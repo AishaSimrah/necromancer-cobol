@@ -94,7 +94,7 @@ Rules for every task:
     - `getTranslation("interest", "correct")`: `source` equals the file bytes read by the test; provenance fields exact; `date` valid; markers are valid curse ids of `interest`; marker line numbers equal the 1-based line index in `source`; every INTEREST curse appears at least once in the `correct` source
     - API errors: unknown sample id, unknown variant, non-string values; messages name the value and list the valid ones
     - Immutability: frozen records; `getSample("tax") === getSample("tax")`; assignment through a cast throws `TypeError` in strict mode
-    - A not-yet-registered translation (for example `payroll/correct`) throws `No translation registered for payroll/correct` (removed in task 13.1)
+    - A not-yet-registered translation (for example `payroll/correct`) throws `No translation registered for payroll/correct` (this test was removed in task 10.5, once all nine translations were registered)
     - _Requirements: 1.1 to 1.7, 2.1, 2.4, 3.1 to 3.5, 4.3, 4.4, 5.1 to 5.3, 5.5, 9.1 to 9.5, 10.9_
 
 - [x] 6. Thin slice: real-Oracle test for INTEREST `correct`
@@ -163,7 +163,7 @@ Rules for every task:
     - Run the Oracle test and confirm `payroll/subtle` still scores 0.933 (67 mismatches); report the table. Then run the full Vitest suite, `npm run typecheck` and `npm run lint`
     - _Requirements: 3.3, 3.2, 3.5, 5.4_
 
-- [ ] 10. TAX: `correct`, `naive`, `subtle`
+- [x] 10. TAX: `correct`, `naive`, `subtle`
   - [x] 10.1 Create `src/translator/translations/tax.correct.ts`
     - As in the design: `storeUnsigned(…, 8, 0)`, an `if / else if` chain with the same comparisons as the EVALUATE, `roundTo(…, 0)` and `wrap(…, 8)` per bracket, `display("TAX: ", zEdit(tax, 8, 0))`
     - Markers for all three TAX curses; register, add to `UNDER_TEST`, add its `it` and the three TAX example-pair `it`s
@@ -173,11 +173,23 @@ Rules for every task:
     - Flat rate applied to the whole income, `Math.round`, `padStart(8)`; header `DELIBERATELY WRONG`; markers
     - Register, add to `UNDER_TEST`, add its `it`. The Oracle test must show mismatches in at least two groups; if it does not, change this file, never the requirement
     - _Requirements: 8.1 to 8.4, 10.4_
-  - [-] 10.3 Create `src/translator/translations/tax.subtle.ts` and measure
+  - [x] 10.3 Create `src/translator/translations/tax.subtle.ts` and measure
     - Candidate traps in order: (1) no high-order truncation of `income` (no `mod 10^8` on input); (2) no absolute value of a negative `income`; (3) truncation instead of rounding. Mark the changed line `NOT HANDLED`
     - Register, add to `UNDER_TEST`, add its `it` and the ordering `it`. Run per trap, record every score, keep the first in 0.90 to 0.995; if none, STOP and report to the user
     - _Requirements: 5.4, 7.1 to 7.6, 10.4_
-  - [ ] 10.4 Run this task's tests, the full Vitest suite, `npm run typecheck` and `npm run lint`
+  - [x] 10.4 Cleanup after 10.3: add the `tax-unsigned-income` curse
+    - `src/translator/sample-data.ts`: add the TAX curse `tax-unsigned-income`, chip label "unsigned income PIC 9(8)", `lines: [12, 18]`. Line 12 of `cobol-samples/tax.cbl` is `01 WS-INCOME         PIC 9(8).` and line 18 is `COMPUTE WS-INCOME = FUNCTION NUMVAL(WS-IN-INCOME)`; verify both against the file before writing (line 13 is `WS-TAX`, not `WS-INCOME`). Keep the TAX curse order stable and append the new one after `tax-whole-unit-rounding`
+    - Update the static-data and catalog tests that pin the exact curse set: twelve curses in total, four for TAX, the new id present, the keyword guard table gets `tax-unsigned-income` -> `PIC 9(8)`, `WS-INCOME`; fix the test title that says "ten guarded curses" if it still does
+    - `tax.correct.ts`: add `// CURSE:tax-unsigned-income` to the line that stores `income` (Req 3.2: every curse appears in `correct`); keep the other markers and the behavior unchanged
+    - `tax.subtle.ts`: change the marker on the `income` line to `// CURSE:tax-unsigned-income` and rewrite its comment to say what the code does: a negative income keeps its sign instead of being stored as its absolute value in the unsigned `WS-INCOME PIC 9(8)` field. Keep the `NOT HANDLED` wording (Req 5.4). The line still truncates to whole units and applies `mod 10^8`, so the comment must not say that high-order truncation is missing
+    - `tax.subtle.ts` header: it must name `tax-unsigned-income` (not `tax-whole-unit-rounding`) as the forgotten trap and describe the real behavior. Check that every claim in the header matches the code (the chosen trap is number 2 of the three candidates in task 10.3; trap 1, no `mod 10^8`, scored 0.873 and was rejected, so the header must not describe trap 1 as the forgotten one). Fix the wording if it does not match
+    - Do not change the behavior of any translation or any score. Update marker line numbers in any test that pins them
+    - Run the Oracle test and confirm `tax/subtle` still scores 0.948 (52 mismatches); report the table. Then run `npm run typecheck` and `npm run lint`; the full Vitest suite runs in 10.5
+    - _Requirements: 3.3, 3.2, 3.5, 5.4_
+  - [x] 10.5 Run this task's tests, the full Vitest suite, `npm run typecheck` and `npm run lint`
+    - Before running: remove the "missing translations" `describe` from `tests/translator/catalog.test.ts` (all nine translations are registered); keep the API-error tests for unknown sample ids and unknown variants. Remove imports that become unused (for example `Variant`)
+    - Comment-only marker cleanup: in `tax.correct.ts` and `tax.naive.ts` remove `// CURSE:tax-whole-unit-rounding` from the `income` line; in `tax.naive.ts` mark that line `// CURSE:tax-unsigned-income` instead. No behavior change
+    - Run `npm test`, typecheck and lint, then the Oracle test and confirm `tax/correct` 1, `tax/naive` 0.26 and `tax/subtle` 0.948
 
 - [ ] 11. Property tests
   - [ ] 11.1 Write `tests/translator/translations.property.test.ts` (no Oracle)
@@ -206,7 +218,7 @@ Rules for every task:
 
 - [ ] 13. Complete the registry and the "all nine" guarantee
   - [ ] 13.1 Tighten `translations/registry.ts`
-    - Type it as `Readonly<Record<SampleId, Readonly<Record<Variant, TranslationModule>>>>` with all nine static imports, so a missing translation is a compile error; remove the "No translation registered" runtime path and its test from task 5.2
+    - Type it as `Readonly<Record<SampleId, Readonly<Record<Variant, TranslationModule>>>>` with all nine static imports, so a missing translation is a compile error; remove the "No translation registered" runtime path (its test from task 5.2 was already removed in task 10.5)
     - _Requirements: 4.1_
   - [ ] 13.2 Complete `catalog.test.ts` for all nine translations
     - Nine records; for every one, `source` equals the file bytes; provenance exact; markers name curses of the same sample; every `correct` source has every curse of its sample; every `subtle` source has a line with both a marker and `NOT HANDLED`; every `naive` source contains `DELIBERATELY WRONG`
