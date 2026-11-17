@@ -209,12 +209,12 @@ Rules for every task:
     - The only `src/equivalence` imports are `compare.js` and `descriptors.js`
     - `oracle.test.ts` contains none of `skip`, `skipIf`, `runIf`, `todo` (read as text)
     - _Requirements: 4.5, 4.7, 10.2_
-  - [-] 12.2 Write `tests/translator/deployment.test.ts` (no Oracle)
+  - [x] 12.2 Write `tests/translator/deployment.test.ts` (no Oracle)
     - Read `.dockerignore`; fail if any non-comment line would exclude `cobol-samples`, `cobol-samples/`, `cobol-samples/*`, `cobol-samples/*.cbl`, `*.cbl`, `**/*.cbl`, or any of the three file names; `cobol-samples/bin` is allowed
     - The three `.cbl` files exist; the existing Oracle `Dockerfile` still has `COPY cobol-samples/`
     - Add a comment that this test must be extended with the app image `Dockerfile` when it exists (it must copy `cobol-samples/` and `src/translator/translations/`)
     - _Requirements: 12.1, 12.2, 12.3, 12.4_
-  - [ ] 12.3 Run this task's tests, the full Vitest suite, `npm run typecheck` and `npm run lint`
+  - [-] 12.3 Run this task's tests, the full Vitest suite, `npm run typecheck` and `npm run lint`
 
 - [ ] 13. Complete the registry and the "all nine" guarantee
   - [ ] 13.1 Tighten `translations/registry.ts`
