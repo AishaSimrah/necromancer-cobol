@@ -268,3 +268,18 @@ describe("example pairs against the real Oracle", () => {
     });
   }
 });
+
+describe("coverage guard", () => {
+  it("UNDER_TEST has all nine entries: every sample with every variant, no duplicates", () => {
+    const sampleIds: readonly SampleId[] = ["interest", "payroll", "tax"];
+    const variants: readonly Variant[] = ["correct", "subtle", "naive"];
+    expect(UNDER_TEST.length).toBe(9);
+    const keys = new Set(UNDER_TEST.map((entry) => keyOf(entry.sample, entry.variant)));
+    expect(keys.size).toBe(9);
+    for (const sample of sampleIds) {
+      for (const variant of variants) {
+        expect(keys.has(keyOf(sample, variant)), `missing ${keyOf(sample, variant)}`).toBe(true);
+      }
+    }
+  });
+});

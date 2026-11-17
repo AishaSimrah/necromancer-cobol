@@ -216,14 +216,14 @@ Rules for every task:
     - _Requirements: 12.1, 12.2, 12.3, 12.4_
   - [x] 12.3 Run this task's tests, the full Vitest suite, `npm run typecheck` and `npm run lint`
 
-- [ ] 13. Complete the registry and the "all nine" guarantee
+- [x] 13. Complete the registry and the "all nine" guarantee
   - [x] 13.1 Tighten `translations/registry.ts`
     - Type it as `Readonly<Record<SampleId, Readonly<Record<Variant, TranslationModule>>>>` with all nine static imports, so a missing translation is a compile error; remove the "No translation registered" runtime path (its test from task 5.2 was already removed in task 10.5)
     - _Requirements: 4.1_
   - [x] 13.2 Complete `catalog.test.ts` for all nine translations
     - Nine records; for every one, `source` equals the file bytes; provenance exact; markers name curses of the same sample; every `correct` source has every curse of its sample; every `subtle` source has a line with both a marker and `NOT HANDLED`; every `naive` source contains `DELIBERATELY WRONG`
     - _Requirements: 4.1 to 4.4, 5.1 to 5.4, 8.2_
-  - [ ] 13.3 Complete `oracle.test.ts`
+  - [x] 13.3 Complete `oracle.test.ts`
     - `UNDER_TEST` has all nine entries; add the final `it` that asserts `UNDER_TEST.length === 9` and covers every sample and variant, so the suite cannot go green with fewer
     - Confirm the nine `it`s per requirement 10.4 plus three ordering `it`s plus eight example-pair `it`s exist
     - _Requirements: 10.1 to 10.4_
