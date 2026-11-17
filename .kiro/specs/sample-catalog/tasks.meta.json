@@ -589,6 +589,40 @@
         "chatSessionId": "sess_1b56c984-7d8a-48a5-8fc8-e116b0754e09",
         "timestamp": 1794927162353
       }
+    ],
+    "14.1 Update `.kiro/steering/structure.md`": [
+      {
+        "executionId": "6401f587-3c98-418b-884e-3d8c5587240b",
+        "chatSessionId": "sess_6131207b-9f00-44a0-b3e2-256ebd5bdac3",
+        "timestamp": 1794927271159
+      },
+      {
+        "executionId": "6401f587-3c98-418b-884e-3d8c5587240b",
+        "chatSessionId": "sess_6131207b-9f00-44a0-b3e2-256ebd5bdac3",
+        "timestamp": 1794927293860
+      }
+    ],
+    "14.2 Add an entry to `docs/kiro-log.md`": [
+      {
+        "executionId": "98761353-77b9-4d1c-8d6a-a436813152f5",
+        "chatSessionId": "sess_3487ba11-9c51-4d98-908c-55121cda912a",
+        "timestamp": 1794927337462
+      },
+      {
+        "executionId": "98761353-77b9-4d1c-8d6a-a436813152f5",
+        "chatSessionId": "sess_3487ba11-9c51-4d98-908c-55121cda912a",
+        "timestamp": 1794927635434
+      },
+      {
+        "executionId": "06c2f66d-a90d-4555-a437-de3365560948",
+        "chatSessionId": "sess_3487ba11-9c51-4d98-908c-55121cda912a",
+        "timestamp": 1794927703578
+      },
+      {
+        "executionId": "06c2f66d-a90d-4555-a437-de3365560948",
+        "chatSessionId": "sess_3487ba11-9c51-4d98-908c-55121cda912a",
+        "timestamp": 1794928062268
+      }
     ]
   }
 }

@@ -229,10 +229,10 @@ Rules for every task:
     - _Requirements: 10.1 to 10.4_
 
 - [ ] 14. Docs and final verification
-  - [ ] 14.1 Update `.kiro/steering/structure.md`
+  - [x] 14.1 Update `.kiro/steering/structure.md`
     - Replace the `/src/translator/` line with `/src/translator/   COBOL -> TypeScript translations: pre-generated samples, catalog and read-only API`, add `/tests/translator/ catalog unit tests, property tests, and real-Oracle verification`, keep every other line
     - _Requirements: 11.3_
-  - [ ] 14.2 Add an entry to `docs/kiro-log.md`
+  - [x] 14.2 Add an entry to `docs/kiro-log.md`
     - The spec, the forgotten trap chosen per sample and why (with the scores of every trap tried), the score table from the Oracle test, the elapsed time of the Oracle test, and any change made to a `naive` file
     - _Requirements: 7.3, 11.6_
   - [ ] 14.3 Final verification and report
