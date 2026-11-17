@@ -8,7 +8,14 @@ import * as payrollCorrect from "./payroll.correct.js";
 import * as payrollNaive from "./payroll.naive.js";
 import * as payrollSubtle from "./payroll.subtle.js";
 
+import * as taxCorrect from "./tax.correct.js";
+import * as taxNaive from "./tax.naive.js";
+import * as taxSubtle from "./tax.subtle.js";
+
 const REGISTRY: Readonly<Partial<Record<`${SampleId}/${Variant}`, TranslationModule>>> = {
+  "tax/correct": taxCorrect,
+  "tax/naive": taxNaive,
+  "tax/subtle": taxSubtle,
   "interest/correct": interestCorrect,
   "interest/naive": interestNaive,
   "interest/subtle": interestSubtle,

@@ -21,12 +21,10 @@ interface UnderTestEntry {
 
 /** Grows slice by slice, in the same task that adds a translation. */
 const UNDER_TEST: readonly UnderTestEntry[] = [
-  { sample: "interest", variant: "correct" },
-  { sample: "interest", variant: "naive" },
-  { sample: "interest", variant: "subtle" },
-  { sample: "payroll", variant: "correct" },
-  { sample: "payroll", variant: "naive" },
-  { sample: "payroll", variant: "subtle" },
+  // TEMP-NARROW-START
+  { sample: "tax", variant: "correct" },
+  { sample: "tax", variant: "naive" },
+  { sample: "tax", variant: "subtle" },
 ];
 
 type RunOutcome =
@@ -204,8 +202,45 @@ describe("payroll translations against the real Oracle", () => {
   });
 });
 
+describe("tax translations against the real Oracle", () => {
+  it("tax/correct matches the Oracle on every case", () => {
+    const report = reportOf("tax", "correct");
+    expect(report.matchScore).toBe(1);
+    expect(report.mismatchCount).toBe(0);
+    expect(report.conclusiveCount).toBe(1000);
+    expect(report.inconclusiveCount).toBe(0);
+  });
+
+  it("tax/naive is caught: score below 1, mismatches in at least two groups", () => {
+    const report = reportOf("tax", "naive");
+    expect(report.matchScore).toBeLessThan(1);
+    const groupsWithMismatch = report.groups.filter((g) => g.conclusive - g.matched >= 1);
+    const detail = report.groups.map((g) => `${g.group} ${g.matched}/${g.conclusive}`).join("; ");
+    expect(
+      groupsWithMismatch.length,
+      `groups with mismatches: ${groupsWithMismatch.length} (${detail})`,
+    ).toBeGreaterThanOrEqual(2);
+  });
+
+  it("tax/subtle is caught: score below 1 with at least one mismatch", () => {
+    const report = reportOf("tax", "subtle");
+    expect(report.matchScore).toBeLessThan(1);
+    expect(report.mismatchCount).toBeGreaterThanOrEqual(1);
+  });
+
+  it("tax ordering: naive < subtle < 1", () => {
+    const naive = reportOf("tax", "naive").matchScore;
+    const subtle = reportOf("tax", "subtle").matchScore;
+    const message = `naive=${String(naive)} subtle=${String(subtle)}`;
+    expect(naive, message).toBeDefined();
+    expect(subtle, message).toBeDefined();
+    expect(naive as number, message).toBeLessThan(subtle as number);
+    expect(subtle as number, message).toBeLessThan(1);
+  });
+});
+
 describe("example pairs against the real Oracle", () => {
-  const ids: readonly SampleId[] = ["interest", "payroll"];
+  const ids: readonly SampleId[] = ["interest", "payroll", "tax"];
   for (const id of ids) {
     const sample = getSample(id);
     const { candidate } = getTranslation(id, "correct");

@@ -255,10 +255,10 @@ describe("immutability", () => {
 
 describe("missing translations", () => {
   // Removed in task 13.1, when every sample/variant has a registered translation.
-  it("throws for tax/correct", () => {
-    const variant: Variant = "correct";
+  it("throws for tax/subtle", () => {
+    const variant: Variant = "subtle";
     expect(() => getTranslation("tax", variant)).toThrow(
-      "No translation registered for tax/correct",
+      "No translation registered for tax/subtle",
     );
   });
 });

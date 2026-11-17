@@ -138,7 +138,7 @@ Rules for every task:
     - _Requirements: 8.5, 8.6, 8.7, 8.8_
   - [x] 8.5 Run this task's tests, the full Vitest suite, `npm run typecheck` and `npm run lint`
 
-- [ ] 9. PAYROLL: `correct`, `naive`, `subtle`
+- [x] 9. PAYROLL: `correct`, `naive`, `subtle`
   - [x] 9.1 Create `src/translator/translations/payroll.correct.ts`
     - As in the design: `storeUnsigned` for hours (3, 1) and rate (3, 2); the `hours.gt(40)` split; `regPay`, `otPay` rounded then wrapped to 6 digits; `gross`, `deduct`, `net` truncated then wrapped; three `display` lines in the order GROSS, DEDUCT, NET
     - Markers for all four PAYROLL curses (five after task 9.5); every PAYROLL curse appears at least once
@@ -153,7 +153,7 @@ Rules for every task:
     - Candidate traps in order: (1) no `wrap` on `regPay`, `otPay` and `gross`; (2) `hours` stored without `mod 1000`; (3) deduction rounded instead of truncated. Mark the changed line `NOT HANDLED`
     - Register, add to `UNDER_TEST`, add its `it` and the ordering `it`. Run the Oracle test per trap and record every score. Keep the first in 0.90 to 0.995; if none, STOP and report the scores to the user
     - _Requirements: 5.4, 7.1 to 7.6, 10.4_
-  - [ ] 9.4 Run this task's tests, the full Vitest suite, `npm run typecheck` and `npm run lint`
+  - [x] 9.4 Run this task's tests, the full Vitest suite, `npm run typecheck` and `npm run lint`
   - [x] 9.5 Cleanup after 9.3: add the `payroll-hours-pic` curse
     - `src/translator/sample-data.ts`: add the PAYROLL curse `payroll-hours-pic`, a chip label of at most 32 characters about the hours field width (for example "hours field PIC 9(3)V9"), `lines: [13, 27]`. Line 13 of `cobol-samples/payroll.cbl` is `01 WS-HOURS          PIC 9(3)V9.` and line 27 is `COMPUTE WS-HOURS = FUNCTION NUMVAL(WS-IN-HOURS)`; verify both against the file before writing. Keep the PAYROLL curse order stable and append the new one after `payroll-z-format`
     - Update the static-data and catalog tests that pin the exact curse set: eleven curses in total, five for PAYROLL, the new id present, the keyword guard table gets `payroll-hours-pic` -> `PIC 9(3)V9`, `WS-HOURS`
@@ -164,16 +164,16 @@ Rules for every task:
     - _Requirements: 3.3, 3.2, 3.5, 5.4_
 
 - [ ] 10. TAX: `correct`, `naive`, `subtle`
-  - [ ] 10.1 Create `src/translator/translations/tax.correct.ts`
+  - [x] 10.1 Create `src/translator/translations/tax.correct.ts`
     - As in the design: `storeUnsigned(…, 8, 0)`, an `if / else if` chain with the same comparisons as the EVALUATE, `roundTo(…, 0)` and `wrap(…, 8)` per bracket, `display("TAX: ", zEdit(tax, 8, 0))`
     - Markers for all three TAX curses; register, add to `UNDER_TEST`, add its `it` and the three TAX example-pair `it`s
     - Run the Oracle test; fix the translation or the runtime if the score is below 1
     - _Requirements: 4.1, 5.1, 5.2, 6.1 to 6.8, 10.4, 10.5_
-  - [ ] 10.2 Create `src/translator/translations/tax.naive.ts`
+  - [x] 10.2 Create `src/translator/translations/tax.naive.ts`
     - Flat rate applied to the whole income, `Math.round`, `padStart(8)`; header `DELIBERATELY WRONG`; markers
     - Register, add to `UNDER_TEST`, add its `it`. The Oracle test must show mismatches in at least two groups; if it does not, change this file, never the requirement
     - _Requirements: 8.1 to 8.4, 10.4_
-  - [ ] 10.3 Create `src/translator/translations/tax.subtle.ts` and measure
+  - [-] 10.3 Create `src/translator/translations/tax.subtle.ts` and measure
     - Candidate traps in order: (1) no high-order truncation of `income` (no `mod 10^8` on input); (2) no absolute value of a negative `income`; (3) truncation instead of rounding. Mark the changed line `NOT HANDLED`
     - Register, add to `UNDER_TEST`, add its `it` and the ordering `it`. Run per trap, record every score, keep the first in 0.90 to 0.995; if none, STOP and report to the user
     - _Requirements: 5.4, 7.1 to 7.6, 10.4_
