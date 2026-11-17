@@ -228,14 +228,14 @@ Rules for every task:
     - Confirm the nine `it`s per requirement 10.4 plus three ordering `it`s plus eight example-pair `it`s exist
     - _Requirements: 10.1 to 10.4_
 
-- [ ] 14. Docs and final verification
+- [x] 14. Docs and final verification
   - [x] 14.1 Update `.kiro/steering/structure.md`
     - Replace the `/src/translator/` line with `/src/translator/   COBOL -> TypeScript translations: pre-generated samples, catalog and read-only API`, add `/tests/translator/ catalog unit tests, property tests, and real-Oracle verification`, keep every other line
     - _Requirements: 11.3_
   - [x] 14.2 Add an entry to `docs/kiro-log.md`
     - The spec, the forgotten trap chosen per sample and why (with the scores of every trap tried), the score table from the Oracle test, the elapsed time of the Oracle test, and any change made to a `naive` file
     - _Requirements: 7.3, 11.6_
-  - [ ] 14.3 Final verification and report
+  - [x] 14.3 Final verification and report
     - Confirm `git status` shows no change under `src/equivalence/`, `src/oracle/`, or `tests/equivalence/`, and that `.kiro/specs/sample-catalog/` is not gitignored
     - Run `npm run typecheck`, `npm run lint`, `npm test`, and the sample equivalence suite
     - Report: the commands run, pass counts, and the table of actual scores (`matchScore`, `mismatchCount`, per-group counts) for the nine translations, marking which `subtle` scores are in the 0.90 to 0.995 target. Say what could not be verified (for example Next.js behaviour of `import.meta.url`, or the app image, which does not exist yet)
