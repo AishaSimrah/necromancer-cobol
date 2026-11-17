@@ -191,8 +191,8 @@ Rules for every task:
     - Comment-only marker cleanup: in `tax.correct.ts` and `tax.naive.ts` remove `// CURSE:tax-whole-unit-rounding` from the `income` line; in `tax.naive.ts` mark that line `// CURSE:tax-unsigned-income` instead. No behavior change
     - Run `npm test`, typecheck and lint, then the Oracle test and confirm `tax/correct` 1, `tax/naive` 0.26 and `tax/subtle` 0.948
 
-- [ ] 11. Property tests
-  - [ ] 11.1 Write `tests/translator/translations.property.test.ts` (no Oracle)
+- [x] 11. Property tests
+  - [x] 11.1 Write `tests/translator/translations.property.test.ts` (no Oracle)
     - Property 1, shape: for any vector of plain decimal strings (right length, optional minus sign, extra integer and decimal digits), the `correct` translation of each sample does not throw and returns a string matching the sample's output regex from the design
     - Property 2, determinism: two calls give the same string
     - Property 3, subtle agrees with correct outside its trap: per sample, a "safe domain" arbitrary that cannot trigger the chosen trap (named in a comment), then `subtle(x) === correct(x)`

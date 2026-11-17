@@ -484,6 +484,25 @@
         "chatSessionId": "sess_b176cbfb-dbba-4ccd-a437-19305733e71d",
         "timestamp": 1794924595059
       }
+    ],
+    "11.1 Write `tests/translator/translations.property.test.ts` (no Oracle)": [
+      {
+        "executionId": "a68b788f-2e5e-4dc1-b924-d6f61a4ca793",
+        "chatSessionId": "sess_a6e43ff8-3f27-4abe-9906-7ecce5f248e7",
+        "timestamp": 1794924681236
+      },
+      {
+        "executionId": "a68b788f-2e5e-4dc1-b924-d6f61a4ca793",
+        "chatSessionId": "sess_a6e43ff8-3f27-4abe-9906-7ecce5f248e7",
+        "timestamp": 1794924927764
+      }
+    ],
+    "11. Property tests": [
+      {
+        "executionId": "a68b788f-2e5e-4dc1-b924-d6f61a4ca793",
+        "chatSessionId": "sess_a6e43ff8-3f27-4abe-9906-7ecce5f248e7",
+        "timestamp": 1794924928055
+      }
     ]
   }
 }
