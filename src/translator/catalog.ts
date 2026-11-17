@@ -1,7 +1,7 @@
 import { readRepoText } from "./files.js";
 import { extractCurseMarkers } from "./markers.js";
 import { deepFreeze, SAMPLE_DATA } from "./sample-data.js";
-import { getTranslationModule } from "./translations/registry.js";
+import { REGISTRY } from "./translations/registry.js";
 import { SAMPLE_IDS, VARIANTS } from "./types.js";
 import type { Sample, SampleId, Translation, Variant } from "./types.js";
 
@@ -34,7 +34,7 @@ function buildSample(id: SampleId): Sample {
 }
 
 function buildTranslation(sampleId: SampleId, variant: Variant): Translation {
-  const module = getTranslationModule(sampleId, variant);
+  const module = REGISTRY[sampleId][variant];
   const source = readRepoText(
     `src/translator/translations/${sampleId}.${variant}.ts`,
     `translation source for "${sampleId}/${variant}"`,

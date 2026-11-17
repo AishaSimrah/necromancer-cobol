@@ -201,7 +201,7 @@ Rules for every task:
     - Each property uses `fc.assert` with `numRuns: 200` and a fixed `seed`; a tag comment `Feature: sample-catalog, Property N: ...` precedes each
     - _Requirements: 6.8, 7.5, 7.6, 8.3, 10.8_
 
-- [ ] 12. Static scans and deployment test
+- [x] 12. Static scans and deployment test
   - [x] 12.1 Add the static scans to `tests/translator/catalog.test.ts`
     - Read every file under `src/translator/`; none matches `/\beval\s*\(|new\s+Function\b|\bfetch\s*\(|process\.env|XMLHttpRequest|WebSocket|node:(http|https|net|child_process)/`; none contains a dynamic `import(`; none imports from `tests/` or `oracle/`
     - `types.ts`, `sample-data.ts`, `markers.ts`, `cobol-runtime.ts` and `translations/**` have no `node:` import
@@ -214,10 +214,10 @@ Rules for every task:
     - The three `.cbl` files exist; the existing Oracle `Dockerfile` still has `COPY cobol-samples/`
     - Add a comment that this test must be extended with the app image `Dockerfile` when it exists (it must copy `cobol-samples/` and `src/translator/translations/`)
     - _Requirements: 12.1, 12.2, 12.3, 12.4_
-  - [-] 12.3 Run this task's tests, the full Vitest suite, `npm run typecheck` and `npm run lint`
+  - [x] 12.3 Run this task's tests, the full Vitest suite, `npm run typecheck` and `npm run lint`
 
 - [ ] 13. Complete the registry and the "all nine" guarantee
-  - [ ] 13.1 Tighten `translations/registry.ts`
+  - [-] 13.1 Tighten `translations/registry.ts`
     - Type it as `Readonly<Record<SampleId, Readonly<Record<Variant, TranslationModule>>>>` with all nine static imports, so a missing translation is a compile error; remove the "No translation registered" runtime path (its test from task 5.2 was already removed in task 10.5)
     - _Requirements: 4.1_
   - [ ] 13.2 Complete `catalog.test.ts` for all nine translations
