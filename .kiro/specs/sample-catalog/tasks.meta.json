@@ -503,6 +503,25 @@
         "chatSessionId": "sess_a6e43ff8-3f27-4abe-9906-7ecce5f248e7",
         "timestamp": 1794924928055
       }
+    ],
+    "12.1 Add the static scans to `tests/translator/catalog.test.ts`": [
+      {
+        "executionId": "121d6293-a8dd-4b03-b071-726b26e4fcff",
+        "chatSessionId": "sess_efc876de-2902-4a2b-853a-46ccaefee1d7",
+        "timestamp": 1794924975803
+      },
+      {
+        "executionId": "121d6293-a8dd-4b03-b071-726b26e4fcff",
+        "chatSessionId": "sess_efc876de-2902-4a2b-853a-46ccaefee1d7",
+        "timestamp": 1794925223305
+      }
+    ],
+    "12.2 Write `tests/translator/deployment.test.ts` (no Oracle)": [
+      {
+        "executionId": "f46cb612-a4fb-4c33-9db7-9a33c610d900",
+        "chatSessionId": "sess_9b149f8f-2524-418d-aa5e-30a1ed894f59",
+        "timestamp": 1794925245037
+      }
     ]
   }
 }

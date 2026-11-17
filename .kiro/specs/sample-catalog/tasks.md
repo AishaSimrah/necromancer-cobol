@@ -202,14 +202,14 @@ Rules for every task:
     - _Requirements: 6.8, 7.5, 7.6, 8.3, 10.8_
 
 - [ ] 12. Static scans and deployment test
-  - [ ] 12.1 Add the static scans to `tests/translator/catalog.test.ts`
+  - [x] 12.1 Add the static scans to `tests/translator/catalog.test.ts`
     - Read every file under `src/translator/`; none matches `/\beval\s*\(|new\s+Function\b|\bfetch\s*\(|process\.env|XMLHttpRequest|WebSocket|node:(http|https|net|child_process)/`; none contains a dynamic `import(`; none imports from `tests/` or `oracle/`
     - `types.ts`, `sample-data.ts`, `markers.ts`, `cobol-runtime.ts` and `translations/**` have no `node:` import
     - For `translations/**` and `cobol-runtime.ts`: reject `next/`, `server-only`, `client-only`, `"use client"`, `"use server"`, `?raw`, `?url`, `import.meta.glob`, `require.context`, `@/` aliases, `process.`, `Buffer`, and any import specifier that is not relative-with-`.js`, `decimal.js`, or a type-only import
     - The only `src/equivalence` imports are `compare.js` and `descriptors.js`
     - `oracle.test.ts` contains none of `skip`, `skipIf`, `runIf`, `todo` (read as text)
     - _Requirements: 4.5, 4.7, 10.2_
-  - [ ] 12.2 Write `tests/translator/deployment.test.ts` (no Oracle)
+  - [-] 12.2 Write `tests/translator/deployment.test.ts` (no Oracle)
     - Read `.dockerignore`; fail if any non-comment line would exclude `cobol-samples`, `cobol-samples/`, `cobol-samples/*`, `cobol-samples/*.cbl`, `*.cbl`, `**/*.cbl`, or any of the three file names; `cobol-samples/bin` is allowed
     - The three `.cbl` files exist; the existing Oracle `Dockerfile` still has `COPY cobol-samples/`
     - Add a comment that this test must be extended with the app image `Dockerfile` when it exists (it must copy `cobol-samples/` and `src/translator/translations/`)

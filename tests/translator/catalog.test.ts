@@ -1,4 +1,5 @@
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { INTEREST, PAYROLL, TAX } from "../../src/equivalence/descriptors.js";
@@ -266,5 +267,151 @@ describe("sample facts", () => {
     expect(sample.trapLabel).not.toMatch(/[\r\n]/);
     expect(sample.defaultInput).toHaveLength(sample.fields.length);
     expect(sample.examples.map((example) => example.input)).toContainEqual(sample.defaultInput);
+  });
+});
+
+// ---------- static scans of src/translator ----------
+
+const TRANSLATOR_DIR = fileURLToPath(new URL("../../src/translator/", import.meta.url));
+
+function listTsFiles(dir: string): readonly string[] {
+  const found: string[] = [];
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const full = join(dir, entry.name);
+    if (entry.isDirectory()) found.push(...listTsFiles(full));
+    else if (entry.name.endsWith(".ts")) found.push(full);
+  }
+  return found;
+}
+
+/** Removes // and block comments, keeping string and template contents. */
+function stripComments(source: string): string {
+  let out = "";
+  let i = 0;
+  while (i < source.length) {
+    const ch = source.charAt(i);
+    const next = source.charAt(i + 1);
+    if (ch === "/" && next === "/") {
+      while (i < source.length && source.charAt(i) !== "\n") i += 1;
+    } else if (ch === "/" && next === "*") {
+      const end = source.indexOf("*/", i + 2);
+      i = end < 0 ? source.length : end + 2;
+    } else if (ch === '"' || ch === "'" || ch === "`") {
+      let j = i + 1;
+      while (j < source.length && source.charAt(j) !== ch) j += source.charAt(j) === "\\" ? 2 : 1;
+      out += source.slice(i, j + 1);
+      i = j + 1;
+    } else {
+      out += ch;
+      i += 1;
+    }
+  }
+  return out;
+}
+
+interface ScannedFile {
+  readonly rel: string;
+  readonly code: string;
+}
+
+interface ImportRef {
+  readonly specifier: string;
+  readonly typeOnly: boolean;
+}
+
+function importsOf(code: string): readonly ImportRef[] {
+  const refs: ImportRef[] = [];
+  for (const m of code.matchAll(/\b(import|export)\s+(type\s+)?[^;'"]*?\bfrom\s*["']([^"']+)["']/g)) {
+    refs.push({ specifier: m[3] ?? "", typeOnly: m[2] !== undefined });
+  }
+  for (const m of code.matchAll(/\bimport\s*["']([^"']+)["']/g)) {
+    refs.push({ specifier: m[1] ?? "", typeOnly: false });
+  }
+  return refs;
+}
+
+const SCANNED: readonly ScannedFile[] = listTsFiles(TRANSLATOR_DIR)
+  .map((full) => ({
+    rel: full.slice(TRANSLATOR_DIR.length).split("\\").join("/"),
+    code: stripComments(readFileSync(full, "utf8")),
+  }))
+  .sort((a, b) => a.rel.localeCompare(b.rel));
+
+const isPure = (rel: string): boolean => rel.startsWith("translations/") || rel === "cobol-runtime.ts";
+
+describe("static scans of src/translator", () => {
+  it("finds the expected files", () => {
+    expect(SCANNED.length).toBeGreaterThanOrEqual(17);
+    expect(SCANNED.filter((f) => f.rel.startsWith("translations/")).length).toBeGreaterThanOrEqual(10);
+  });
+
+  it("stripComments removes comments and keeps strings", () => {
+    const out = stripComments('const a = "x // y"; // process.env\n/* eval( */ const b = 1;');
+    expect(out).toContain('"x // y"');
+    expect(out).not.toContain("process.env");
+    expect(out).not.toContain("eval(");
+  });
+
+  it.each(SCANNED.map((f) => f.rel))("%s has no forbidden API, dynamic import or test/oracle import", (rel) => {
+    const code = SCANNED.find((f) => f.rel === rel)?.code ?? "";
+    expect(code).not.toMatch(
+      /\beval\s*\(|new\s+Function\b|\bfetch\s*\(|process\.env|XMLHttpRequest|WebSocket|node:(http|https|net|child_process)/,
+    );
+    expect(code).not.toMatch(/\bimport\s*\(/);
+    for (const ref of importsOf(code)) {
+      expect(ref.specifier, `${rel} imports from tests/`).not.toMatch(/(^|\/)tests\//);
+      expect(ref.specifier, `${rel} imports from oracle/`).not.toMatch(/(^|\/)oracle\//);
+    }
+  });
+
+  it.each(["types.ts", "sample-data.ts", "markers.ts", "cobol-runtime.ts"])("%s has no node: import", (rel) => {
+    const code = SCANNED.find((f) => f.rel === rel)?.code ?? "";
+    expect(code.length).toBeGreaterThan(0);
+    expect(code).not.toMatch(/node:/);
+  });
+
+  it("translations/** have no node: import", () => {
+    for (const file of SCANNED.filter((f) => f.rel.startsWith("translations/"))) {
+      expect(file.code, file.rel).not.toMatch(/node:/);
+    }
+  });
+
+  it.each(SCANNED.filter((f) => isPure(f.rel)).map((f) => f.rel))("%s is plain TypeScript", (rel) => {
+    const code = SCANNED.find((f) => f.rel === rel)?.code ?? "";
+    const banned: readonly RegExp[] = [
+      /next\//,
+      /server-only/,
+      /client-only/,
+      /["']use client["']/,
+      /["']use server["']/,
+      /\?raw/,
+      /\?url/,
+      /import\.meta\.glob/,
+      /require\.context/,
+      /["']@\//,
+      /\bprocess\./,
+      /\bBuffer\b/,
+    ];
+    for (const pattern of banned) expect(code, `${rel} matches ${String(pattern)}`).not.toMatch(pattern);
+    for (const ref of importsOf(code)) {
+      const ok = ref.typeOnly || ref.specifier === "decimal.js" || /^\.{1,2}\/.*\.js$/.test(ref.specifier);
+      expect(ok, `${rel} has disallowed import "${ref.specifier}"`).toBe(true);
+    }
+  });
+
+  it("the only src/equivalence imports are compare.js and descriptors.js", () => {
+    const seen = new Set<string>();
+    for (const file of SCANNED) {
+      for (const ref of importsOf(file.code)) {
+        if (!/(^|\/)equivalence\//.test(ref.specifier)) continue;
+        expect(ref.specifier, file.rel).toMatch(/\/equivalence\/(compare|descriptors)\.js$/);
+        seen.add(ref.specifier.split("/").pop() ?? "");
+      }
+    }
+    expect([...seen].sort()).toEqual(["compare.js", "descriptors.js"]);
+  });
+
+  it("oracle.test.ts contains no skip, skipIf, runIf or todo", () => {
+    expect(ownRead("tests/translator/oracle.test.ts")).not.toMatch(/\b(skip|skipIf|runIf|todo)\b/);
   });
 });
