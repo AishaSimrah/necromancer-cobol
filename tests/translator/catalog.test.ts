@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest";
 import { INTEREST, PAYROLL, TAX } from "../../src/equivalence/descriptors.js";
 import type { FieldDescriptor } from "../../src/equivalence/descriptors.js";
 import { getSample, getTranslation, listSamples } from "../../src/translator/catalog.js";
-import type { ExamplePair, Sample, SampleId } from "../../src/translator/types.js";
+import type { ExamplePair, Sample, SampleId, Variant } from "../../src/translator/types.js";
 
 function ownRead(relative: string): string {
   return readFileSync(fileURLToPath(new URL("../../" + relative, import.meta.url)), "utf8");
@@ -161,6 +161,71 @@ describe('getTranslation("interest", "correct")', () => {
   it("marks every interest curse at least once", () => {
     const marked = new Set(translation.markers.map((marker) => marker.curseId));
     for (const curse of interest.curses) expect(marked.has(curse.id)).toBe(true);
+  });
+});
+
+// ---------- all nine translations ----------
+
+const ALL_VARIANTS: readonly Variant[] = ["correct", "subtle", "naive"];
+const NINE: readonly (readonly [SampleId, Variant])[] = IDS.flatMap((id) =>
+  ALL_VARIANTS.map((variant) => [id, variant] as const),
+);
+
+describe("all nine translations", () => {
+  it("has nine distinct records", () => {
+    const records = NINE.map(([id, variant]) => getTranslation(id, variant));
+    expect(records).toHaveLength(9);
+    expect(new Set(records).size).toBe(9);
+    records.forEach((record, index) => {
+      expect(record.sampleId).toBe(NINE[index]?.[0]);
+      expect(record.variant).toBe(NINE[index]?.[1]);
+    });
+  });
+
+  describe.each(NINE)("%s/%s", (id, variant) => {
+    const translation = getTranslation(id, variant);
+    const curseIds = getSample(id).curses.map((curse) => curse.id);
+    const lines = translation.source.split(/\r\n|\r|\n/);
+
+    it("source equals the file bytes read by the test", () => {
+      expect(translation.source).toBe(ownRead(`src/translator/translations/${id}.${variant}.ts`));
+    });
+
+    it("has the exact provenance", () => {
+      expect(translation.provenance).toEqual({
+        label: "Pre-generated with Kiro",
+        generatedWith: "Kiro",
+        date: "2026-11-12",
+      });
+    });
+
+    it("has markers naming curses of the same sample on their own lines", () => {
+      expect(translation.markers.length).toBeGreaterThan(0);
+      for (const marker of translation.markers) {
+        expect(curseIds).toContain(marker.curseId);
+        expect(lines[marker.line - 1] ?? "").toContain(`CURSE:${marker.curseId}`);
+      }
+    });
+
+    if (variant === "correct") {
+      it("marks every curse of its sample", () => {
+        const marked = new Set(translation.markers.map((marker) => marker.curseId));
+        for (const curseId of curseIds) expect(marked.has(curseId), curseId).toBe(true);
+      });
+    }
+
+    if (variant === "subtle") {
+      it("has a line with both a CURSE marker and NOT HANDLED", () => {
+        const hit = lines.some((line) => /\/\/\s*CURSE:[a-z0-9-]+/.test(line) && line.includes("NOT HANDLED"));
+        expect(hit).toBe(true);
+      });
+    }
+
+    if (variant === "naive") {
+      it("states DELIBERATELY WRONG", () => {
+        expect(translation.source).toContain("DELIBERATELY WRONG");
+      });
+    }
   });
 });
 
