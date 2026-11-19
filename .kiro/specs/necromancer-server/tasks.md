@@ -48,18 +48,18 @@ Rules for every task:
     - _Requirements: 6.3, 13.4_
 
 - [ ] 2. Oracle adapter, probe, cobc version, work directory
-  - [ ] 2.1 Create `src/server/oracle-adapter.ts`
+  - [x] 2.1 Create `src/server/oracle-adapter.ts`
     - `createOracleAdapter({ backend, workRoot })` with the frozen `sharedConfig` (`workerCommand` frozen `["node", "/opt/oracle/worker.js", "--work-root", workRoot]`), the wrapper `port: OraclePort` that ignores any caller-supplied config, `compile`, `backend`, and `reset` (calls `backend.shutdown()`)
     - The only `compileCobol(` call site in `src/server`, with a comment that records why (the Oracle keeps one Worker client created from the first config, and `/work` cannot be created by a non-root user)
     - Run typecheck and lint
     - _Requirements: 10.2, 16.1, 16.2, 16.3, 16.4_
-  - [ ]* 2.2 Write tests in `tests/server/shared-config.test.ts`
+  - [x] 2.2 Write tests in `tests/server/shared-config.test.ts`
     - **Property 14: Every Oracle compile call uses the one frozen Shared_Oracle_Config**
     - **Validates: Requirements 10.2, 16.1, 16.2, 16.3, 16.5**
     - Recording fake backend; `toBe` identity of the second argument for probe calls and Engine port calls over arbitrary interleavings; `Object.isFrozen` on `sharedConfig` and `workerCommand`; `workerCommand` value; no recorded call with an undefined config; the port ignores a caller-supplied config; `reset()` calls `backend.shutdown()`
     - Grep test: `compileCobol(` appears exactly once across `src/server/**/*.ts`, in `oracle-adapter.ts`
     - _Requirements: 10.2, 13.13, 16.5_
-  - [ ] 2.3 Create `src/server/cobc-version.ts`
+  - [-] 2.3 Create `src/server/cobc-version.ts`
     - `parseCobcVersion(stdout)` with `/^cobc \(GnuCOBOL\) (\d+\.\d+\.\d+(?:\.\d+)?)/` on the first line, else `null`
     - `readCobcVersion(exec)` using one fixed `execFile("cobc", ["--version"], { timeout: 5000, maxBuffer: 16 * 1024, shell: false, windowsHide: true })`, result cached for the process, never repeated; a cached accessor that waits at most 1000 ms for an in-flight call and then yields `null`
     - Run typecheck and lint
