@@ -41,7 +41,7 @@ Rules for every task:
     - `toSampleSummary`, `toSampleDetail`: explicit allowlist object literals (no spreads of catalog objects, no `candidate`, `FieldDescriptor` copied key by key); `translations` always in order `correct`, `subtle`, `naive`
     - Run typecheck and lint
     - _Requirements: 3.1, 3.2, 3.4, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3_
-  - [ ]* 1.4 Write allowlist tests in `tests/server/catalog-wire.test.ts`
+  - [x] 1.4 Write allowlist tests in `tests/server/catalog-wire.test.ts`
     - **Property 6 (mapper part): Sample responses are allowlisted data**
     - **Validates: Requirements 5.1, 5.2, 5.3, 6.1, 6.2, 6.3**
     - fast-check over catalog-shaped objects with extra enumerable properties (functions, `candidate`, unknown keys): output has exactly the documented keys, contains no function after `JSON.parse(JSON.stringify(...))`, no `candidate` key anywhere; three translations in the documented order

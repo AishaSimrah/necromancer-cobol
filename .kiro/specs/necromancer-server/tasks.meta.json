@@ -48,6 +48,18 @@
         "chatSessionId": "sess_59b54834-07fe-4a3f-842a-5162580be737",
         "timestamp": 1795094626099
       }
+    ],
+    "1.4 Write allowlist tests in `tests/server/catalog-wire.test.ts`": [
+      {
+        "executionId": "dce6ffbd-c257-4308-9fea-60d73863bd54",
+        "chatSessionId": "sess_a61ff3d3-694c-44ba-9587-612f512d0619",
+        "timestamp": 1795094703182
+      },
+      {
+        "executionId": "dce6ffbd-c257-4308-9fea-60d73863bd54",
+        "chatSessionId": "sess_a61ff3d3-694c-44ba-9587-612f512d0619",
+        "timestamp": 1795094775999
+      }
     ]
   }
 }
