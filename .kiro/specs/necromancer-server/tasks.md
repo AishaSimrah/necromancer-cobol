@@ -87,7 +87,7 @@ Rules for every task:
     - _Requirements: 4.4, 10.3, 10.4, 10.5, 13.1_
 
 - [ ] 3. HTTP skeleton: static files, router, health, samples
-  - [ ] 3.1 Create `src/server/static-files.ts` and the placeholder `public/index.html`
+  - [x] 3.1 Create `src/server/static-files.ts` and the placeholder `public/index.html`
     - `resolveStaticPath(rawPath, realRoot)`: `/` maps to `index.html`; decode once; reject NUL, backslash, any `..` or dot-prefixed segment, trailing `/`; `realpath` prefix check against the real root; directories 404; fixed Content-Type table with `charset=utf-8` on text types including svg; `serveStatic` with `GET`/`HEAD`, `pipeline(createReadStream, res)`, `Cache-Control: no-cache` for `index.html` and `public, max-age=3600` otherwise; 405 with `Allow: GET, HEAD`
     - `public/index.html`: names the app, no `<script>`, no inline style (CSP `default-src 'self'`)
     - Run typecheck and lint
@@ -126,7 +126,7 @@ Rules for every task:
     - Logs only `PORT` and the three numeric settings
     - Run typecheck and lint
     - _Requirements: 1.3, 1.4, 1.5, 10.3, 15.6_
-  - [ ] 4.2 Add the `build:server` script to `package.json`
+  - [x] 4.2 Add the `build:server` script to `package.json`
     - `esbuild src/server/main.ts --bundle --platform=node --target=node22 --format=esm --outfile=dist/server/server.js --sourcemap=external`; no `--define` of `import.meta.url`; add the `createRequire` banner only if the bundle fails with a dynamic `require` error
     - Run `npm run build:server` and confirm `dist/server/server.js` exists; run typecheck and lint
     - _Requirements: 1.2, 1.8_

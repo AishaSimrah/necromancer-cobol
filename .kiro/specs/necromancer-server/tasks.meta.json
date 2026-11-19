@@ -159,6 +159,30 @@
         "chatSessionId": "sess_31c64079-2a4f-449f-9d43-3bee0fc63617",
         "timestamp": 1795095669342
       }
+    ],
+    "3.1 Create `src/server/static-files.ts` and the placeholder `public/index.html`": [
+      {
+        "executionId": "11800a28-9764-44bf-88dd-ca48301adec0",
+        "chatSessionId": "sess_94bc59bb-82aa-4e0b-88b7-0b729b8e4c09",
+        "timestamp": 1795095763116
+      },
+      {
+        "executionId": "11800a28-9764-44bf-88dd-ca48301adec0",
+        "chatSessionId": "sess_94bc59bb-82aa-4e0b-88b7-0b729b8e4c09",
+        "timestamp": 1795095825978
+      }
+    ],
+    "4.2 Add the `build:server` script to `package.json`": [
+      {
+        "executionId": "710a08e5-da46-4ab4-9374-97d7349471c7",
+        "chatSessionId": "sess_a4c134e9-5f13-426f-b8da-a4123995302c",
+        "timestamp": 1795095863681
+      },
+      {
+        "executionId": "710a08e5-da46-4ab4-9374-97d7349471c7",
+        "chatSessionId": "sess_a4c134e9-5f13-426f-b8da-a4123995302c",
+        "timestamp": 1795095881482
+      }
     ]
   }
 }
