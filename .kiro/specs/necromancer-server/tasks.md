@@ -59,7 +59,7 @@ Rules for every task:
     - Recording fake backend; `toBe` identity of the second argument for probe calls and Engine port calls over arbitrary interleavings; `Object.isFrozen` on `sharedConfig` and `workerCommand`; `workerCommand` value; no recorded call with an undefined config; the port ignores a caller-supplied config; `reset()` calls `backend.shutdown()`
     - Grep test: `compileCobol(` appears exactly once across `src/server/**/*.ts`, in `oracle-adapter.ts`
     - _Requirements: 10.2, 13.13, 16.5_
-  - [-] 2.3 Create `src/server/cobc-version.ts`
+  - [x] 2.3 Create `src/server/cobc-version.ts`
     - `parseCobcVersion(stdout)` with `/^cobc \(GnuCOBOL\) (\d+\.\d+\.\d+(?:\.\d+)?)/` on the first line, else `null`
     - `readCobcVersion(exec)` using one fixed `execFile("cobc", ["--version"], { timeout: 5000, maxBuffer: 16 * 1024, shell: false, windowsHide: true })`, result cached for the process, never repeated; a cached accessor that waits at most 1000 ms for an in-flight call and then yields `null`
     - Run typecheck and lint
