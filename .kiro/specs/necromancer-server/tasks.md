@@ -47,7 +47,7 @@ Rules for every task:
     - fast-check over catalog-shaped objects with extra enumerable properties (functions, `candidate`, unknown keys): output has exactly the documented keys, contains no function after `JSON.parse(JSON.stringify(...))`, no `candidate` key anywhere; three translations in the documented order
     - _Requirements: 6.3, 13.4_
 
-- [ ] 2. Oracle adapter, probe, cobc version, work directory
+- [x] 2. Oracle adapter, probe, cobc version, work directory
   - [x] 2.1 Create `src/server/oracle-adapter.ts`
     - `createOracleAdapter({ backend, workRoot })` with the frozen `sharedConfig` (`workerCommand` frozen `["node", "/opt/oracle/worker.js", "--work-root", workRoot]`), the wrapper `port: OraclePort` that ignores any caller-supplied config, `compile`, `backend`, and `reset` (calls `backend.shutdown()`)
     - The only `compileCobol(` call site in `src/server`, with a comment that records why (the Oracle keeps one Worker client created from the first config, and `/work` cannot be created by a non-root user)
@@ -69,19 +69,19 @@ Rules for every task:
     - Creates no other directory; `TMPDIR` is not needed because the Worker uses the handle directory
     - Run typecheck and lint
     - _Requirements: 10.3, 10.4, 10.5, 10.8_
-  - [ ] 2.5 Create `src/server/probe.ts`
+  - [x] 2.5 Create `src/server/probe.ts`
     - `createProbe(deps)` returning `ProbeController` (`state`, `run({force})`, `markUnavailable`)
     - Real probe: `adapter.compile(getSample("interest").cobolSource)`, require a handle (`isCompiledHandle`), `runCompiled(handle, examples[0].input)`, success only if `status === "ok"` and `stdout === examples[0].output` strictly, `releaseHandle` in `finally`
     - Single flight (one shared promise, cleared in `finally`); 15 s timeout via `Timings.probeTimeoutMs` counts as unavailable and calls `adapter.reset()`; failure calls `reset()` and logs only a short fixed reason; no probe while `slot.isTaken()` (returns the last state); `probeMinIntervalMs` returns the last result for a probe finished too recently; initial state `unavailable`; `execAllowed === false` returns `unavailable` without calling the backend
     - Run typecheck and lint
     - _Requirements: 4.2, 4.6, 4.7, 4.8, 10.5, 16.2_
-  - [ ]* 2.6 Write tests in `tests/server/probe.test.ts`
+  - [-] 2.6 Write tests in `tests/server/probe.test.ts`
     - **Property 15: Oracle_State is `ready` only after a real, matching probe**
     - **Validates: Requirements 4.1, 4.2, 4.3, 4.6, 4.7, 4.8**
     - Scripted fake behaviors: compile failure of every status, a non-handle value, run status other than `ok`, stdout differing by any single edit (including a missing trailing newline), a thrown error, a hang past the timeout (fake timers); `ready` iff handle and `ok` and strict equality
     - Single flight: two concurrent probes make exactly one backend compile call; no probe while the slot is taken; min-interval behavior; initial state is `unavailable`; health body has no stack or path; handle released on every path
     - _Requirements: 4.2, 4.6, 4.7, 4.8_
-  - [ ]* 2.7 Write tests in `tests/server/cobc-version.test.ts` and `tests/server/workdir.test.ts`
+  - [x] 2.7 Write tests in `tests/server/cobc-version.test.ts` and `tests/server/workdir.test.ts`
     - `parseCobcVersion`: `3.1.2.0`, 3-part version, garbage, empty, multi-line; `readCobcVersion` calls the exec fake exactly once across repeated reads; failure and timeout give `null`; the 1000 ms wait
     - `prepareWorkRoot` with a temp dir and an injected fs port: creates nested directories; clear message on mkdir failure and on write failure; a non-executable root returns `execAllowed: false` and logs the path; the check file is removed
     - _Requirements: 4.4, 10.3, 10.4, 10.5, 13.1_

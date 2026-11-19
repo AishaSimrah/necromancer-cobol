@@ -112,6 +112,44 @@
         "chatSessionId": "sess_f51b9051-c167-478e-9d28-d28d452017e7",
         "timestamp": 1795095243633
       }
+    ],
+    "2.7 Write tests in `tests/server/cobc-version.test.ts` and `tests/server/workdir.test.ts`": [
+      {
+        "executionId": "67660e9e-91d3-424a-a788-33ee073fe209",
+        "chatSessionId": "sess_f1585838-036a-43a2-b708-bd91d01dcceb",
+        "timestamp": 1795095318288
+      },
+      {
+        "executionId": "67660e9e-91d3-424a-a788-33ee073fe209",
+        "chatSessionId": "sess_f1585838-036a-43a2-b708-bd91d01dcceb",
+        "timestamp": 1795095416770
+      }
+    ],
+    "2.5 Create `src/server/probe.ts`": [
+      {
+        "executionId": "fa5f642b-1901-40ce-b05e-b4619ab6c70c",
+        "chatSessionId": "sess_ea9e256f-00a8-4937-96fd-75fd290aef6e",
+        "timestamp": 1795095441967
+      },
+      {
+        "executionId": "fa5f642b-1901-40ce-b05e-b4619ab6c70c",
+        "chatSessionId": "sess_ea9e256f-00a8-4937-96fd-75fd290aef6e",
+        "timestamp": 1795095522431
+      }
+    ],
+    "2. Oracle adapter, probe, cobc version, work directory": [
+      {
+        "executionId": "fa5f642b-1901-40ce-b05e-b4619ab6c70c",
+        "chatSessionId": "sess_ea9e256f-00a8-4937-96fd-75fd290aef6e",
+        "timestamp": 1795095522586
+      }
+    ],
+    "2.6 Write tests in `tests/server/probe.test.ts`": [
+      {
+        "executionId": "fe3891ef-9b3a-4436-873f-399cbb4a2fb8",
+        "chatSessionId": "sess_31c64079-2a4f-449f-9d43-3bee0fc63617",
+        "timestamp": 1795095538850
+      }
     ]
   }
 }
