@@ -64,7 +64,7 @@ Rules for every task:
     - `readCobcVersion(exec)` using one fixed `execFile("cobc", ["--version"], { timeout: 5000, maxBuffer: 16 * 1024, shell: false, windowsHide: true })`, result cached for the process, never repeated; a cached accessor that waits at most 1000 ms for an in-flight call and then yields `null`
     - Run typecheck and lint
     - _Requirements: 3.6, 4.4, 10.8_
-  - [ ] 2.4 Create `src/server/workdir.ts`
+  - [x] 2.4 Create `src/server/workdir.ts`
     - `prepareWorkRoot(workRoot, fsPort)`: `mkdir` recursive mode 0700 (failure throws an error naming the path and error code), write `.necro-check-<pid>` with `#!/bin/sh\nexit 0\n` mode 0700 (failure throws "cannot write to"), `access(file, X_OK)`; on failure log `work root <path> does not allow executing files (noexec mount?)` and return `execAllowed: false`; remove the check file best effort. Does not execute the file
     - Creates no other directory; `TMPDIR` is not needed because the Worker uses the handle directory
     - Run typecheck and lint
