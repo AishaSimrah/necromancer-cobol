@@ -24,7 +24,7 @@ Rules for every task:
 ## Tasks
 
 - [ ] 1. Foundation types, config, headers, catalog mappers
-  - [ ] 1.1 Create `src/server/types.ts`, `wire.ts`, `errors.ts`, `config.ts`
+  - [x] 1.1 Create `src/server/types.ts`, `wire.ts`, `errors.ts`, `config.ts`
     - `types.ts`: `OracleBackend`, `ServerConfig`, `Timings`, `AppDeps`, `ServerLogger` exactly as in the design
     - `wire.ts`: `HealthBody`, `SampleSummary`, `SampleDetail`, `ProveRequest`, `ProgressWire`, `ReportWire`, `ErrorWire`. `ProgressWire` has no key containing `score`; `ErrorWire` has exactly `type`, `code`, `message`
     - `errors.ts`: `ErrorCode` union, `errorBody(code, message)`, code-to-status table, the fixed messages from the Error Handling table
