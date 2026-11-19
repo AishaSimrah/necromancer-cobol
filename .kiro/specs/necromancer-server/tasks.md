@@ -23,7 +23,7 @@ Rules for every task:
 
 ## Tasks
 
-- [ ] 1. Foundation types, config, headers, catalog mappers
+- [x] 1. Foundation types, config, headers, catalog mappers
   - [x] 1.1 Create `src/server/types.ts`, `wire.ts`, `errors.ts`, `config.ts`
     - `types.ts`: `OracleBackend`, `ServerConfig`, `Timings`, `AppDeps`, `ServerLogger` exactly as in the design
     - `wire.ts`: `HealthBody`, `SampleSummary`, `SampleDetail`, `ProveRequest`, `ProgressWire`, `ReportWire`, `ErrorWire`. `ProgressWire` has no key containing `score`; `ErrorWire` has exactly `type`, `code`, `message`
@@ -36,7 +36,7 @@ Rules for every task:
     - **Validates: Requirements 1.3, 15.1, 15.2, 15.3, 15.4**
     - Unit tests: every default; each invalid value names its variable; cross-field cases (MAX alone 500, DEFAULT above MAX, MAX 100001, budget 999 and 3600001, `PORT` `0`, `65536`, `"80a"`, `" 80"`, `"+80"`, `"1e3"`, `"1.5"`); empty string uses the default; the returned config is frozen
     - _Requirements: 13.12, 15.1, 15.2, 15.3_
-  - [ ] 1.3 Create `src/server/security-headers.ts` and `src/server/catalog-wire.ts`
+  - [x] 1.3 Create `src/server/security-headers.ts` and `src/server/catalog-wire.ts`
     - `applySecurityHeaders(res)`: `Content-Security-Policy: default-src 'self'`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: no-referrer`, `X-Frame-Options: DENY`; removes `X-Powered-By` and `Server`; never sets `Access-Control-*`
     - `toSampleSummary`, `toSampleDetail`: explicit allowlist object literals (no spreads of catalog objects, no `candidate`, `FieldDescriptor` copied key by key); `translations` always in order `correct`, `subtle`, `naive`
     - Run typecheck and lint
