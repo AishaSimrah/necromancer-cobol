@@ -75,7 +75,7 @@ Rules for every task:
     - Single flight (one shared promise, cleared in `finally`); 15 s timeout via `Timings.probeTimeoutMs` counts as unavailable and calls `adapter.reset()`; failure calls `reset()` and logs only a short fixed reason; no probe while `slot.isTaken()` (returns the last state); `probeMinIntervalMs` returns the last result for a probe finished too recently; initial state `unavailable`; `execAllowed === false` returns `unavailable` without calling the backend
     - Run typecheck and lint
     - _Requirements: 4.2, 4.6, 4.7, 4.8, 10.5, 16.2_
-  - [-] 2.6 Write tests in `tests/server/probe.test.ts`
+  - [x] 2.6 Write tests in `tests/server/probe.test.ts`
     - **Property 15: Oracle_State is `ready` only after a real, matching probe**
     - **Validates: Requirements 4.1, 4.2, 4.3, 4.6, 4.7, 4.8**
     - Scripted fake behaviors: compile failure of every status, a non-handle value, run status other than `ok`, stdout differing by any single edit (including a missing trailing newline), a thrown error, a hang past the timeout (fake timers); `ready` iff handle and `ok` and strict equality
