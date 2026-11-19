@@ -31,7 +31,7 @@ Rules for every task:
     - `config.ts`: `loadServerConfig(env)` returning a frozen `ServerConfig` or throwing `ServerConfigError` that names the variable. Rules: `PORT` 1..65535 (default 10000); `NECROMANCER_DEFAULT_CASE_COUNT` default 1000, `100 <= v <= MAX`; `NECROMANCER_MAX_CASE_COUNT` default 2000, `<= 100000`; `NECROMANCER_TIME_BUDGET_MS` default 60000, `1000..3600000`; `NECROMANCER_WORK_ROOT` default `$HOME/work`, absolute. Values must match `/^[0-9]+$/` and be safe integers; unset or empty uses the default; echoed values are cut to 40 characters. Cross-field failure when only MAX is set below the default names `NECROMANCER_DEFAULT_CASE_COUNT` and says to set both
     - Run typecheck and lint
     - _Requirements: 1.1, 1.3, 15.1, 15.2, 15.3, 15.4, 15.5, 15.6, 8.3, 8.10_
-  - [ ]* 1.2 Write tests in `tests/server/config.test.ts`
+  - [x] 1.2 Write tests in `tests/server/config.test.ts`
     - **Property 1: Environment configuration is validated totally**
     - **Validates: Requirements 1.3, 15.1, 15.2, 15.3, 15.4**
     - Unit tests: every default; each invalid value names its variable; cross-field cases (MAX alone 500, DEFAULT above MAX, MAX 100001, budget 999 and 3600001, `PORT` `0`, `65536`, `"80a"`, `" 80"`, `"+80"`, `"1e3"`, `"1.5"`); empty string uses the default; the returned config is frozen
