@@ -92,13 +92,13 @@ Rules for every task:
     - `public/index.html`: names the app, no `<script>`, no inline style (CSP `default-src 'self'`)
     - Run typecheck and lint
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7_
-  - [ ]* 3.2 Write tests in `tests/server/static.test.ts`
+  - [x] 3.2 Write tests in `tests/server/static.test.ts`
     - **Property 3: Static path resolution never leaves the Static_Root**
     - **Validates: Requirements 2.3, 2.4**
     - Temp `public/` with a dotfile and a planted symlink out of the root; fast-check over arbitrary path strings (encoded `..`, NUL, backslash, dot segments, absolute paths): result is 404 or a regular file whose real path is inside the root without a dot segment; directories never listed
     - Examples: content type per extension, `HEAD` has headers and no body, 405 with `Allow`, cache headers for `index.html` vs others, the placeholder has no `<script>`
     - _Requirements: 2.1 to 2.7, 13.1_
-  - [ ] 3.3 Create `src/server/routes.ts` and `src/server/app.ts`
+  - [-] 3.3 Create `src/server/routes.ts` and `src/server/app.ts`
     - `createApp(deps)` returns `{ server, shutdown, state }`, no `process.*` access. Server options: `maxHeaderSize: 8192`, `headersTimeout` 15 s, `requestTimeout` 30 s, `keepAliveTimeout` 65 s, `maxConnections` 64
     - Per request: security headers first; split at first `?`; `/api/` paths get `Cache-Control: no-store`; exact route table (`/api/health` GET, `/api/samples` GET, `/api/samples/:id` GET, `/api/prove` POST wired later); 404 JSON for unknown API paths, 405 with `Allow` for wrong methods (`OPTIONS` gets 405); sample id decoded once inside `try`, compared with `SAMPLE_IDS.includes`; top-level `try/catch` answers generic 500 or destroys the socket if headers were sent
     - `GET /api/health`: `{status, oracle, cobcVersion, uptimeMs}`, always 200, `?probe=1` triggers `probe.run`
