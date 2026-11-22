@@ -161,7 +161,7 @@ Rules for every task:
     - If Docker is not available, stop and report the missing piece; do not skip
     - _Requirements: 1.8, 10.5, 10.6, 10.7, 11.9, 14.1_
 
-- [ ] 7. Checkpoint - image works
+- [x] 7. Checkpoint - image works
   - Ensure `docker build` succeeded and every verification in 6.4 passed. Run `npm run typecheck`, `npm run lint` and `npm test`. Ensure all tests pass, ask the user if questions arise before starting any prove-route work.
 
 - [ ] 8. Prove request: body, validation, mappers
