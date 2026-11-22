@@ -15,6 +15,10 @@
     "3.2 Write tests in `tests/server/static.test.ts`": {
       "status": "passed",
       "lastRunTimestamp": 1795352535194
+    },
+    "3.4 Write tests in `tests/server/headers.test.ts`": {
+      "status": "passed",
+      "lastRunTimestamp": 1795352967375
     }
   },
   "executionHistory": {
@@ -217,6 +221,37 @@
         "executionId": "0d2a5ae5-a80e-497d-a406-38394e791282",
         "chatSessionId": "sess_730d4f15-1f1b-4658-a753-ec7bec9844c0",
         "timestamp": 1795352680758
+      }
+    ],
+    "3.4 Write tests in `tests/server/headers.test.ts`": [
+      {
+        "executionId": "acf74514-97c1-4c79-b11e-0a5f9f720e7e",
+        "chatSessionId": "sess_5149350c-ca2a-4411-8ceb-231784649f2e",
+        "timestamp": 1795352753759
+      },
+      {
+        "executionId": "acf74514-97c1-4c79-b11e-0a5f9f720e7e",
+        "chatSessionId": "sess_5149350c-ca2a-4411-8ceb-231784649f2e",
+        "timestamp": 1795352978378
+      }
+    ],
+    "3.5 Write tests in `tests/server/routes.test.ts`": [
+      {
+        "executionId": "dfee9eb2-31b9-4217-8a1e-63d799cbb9a3",
+        "chatSessionId": "sess_b78d5c01-c6f9-41c9-a1e3-f44f67a0429d",
+        "timestamp": 1795352994764
+      },
+      {
+        "executionId": "dfee9eb2-31b9-4217-8a1e-63d799cbb9a3",
+        "chatSessionId": "sess_b78d5c01-c6f9-41c9-a1e3-f44f67a0429d",
+        "timestamp": 1795353171686
+      }
+    ],
+    "4.1 Create `src/server/main.ts`": [
+      {
+        "executionId": "e1185fb6-ec4c-4bcd-b8be-13402af9bd8d",
+        "chatSessionId": "sess_7c5481e5-ce5c-4f4f-a3a0-eb48a51b87d6",
+        "timestamp": 1795353185498
       }
     ]
   }

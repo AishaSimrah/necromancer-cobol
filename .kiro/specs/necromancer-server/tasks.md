@@ -107,12 +107,12 @@ Rules for every task:
     - `app.shutdown()` sets `shuttingDown`, closes the server and idle connections, calls `backend.shutdown()`, then closes all connections (the prove runner hook is added in task 9)
     - Run typecheck and lint
     - _Requirements: 1.5, 1.6, 1.7, 2.8, 3.1, 3.3, 3.5, 4.1, 4.2, 4.3, 4.5, 4.6, 5.1, 5.2, 6.1, 6.4, 6.5, 6.6_
-  - [~] 3.4 Write tests in `tests/server/headers.test.ts`
+  - [x] 3.4 Write tests in `tests/server/headers.test.ts`
     - **Property 4: Security headers appear on every response**
     - **Validates: Requirements 3.1, 3.2, 3.3, 3.4**
     - In-process server on port 0 with the fake backend; fast-check over method, path and header values; covers static, JSON, 404, 405, 413 (once task 8 exists, extended in 9.4) and 500 (throwing catalog); no `Access-Control-*`, no `X-Powered-By`, no `Server`; `Cache-Control: no-store` on every `/api/` response; `OPTIONS` gets 405
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 13.1_
-  - [ ]* 3.5 Write tests in `tests/server/routes.test.ts`
+  - [x] 3.5 Write tests in `tests/server/routes.test.ts`
     - **Property 5: Unknown API paths and unknown sample ids are 404 JSON**
     - **Property 6: Sample responses are allowlisted data**
     - **Validates: Requirements 2.8, 6.4, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3**
@@ -120,7 +120,7 @@ Rules for every task:
     - _Requirements: 2.8, 4.1 to 4.3, 5, 6, 13.1, 13.4_
 
 - [ ] 4. Entry point, shutdown, esbuild script
-  - [ ] 4.1 Create `src/server/main.ts`
+  - [-] 4.1 Create `src/server/main.ts`
     - The only file that reads `process.env` and calls `process.exit`. Order: `loadServerConfig` (exit non-zero with the message on error), `prepareWorkRoot`, real `createOracleAdapter` with `import * as oracle`, `createApp`, `listen(port, "0.0.0.0")`, then start `cobc --version` and the first probe in the background
     - SIGTERM and SIGINT start a 5 s hard timer (exit 1), call `app.shutdown()`, exit 0; a second signal is ignored
     - Logs only `PORT` and the three numeric settings
