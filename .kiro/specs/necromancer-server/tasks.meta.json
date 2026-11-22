@@ -328,6 +328,25 @@
         "chatSessionId": "sess_7edd3943-f1a2-4f37-98ea-416fe301e20e",
         "timestamp": 1795354633525
       }
+    ],
+    "6.4 Build and run the image locally, record observations": [
+      {
+        "executionId": "7484df1b-2bd1-4bdd-bfb5-c8f76d33e6f8",
+        "chatSessionId": "sess_628f7906-ab6d-4ea5-8677-5673350e91f6",
+        "timestamp": 1795355005785
+      },
+      {
+        "executionId": "7484df1b-2bd1-4bdd-bfb5-c8f76d33e6f8",
+        "chatSessionId": "sess_628f7906-ab6d-4ea5-8677-5673350e91f6",
+        "timestamp": 1795356111105
+      }
+    ],
+    "6. App image (early)": [
+      {
+        "executionId": "7484df1b-2bd1-4bdd-bfb5-c8f76d33e6f8",
+        "chatSessionId": "sess_628f7906-ab6d-4ea5-8677-5673350e91f6",
+        "timestamp": 1795356111794
+      }
     ]
   }
 }

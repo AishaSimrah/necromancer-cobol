@@ -140,7 +140,7 @@ Rules for every task:
 - [x] 5. Checkpoint - thin slice
   - Run `npm run typecheck`, `npm run lint` and `npm test`. Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 6. App image (early)
+- [x] 6. App image (early)
   - [x] 6.1 Create `Dockerfile.app`
     - Stage 1 `build` from `node:22.11.0-bookworm-slim@sha256:f035ba7ffee18f67200e2eb8018e0f13c954ec16338f264940f701997e3c12da`: `npm ci`, copy `src/`, run `npm run build:worker && npm run build:server`
     - Final stage `ubuntu:24.04`: `apt-get install -y --no-install-recommends gnucobol libstdc++6`, copy `node` from the build stage, `--chmod=0555` worker at `/opt/oracle/worker.js`, user `necro` uid/gid 10001 with `/usr/sbin/nologin`, `/home/necro/work` mode 0700, `WORKDIR /app`, copy `dist/server/server.js` to `./dist/server/server.js`, `public/`, `cobol-samples/`, `src/translator/translations/` (readable by uid 10001, `--chmod=a+rX` or `chmod -R a+rX`)
@@ -153,7 +153,7 @@ Rules for every task:
   - [x] 6.3 Create `scripts/check-app-image.sh`
     - Builds `Dockerfile.app` as `necromancer-app`, runs the three configurations from the design (default, `--tmpfs /tmp`, `--read-only --tmpfs /tmp --tmpfs /home/necro/work:rw,exec,nosuid,uid=10001,gid=10001,mode=0700,size=128m`) detached, polls `/api/health?probe=1` until `oracle:"ready"` or fails after 60 s, prints image size and `docker stats --no-stream` memory at idle, removes the containers; also runs the `noexec` configuration (`--tmpfs /tmp:rw,noexec` with `NECROMANCER_WORK_ROOT=/tmp/work`) and expects `degraded` with the log line naming the path
     - _Requirements: 10.5, 10.7, 11.9, 14.1_
-  - [ ] 6.4 Build and run the image locally, record observations
+  - [x] 6.4 Build and run the image locally, record observations
     - `docker build -f Dockerfile.app -t necromancer-app .`; note the build time and the image size
     - Verify with `docker run -d` and `curl`/`docker exec`: `GET /api/health` answers within 3 s of start (note the startup time); `oracle:"ready"` after `?probe=1` with the default Work_Root, with `--tmpfs /tmp` and with the `--read-only` plus exec work volume; `GET /api/samples/interest` returns non-empty `cobolSource` and three non-empty translation sources, which proves the catalog paths resolve from `/app/dist/server/server.js`; `docker exec necromancer id -u` is 10001 and the Worker runs as the same uid; `NECROMANCER_WORK_ROOT=/tmp/work` on `--tmpfs /tmp:rw,noexec` gives `degraded` health and a log line naming the path
     - Measure idle memory with `docker stats --no-stream`; if possible also memory during a 2000-case run once task 11 exists (revisit in 13.3)
