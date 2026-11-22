@@ -86,7 +86,7 @@ Rules for every task:
     - `prepareWorkRoot` with a temp dir and an injected fs port: creates nested directories; clear message on mkdir failure and on write failure; a non-executable root returns `execAllowed: false` and logs the path; the check file is removed
     - _Requirements: 4.4, 10.3, 10.4, 10.5, 13.1_
 
-- [ ] 3. HTTP skeleton: static files, router, health, samples
+- [x] 3. HTTP skeleton: static files, router, health, samples
   - [x] 3.1 Create `src/server/static-files.ts` and the placeholder `public/index.html`
     - `resolveStaticPath(rawPath, realRoot)`: `/` maps to `index.html`; decode once; reject NUL, backslash, any `..` or dot-prefixed segment, trailing `/`; `realpath` prefix check against the real root; directories 404; fixed Content-Type table with `charset=utf-8` on text types including svg; `serveStatic` with `GET`/`HEAD`, `pipeline(createReadStream, res)`, `Cache-Control: no-cache` for `index.html` and `public, max-age=3600` otherwise; 405 with `Allow: GET, HEAD`
     - `public/index.html`: names the app, no `<script>`, no inline style (CSP `default-src 'self'`)
@@ -98,7 +98,7 @@ Rules for every task:
     - Temp `public/` with a dotfile and a planted symlink out of the root; fast-check over arbitrary path strings (encoded `..`, NUL, backslash, dot segments, absolute paths): result is 404 or a regular file whose real path is inside the root without a dot segment; directories never listed
     - Examples: content type per extension, `HEAD` has headers and no body, 405 with `Allow`, cache headers for `index.html` vs others, the placeholder has no `<script>`
     - _Requirements: 2.1 to 2.7, 13.1_
-  - [-] 3.3 Create `src/server/routes.ts` and `src/server/app.ts`
+  - [x] 3.3 Create `src/server/routes.ts` and `src/server/app.ts`
     - `createApp(deps)` returns `{ server, shutdown, state }`, no `process.*` access. Server options: `maxHeaderSize: 8192`, `headersTimeout` 15 s, `requestTimeout` 30 s, `keepAliveTimeout` 65 s, `maxConnections` 64
     - Per request: security headers first; split at first `?`; `/api/` paths get `Cache-Control: no-store`; exact route table (`/api/health` GET, `/api/samples` GET, `/api/samples/:id` GET, `/api/prove` POST wired later); 404 JSON for unknown API paths, 405 with `Allow` for wrong methods (`OPTIONS` gets 405); sample id decoded once inside `try`, compared with `SAMPLE_IDS.includes`; top-level `try/catch` answers generic 500 or destroys the socket if headers were sent
     - `GET /api/health`: `{status, oracle, cobcVersion, uptimeMs}`, always 200, `?probe=1` triggers `probe.run`
@@ -107,7 +107,7 @@ Rules for every task:
     - `app.shutdown()` sets `shuttingDown`, closes the server and idle connections, calls `backend.shutdown()`, then closes all connections (the prove runner hook is added in task 9)
     - Run typecheck and lint
     - _Requirements: 1.5, 1.6, 1.7, 2.8, 3.1, 3.3, 3.5, 4.1, 4.2, 4.3, 4.5, 4.6, 5.1, 5.2, 6.1, 6.4, 6.5, 6.6_
-  - [ ]* 3.4 Write tests in `tests/server/headers.test.ts`
+  - [~] 3.4 Write tests in `tests/server/headers.test.ts`
     - **Property 4: Security headers appear on every response**
     - **Validates: Requirements 3.1, 3.2, 3.3, 3.4**
     - In-process server on port 0 with the fake backend; fast-check over method, path and header values; covers static, JSON, 404, 405, 413 (once task 8 exists, extended in 9.4) and 500 (throwing catalog); no `Access-Control-*`, no `X-Powered-By`, no `Server`; `Cache-Control: no-store` on every `/api/` response; `OPTIONS` gets 405

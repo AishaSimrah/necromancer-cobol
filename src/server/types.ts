@@ -62,6 +62,8 @@ export interface AppDeps {
   readonly logger: ServerLogger;
   /** Uptime clock. */
   readonly now: () => number;
+  /** From `prepareWorkRoot`. Defaults to true when omitted. */
+  readonly execAllowed?: boolean;
 }
 
 export type { OraclePort };
