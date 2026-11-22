@@ -265,6 +265,18 @@
         "chatSessionId": "sess_7c5481e5-ce5c-4f4f-a3a0-eb48a51b87d6",
         "timestamp": 1795353344720
       }
+    ],
+    "5. Checkpoint - thin slice": [
+      {
+        "executionId": "e4d46648-7e29-42fc-8ff1-872dbaa94880",
+        "chatSessionId": "sess_b37313e1-1704-4c0e-9f67-df95d6a74d43",
+        "timestamp": 1795353518069
+      },
+      {
+        "executionId": "e4d46648-7e29-42fc-8ff1-872dbaa94880",
+        "chatSessionId": "sess_b37313e1-1704-4c0e-9f67-df95d6a74d43",
+        "timestamp": 1795353756100
+      }
     ]
   }
 }

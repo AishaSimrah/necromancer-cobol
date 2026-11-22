@@ -137,7 +137,7 @@ Rules for every task:
     - `app.shutdown()` stops accepting connections, calls `backend.shutdown()` once, resolves with no active run, and a second call is safe; a request after shutdown begins gets 503 `shutting_down` (prove part verified in 9.6)
     - _Requirements: 1.5, 9.6_
 
-- [ ] 5. Checkpoint - thin slice
+- [x] 5. Checkpoint - thin slice
   - Run `npm run typecheck`, `npm run lint` and `npm test`. Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 6. App image (early)
