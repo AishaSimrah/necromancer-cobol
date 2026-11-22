@@ -150,7 +150,7 @@ Rules for every task:
   - [x] 6.2 Adjust `.dockerignore`
     - Keep every current exclusion; confirm no pattern matches `public`, `cobol-samples/*.cbl`, `src/translator/translations/` or any file in it; optionally add `deploy-test`, `scripts`, `Dockerfile`, `Dockerfile.app`; do not exclude `src/`, `tsconfig.json`, `package.json`, `package-lock.json`
     - _Requirements: 11.6_
-  - [ ] 6.3 Create `scripts/check-app-image.sh`
+  - [-] 6.3 Create `scripts/check-app-image.sh`
     - Builds `Dockerfile.app` as `necromancer-app`, runs the three configurations from the design (default, `--tmpfs /tmp`, `--read-only --tmpfs /tmp --tmpfs /home/necro/work:rw,exec,nosuid,uid=10001,gid=10001,mode=0700,size=128m`) detached, polls `/api/health?probe=1` until `oracle:"ready"` or fails after 60 s, prints image size and `docker stats --no-stream` memory at idle, removes the containers; also runs the `noexec` configuration (`--tmpfs /tmp:rw,noexec` with `NECROMANCER_WORK_ROOT=/tmp/work`) and expects `degraded` with the log line naming the path
     - _Requirements: 10.5, 10.7, 11.9, 14.1_
   - [ ] 6.4 Build and run the image locally, record observations
