@@ -119,8 +119,8 @@ Rules for every task:
     - Unknown ids including `__proto__`, `constructor`, `toString`, encoded and malformed escapes give 404 JSON; unknown `/api/` paths never return `index.html`; list has three samples in order with exactly the four keys; detail JSON after `JSON.parse` has no function and no `candidate` key and exactly three translations in order; each translation `source` equals the file text on disk; throwing catalog gives generic 500 without a path or stack in the body and logs the cause; 405 with `Allow` on both sample routes; health shape for ready and degraded (200 in both) and `?probe=1` re-probe
     - _Requirements: 2.8, 4.1 to 4.3, 5, 6, 13.1, 13.4_
 
-- [ ] 4. Entry point, shutdown, esbuild script
-  - [-] 4.1 Create `src/server/main.ts`
+- [x] 4. Entry point, shutdown, esbuild script
+  - [x] 4.1 Create `src/server/main.ts`
     - The only file that reads `process.env` and calls `process.exit`. Order: `loadServerConfig` (exit non-zero with the message on error), `prepareWorkRoot`, real `createOracleAdapter` with `import * as oracle`, `createApp`, `listen(port, "0.0.0.0")`, then start `cobc --version` and the first probe in the background
     - SIGTERM and SIGINT start a 5 s hard timer (exit 1), call `app.shutdown()`, exit 0; a second signal is ignored
     - Logs only `PORT` and the three numeric settings
