@@ -9,3 +9,6 @@ cobol-samples/bin
 *.log
 .env
 .env.local
+deploy-test
+Dockerfile
+Dockerfile.app

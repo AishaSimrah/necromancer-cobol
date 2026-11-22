@@ -141,13 +141,13 @@ Rules for every task:
   - Run `npm run typecheck`, `npm run lint` and `npm test`. Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 6. App image (early)
-  - [ ] 6.1 Create `Dockerfile.app`
+  - [x] 6.1 Create `Dockerfile.app`
     - Stage 1 `build` from `node:22.11.0-bookworm-slim@sha256:f035ba7ffee18f67200e2eb8018e0f13c954ec16338f264940f701997e3c12da`: `npm ci`, copy `src/`, run `npm run build:worker && npm run build:server`
     - Final stage `ubuntu:24.04`: `apt-get install -y --no-install-recommends gnucobol libstdc++6`, copy `node` from the build stage, `--chmod=0555` worker at `/opt/oracle/worker.js`, user `necro` uid/gid 10001 with `/usr/sbin/nologin`, `/home/necro/work` mode 0700, `WORKDIR /app`, copy `dist/server/server.js` to `./dist/server/server.js`, `public/`, `cobol-samples/`, `src/translator/translations/` (readable by uid 10001, `--chmod=a+rX` or `chmod -R a+rX`)
     - `ENV NODE_ENV=production PORT=10000 HOME=/home/necro NECROMANCER_IN_ORACLE_IMAGE=1`, `EXPOSE 10000`, node-based `HEALTHCHECK` that succeeds on HTTP 200, `USER 10001:10001`, exec-form `CMD ["node", "dist/server/server.js"]`; no `COPY . .`, no `node_modules`, no `tests/`, `.kiro/`, `docs/`
     - The existing `Dockerfile` is not changed
     - _Requirements: 10.1, 10.6, 11.1, 11.2, 11.3, 11.4, 11.5, 11.7, 11.8_
-  - [ ] 6.2 Adjust `.dockerignore`
+  - [x] 6.2 Adjust `.dockerignore`
     - Keep every current exclusion; confirm no pattern matches `public`, `cobol-samples/*.cbl`, `src/translator/translations/` or any file in it; optionally add `deploy-test`, `scripts`, `Dockerfile`, `Dockerfile.app`; do not exclude `src/`, `tsconfig.json`, `package.json`, `package-lock.json`
     - _Requirements: 11.6_
   - [ ] 6.3 Create `scripts/check-app-image.sh`

@@ -190,6 +190,21 @@
         "executionId": "710a08e5-da46-4ab4-9374-97d7349471c7",
         "chatSessionId": "sess_a4c134e9-5f13-426f-b8da-a4123995302c",
         "timestamp": 1795095881482
+      },
+      {
+        "executionId": "556f6fc4-b808-4c84-94fe-cada9ff6ee0a",
+        "chatSessionId": "sess_7edd3943-f1a2-4f37-98ea-416fe301e20e",
+        "timestamp": 1795354114784
+      },
+      {
+        "executionId": "556f6fc4-b808-4c84-94fe-cada9ff6ee0a",
+        "chatSessionId": "sess_7edd3943-f1a2-4f37-98ea-416fe301e20e",
+        "timestamp": 1795354118259
+      },
+      {
+        "executionId": "556f6fc4-b808-4c84-94fe-cada9ff6ee0a",
+        "chatSessionId": "sess_7edd3943-f1a2-4f37-98ea-416fe301e20e",
+        "timestamp": 1795354189346
       }
     ],
     "3.2 Write tests in `tests/server/static.test.ts`": [
@@ -276,6 +291,30 @@
         "executionId": "e4d46648-7e29-42fc-8ff1-872dbaa94880",
         "chatSessionId": "sess_b37313e1-1704-4c0e-9f67-df95d6a74d43",
         "timestamp": 1795353756100
+      }
+    ],
+    "6.1 Create `Dockerfile.app`": [
+      {
+        "executionId": "ba1df4e5-db20-4e5a-beef-911d3ac4641e",
+        "chatSessionId": "sess_7edd3943-f1a2-4f37-98ea-416fe301e20e",
+        "timestamp": 1795353908182
+      },
+      {
+        "executionId": "ba1df4e5-db20-4e5a-beef-911d3ac4641e",
+        "chatSessionId": "sess_7edd3943-f1a2-4f37-98ea-416fe301e20e",
+        "timestamp": 1795353975815
+      }
+    ],
+    "6.2 Adjust `.dockerignore`": [
+      {
+        "executionId": "0eda3451-838b-4cd3-acd8-353f1a40f881",
+        "chatSessionId": "sess_b75042a2-f59c-42bc-b160-8f7a14fbf489",
+        "timestamp": 1795354003660
+      },
+      {
+        "executionId": "0eda3451-838b-4cd3-acd8-353f1a40f881",
+        "chatSessionId": "sess_b75042a2-f59c-42bc-b160-8f7a14fbf489",
+        "timestamp": 1795354082399
       }
     ]
   }
