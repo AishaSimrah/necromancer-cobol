@@ -102,6 +102,8 @@ export interface ProveRunnerDeps {
   readonly port: OraclePort;
   readonly slot: RunSlot;
   readonly logger: ServerLogger;
+  /** True once `app.shutdown()` has started. */
+  readonly isShuttingDown: () => boolean;
 }
 
 export interface ProveRunner {
@@ -171,7 +173,62 @@ export function createProveRunner(deps: ProveRunnerDeps): ProveRunner {
     }
   };
 
+  const sendShuttingDown = (res: ServerResponse): void => {
+    const text = JSON.stringify(errorBody("shutting_down", FIXED_MESSAGES.shutting_down));
+    res.writeHead(statusOf("shutting_down"), {
+      "Content-Type": "application/json; charset=utf-8",
+      "Cache-Control": "no-store",
+      "Content-Length": String(Buffer.byteLength(text)),
+    });
+    res.end(text);
+  };
+
+  const sendOracleUnavailable = (res: ServerResponse): void => {
+    res.writeHead(statusOf("oracle_unavailable"), {
+      "Content-Type": "application/x-ndjson; charset=utf-8",
+      "Cache-Control": "no-store",
+    });
+    res.end(`${JSON.stringify(errorBody("oracle_unavailable", FIXED_MESSAGES.oracle_unavailable))}\n`);
+  };
+
+  /** Returns true when the request was answered here and must not run. */
+  const rejectBeforeRun = async (res: ServerResponse): Promise<boolean> => {
+    if (deps.isShuttingDown()) {
+      sendShuttingDown(res);
+      return true;
+    }
+    if (slot.isTaken()) {
+      sendBusy(res);
+      return true;
+    }
+    if (probe.state() === "unavailable") {
+      // Single-flight probe, run without holding the slot.
+      const state = await probe.run();
+      if (res.destroyed) return true;
+      if (deps.isShuttingDown()) {
+        sendShuttingDown(res);
+        return true;
+      }
+      if (state === "unavailable" && probe.state() === "unavailable") {
+        sendOracleUnavailable(res);
+        return true;
+      }
+    }
+    return false;
+  };
+
   const handle = async (req: ProveRequest, res: ServerResponse): Promise<void> => {
+    try {
+      if (await rejectBeforeRun(res)) return;
+    } catch (cause) {
+      logger.line(`prove: ${cause instanceof Error ? cause.message : String(cause)}`);
+      if (!res.headersSent) {
+        res.writeHead(statusOf("internal_error"), { "Content-Type": "application/json; charset=utf-8" });
+        res.end(JSON.stringify(errorBody("internal_error", FIXED_MESSAGES.internal_error)));
+      } else res.destroy();
+      return;
+    }
+    // Synchronous take after the last await: this is the authoritative check.
     const token = slot.acquire();
     if (token === null) {
       sendBusy(res);

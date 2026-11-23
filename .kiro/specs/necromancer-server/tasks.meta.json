@@ -454,6 +454,25 @@
         "chatSessionId": "sess_36f1ba70-ff73-419d-82c9-c6904e3177c2",
         "timestamp": 1795430569763
       }
+    ],
+    "9.3 Wire the route: 503 path, shutdown, `proveRoute`": [
+      {
+        "executionId": "4cf111c6-ea21-4526-a4c6-bfc451b41b2c",
+        "chatSessionId": "sess_eb7b3426-68d0-4b12-86b3-c76b6b848227",
+        "timestamp": 1795431010950
+      },
+      {
+        "executionId": "4cf111c6-ea21-4526-a4c6-bfc451b41b2c",
+        "chatSessionId": "sess_eb7b3426-68d0-4b12-86b3-c76b6b848227",
+        "timestamp": 1795431110503
+      }
+    ],
+    "9. Prove runner and POST /api/prove": [
+      {
+        "executionId": "4cf111c6-ea21-4526-a4c6-bfc451b41b2c",
+        "chatSessionId": "sess_eb7b3426-68d0-4b12-86b3-c76b6b848227",
+        "timestamp": 1795431110666
+      }
     ]
   }
 }

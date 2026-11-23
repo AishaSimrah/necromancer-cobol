@@ -190,7 +190,7 @@ Rules for every task:
     - Generated `ProgressEvent` objects with extra `matchScore`/`score` keys give exactly the seven keys and no key containing `score`; generated `EquivalenceReport` values with extra properties and path or stack-trace strings give exactly the documented keys, `matchScore` strictly equal, `complete` equals `!aborted && !budgetReached`, no `inconclusiveCases`, no value containing `oracleMessage`; `toReportWire` throws for `inconclusive`, `oracle_unavailable` and a missing score; error mapper output has exactly `type`, `code`, `message` and no score or count keys
     - _Requirements: 8.3, 8.5 to 8.10, 8.12_
 
-- [ ] 9. Prove runner and POST /api/prove
+- [x] 9. Prove runner and POST /api/prove
   - [x] 9.1 Create `src/server/prove-runner.ts` (slot, writer, normal path)
     - `RunSlot` with synchronous `tryTake` and a per-run `Symbol` token so `release` is idempotent and a late release cannot free a newer run
     - `NdjsonWriter` (`progress`, `final`, `end`): drops writes when closed or `clientGone`; `res.write` returning false makes `progress` return a promise resolved by `drain` or `close`; `final` sets `closed` before writing; one `JSON.stringify` line per event
@@ -201,7 +201,7 @@ Rules for every task:
     - `AbortController`; `res.on("close")` and `req.on("close")` before the final event set `clientGone` and abort; the backstop timer aborts at `timeBudgetMs + abortBackstopGraceMs`; an exit watchdog starts at abort and, after `engineExitGraceMs` without an Engine return, writes the `timeout` error, calls `probe.markUnavailable()` and `adapter.reset()`, and releases the slot; a run ended by budget or abort (not disconnect) still sends a `report` with `complete: false`
     - Run typecheck and lint
     - _Requirements: 8.12, 9.2, 9.3, 9.4, 9.5_
-  - [ ] 9.3 Wire the route: 503 path, shutdown, `proveRoute`
+  - [x] 9.3 Wire the route: 503 path, shutdown, `proveRoute`
     - In `prove-runner.ts`: `shuttingDown` gives 503 `shutting_down` before any slot; slot taken gives 429 with `Retry-After: 5` and code `busy` (early check, then the synchronous `tryTake` after any await); Oracle_State `unavailable` runs one single-flight `probe.run()` without holding the slot, and if still unavailable answers 503 with one NDJSON `error` line `oracle_unavailable` and does not call the Engine; `abortActive()` and `idle()`
     - In `routes.ts`: `proveRoute` in the order method, content type (415), `Content-Length` (413), limited read (413), JSON object (400), `validateProveRequest`, then `runner.handle`; in `app.ts`: wire the runner and make `shutdown()` call `abortActive()` and wait for `idle()` before `backend.shutdown()`
     - Run typecheck and lint

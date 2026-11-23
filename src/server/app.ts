@@ -1,7 +1,8 @@
 import http from "node:http";
 import { createOracleAdapter, type OracleAdapter } from "./oracle-adapter.js";
 import { createProbe, type ProbeController } from "./probe.js";
-import { createHandler, type AppState } from "./routes.js";
+import { createProveRunner, createRunSlot } from "./prove-runner.js";
+import { createHandler, proveRoute, type AppState } from "./routes.js";
 import type { AppDeps } from "./types.js";
 
 export interface App {
@@ -30,8 +31,7 @@ function configureServer(server: http.Server): void {
 export function createApp(deps: AppDeps): App {
   const state: AppState = { shuttingDown: false };
   const adapter = createOracleAdapter({ backend: deps.backend, workRoot: deps.config.workRoot });
-  // The Run_Slot belongs to the prove runner (added later); until then no run can be active.
-  const slot = { isTaken: (): boolean => false };
+  const slot = createRunSlot();
   const probe = createProbe({
     adapter,
     getSample: deps.catalog.getSample,
@@ -42,7 +42,28 @@ export function createApp(deps: AppDeps): App {
     now: deps.now,
   });
 
-  const server = http.createServer({ maxHeaderSize: MAX_HEADER_SIZE }, createHandler({ deps, probe, state }));
+  const runner = createProveRunner({
+    config: deps.config,
+    timings: deps.timings,
+    adapter,
+    engine: deps.engine,
+    catalog: deps.catalog,
+    probe,
+    port: adapter.port,
+    slot,
+    logger: deps.logger,
+    isShuttingDown: () => state.shuttingDown,
+  });
+  const prove = proveRoute(runner, {
+    min: 100,
+    default: deps.config.defaultCaseCount,
+    max: deps.config.maxCaseCount,
+  });
+
+  const server = http.createServer(
+    { maxHeaderSize: MAX_HEADER_SIZE },
+    createHandler({ deps, probe, state, prove }),
+  );
   configureServer(server);
 
   let shutdownPromise: Promise<void> | null = null;
@@ -55,6 +76,8 @@ export function createApp(deps: AppDeps): App {
       });
     });
     server.closeIdleConnections();
+    runner.abortActive();
+    await runner.idle();
     try {
       await deps.backend.shutdown();
     } catch {

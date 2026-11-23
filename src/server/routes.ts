@@ -10,7 +10,16 @@ import {
   statusOf,
   type ErrorCode,
 } from "./errors.js";
+import {
+  checkJsonContentType,
+  declaredTooLarge,
+  parseJsonObject,
+  readBodyLimited,
+  sendPayloadTooLarge,
+} from "./body-reader.js";
 import type { ProbeController } from "./probe.js";
+import type { ProveRunner } from "./prove-runner.js";
+import { validateProveRequest, type CaseCountLimits } from "./validate.js";
 import { applySecurityHeaders } from "./security-headers.js";
 import { serveStatic } from "./static-files.js";
 import type { AppDeps } from "./types.js";
@@ -135,8 +144,10 @@ async function dispatchApi(
     return guardCatalog(ctx, res, () => samplesListRoute(ctx, res));
   }
   if (rawPath === "/api/prove") {
-    if (method !== "POST") return sendMethodNotAllowed(res, "POST");
-    if (ctx.prove === undefined) return sendNotFound(res);
+    if (ctx.prove === undefined) {
+      if (method !== "POST") return sendMethodNotAllowed(res, "POST");
+      return sendNotFound(res);
+    }
     return ctx.prove(req, res);
   }
   if (rawPath.startsWith(SAMPLES_PREFIX)) {
@@ -146,6 +157,31 @@ async function dispatchApi(
     return guardCatalog(ctx, res, () => sampleDetailRoute(ctx, id, res));
   }
   return sendNotFound(res);
+}
+
+/**
+ * Builds the `POST /api/prove` handler. Order: method, content type, declared
+ * length, limited read, JSON object, field validation, then the runner.
+ */
+export function proveRoute(runner: Pick<ProveRunner, "handle">, limits: CaseCountLimits): ProveHandler {
+  return async (req, res) => {
+    if (req.method !== "POST") return sendMethodNotAllowed(res, "POST");
+    if (!checkJsonContentType(req.headers["content-type"])) {
+      return sendError(res, "unsupported_media_type", FIXED_MESSAGES.unsupported_media_type);
+    }
+    if (declaredTooLarge(req)) return sendPayloadTooLarge(req, res);
+    const read = await readBodyLimited(req);
+    if (!read.ok) {
+      if (read.reason === "too_large") return sendPayloadTooLarge(req, res);
+      res.destroy();
+      return;
+    }
+    const parsed = parseJsonObject(read.body);
+    if (!parsed.ok) return sendError(res, "invalid_json", FIXED_MESSAGES.invalid_json);
+    const checked = validateProveRequest(parsed.value, limits);
+    if (!checked.ok) return sendError(res, checked.code, checked.message);
+    return runner.handle(checked.value, res);
+  };
 }
 
 function isApiPath(rawPath: string): boolean {
