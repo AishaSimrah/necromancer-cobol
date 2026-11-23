@@ -165,7 +165,7 @@ Rules for every task:
   - Ensure `docker build` succeeded and every verification in 6.4 passed. Run `npm run typecheck`, `npm run lint` and `npm test`. Ensure all tests pass, ask the user if questions arise before starting any prove-route work.
 
 - [ ] 8. Prove request: body, validation, mappers
-  - [ ] 8.1 Create `src/server/body-reader.ts`
+  - [x] 8.1 Create `src/server/body-reader.ts`
     - `checkJsonContentType` (`/^application\/json(?:\s*;\s*charset=utf-8)?$/i`), `readBodyLimited(req, 1024)` that counts bytes per chunk and stops past the limit (413 with `Connection: close`, `req.destroy()` on `res` finish), a `Content-Length` over 1024 gives 413 without reading, `parseJsonObject` with `TextDecoder("utf-8", { fatal: true })` and a plain-object check
     - Run typecheck and lint
     - _Requirements: 7.1, 7.2, 7.3_
