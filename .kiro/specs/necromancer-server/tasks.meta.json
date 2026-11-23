@@ -401,6 +401,18 @@
         "executionId": "2aff510c-689c-44df-82ce-e96654d69834",
         "chatSessionId": "sess_28786475-c318-4a1d-a5ad-7e2761529311",
         "timestamp": 1795429916016
+      },
+      {
+        "executionId": "2aff510c-689c-44df-82ce-e96654d69834",
+        "chatSessionId": "sess_28786475-c318-4a1d-a5ad-7e2761529311",
+        "timestamp": 1795429993265
+      }
+    ],
+    "8. Prove request: body, validation, mappers": [
+      {
+        "executionId": "2aff510c-689c-44df-82ce-e96654d69834",
+        "chatSessionId": "sess_28786475-c318-4a1d-a5ad-7e2761529311",
+        "timestamp": 1795429993559
       }
     ]
   }

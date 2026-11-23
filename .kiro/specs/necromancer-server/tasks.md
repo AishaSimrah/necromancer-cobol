@@ -164,7 +164,7 @@ Rules for every task:
 - [x] 7. Checkpoint - image works
   - Ensure `docker build` succeeded and every verification in 6.4 passed. Run `npm run typecheck`, `npm run lint` and `npm test`. Ensure all tests pass, ask the user if questions arise before starting any prove-route work.
 
-- [ ] 8. Prove request: body, validation, mappers
+- [x] 8. Prove request: body, validation, mappers
   - [x] 8.1 Create `src/server/body-reader.ts`
     - `checkJsonContentType` (`/^application\/json(?:\s*;\s*charset=utf-8)?$/i`), `readBodyLimited(req, 1024)` that counts bytes per chunk and stops past the limit (413 with `Connection: close`, `req.destroy()` on `res` finish), a `Content-Length` over 1024 gives 413 without reading, `parseJsonObject` with `TextDecoder("utf-8", { fatal: true })` and a plain-object check
     - Run typecheck and lint
@@ -178,11 +178,11 @@ Rules for every task:
     - **Validates: Requirements 7.3, 7.4, 7.5, 7.6, 7.7, 7.8**
     - fast-check over `fc.jsonValue()` and arbitrary objects with random keys including `__proto__`, `constructor`, `toString`: result is a valid `ProveRequest` (catalog `sampleId` and `variant`, `caseCount` integer in range, `seed` absent or int32) or a 400 failure naming the field or key; example per rule (strings, floats, `NaN`, unsafe integers, 99, 2001, seed 2147483648, `-0`); the message states the range in force
     - _Requirements: 7.3 to 7.8, 13.5_
-  - [-] 8.4 Create `src/server/mappers.ts`
+  - [x] 8.4 Create `src/server/mappers.ts`
     - `toProgressWire`, `toReportWire(report, echo)`, `toEngineErrorWire`: explicit allowlist literals, no spreads. `toReportWire` throws unless `outcome === "completed"` and `matchScore !== undefined`; passes `matchScore` through unchanged; `complete = !aborted && !budgetReached`; copies `shrunkExamples` field by field; never reads `inconclusiveCases`, `oracleMessage`, `oracleStatus`, `shrinkOracleCalls`, `containsInconclusive`
     - Run typecheck and lint
     - _Requirements: 8.3, 8.5, 8.6, 8.7, 8.8, 8.10, 8.12_
-  - [ ]* 8.5 Write tests in `tests/server/mappers.test.ts`
+  - [~] 8.5 Write tests in `tests/server/mappers.test.ts`
     - **Property 7: Progress events never carry a score**
     - **Property 8: Report mapping is an allowlist that passes the Engine's score through**
     - **Property 9 (mapper part): Only a completed Engine outcome can produce a score, and error events never contain one**
