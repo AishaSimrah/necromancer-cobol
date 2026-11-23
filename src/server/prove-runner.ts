@@ -6,7 +6,8 @@ import type { getSample, getTranslation } from "../translator/index.js";
 import { errorBody, FIXED_MESSAGES, statusOf } from "./errors.js";
 import { toEngineErrorWire, toProgressWire, toReportWire } from "./mappers.js";
 import type { ProbeController } from "./probe.js";
-import type { ServerConfig, ServerLogger } from "./types.js";
+import type { OracleAdapter } from "./oracle-adapter.js";
+import type { ServerConfig, ServerLogger, Timings } from "./types.js";
 import type { ErrorWire, ProgressWire, ProveRequest, ReportWire } from "./wire.js";
 
 /** The client side of a request. Only the request object is needed. */
@@ -97,6 +98,9 @@ export function createNdjsonWriter(res: ServerResponse): NdjsonWriter {
 
 export interface ProveRunnerDeps {
   readonly config: Pick<ServerConfig, "timeBudgetMs">;
+  readonly timings: Pick<Timings, "abortBackstopGraceMs" | "engineExitGraceMs">;
+  /** Only `reset` is used: it stops a stuck Worker after the exit watchdog fires. */
+  readonly adapter: Pick<OracleAdapter, "reset">;
   readonly engine: typeof runEquivalence;
   readonly catalog: { getSample: typeof getSample; getTranslation: typeof getTranslation };
   readonly probe: ProbeController;
@@ -188,6 +192,25 @@ export function createProveRunner(deps: ProveRunnerDeps): ProveRunner {
     };
     res.on("close", onGone);
     link.req.on("close", onGone);
+    let backstop: NodeJS.Timeout | undefined;
+    let watchdog: NodeJS.Timeout | undefined;
+    const onAbort = (): void => {
+      watchdog = setTimeout(fireWatchdog, deps.timings.engineExitGraceMs);
+    };
+    let resolveWatchdog: () => void = () => undefined;
+    const watchdogFired = new Promise<void>((resolve) => {
+      resolveWatchdog = resolve;
+    });
+    const fireWatchdog = (): void => {
+      logger.line("prove: engine did not exit after abort; resetting oracle");
+      writer.final(errorBody("timeout", FIXED_MESSAGES.timeout));
+      probe.markUnavailable();
+      deps.adapter.reset().catch((cause: unknown) => {
+        logger.line(`prove: oracle reset failed: ${cause instanceof Error ? cause.message : String(cause)}`);
+      });
+      resolveWatchdog();
+    };
+    ac.signal.addEventListener("abort", onAbort, { once: true });
     try {
       res.writeHead(200, {
         "Content-Type": "application/x-ndjson; charset=utf-8",
@@ -195,11 +218,18 @@ export function createProveRunner(deps: ProveRunnerDeps): ProveRunner {
         "X-Accel-Buffering": "no",
       });
       res.flushHeaders();
-      await runEngine(req, writer, ac.signal);
+      backstop = setTimeout(
+        () => ac.abort(),
+        deps.config.timeBudgetMs + deps.timings.abortBackstopGraceMs,
+      );
+      await Promise.race([runEngine(req, writer, ac.signal), watchdogFired]);
     } catch (cause) {
       logger.line(`prove: ${cause instanceof Error ? cause.message : String(cause)}`);
       writer.final(errorBody("internal_error", FIXED_MESSAGES.internal_error));
     } finally {
+      clearTimeout(backstop);
+      clearTimeout(watchdog);
+      ac.signal.removeEventListener("abort", onAbort);
       res.off("close", onGone);
       link.req.off("close", onGone);
       writer.end();

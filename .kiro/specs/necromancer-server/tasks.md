@@ -197,7 +197,7 @@ Rules for every task:
     - `handle`: take the slot, `200` with `application/x-ndjson; charset=utf-8`, `Cache-Control: no-store`, `X-Accel-Buffering: no`, `flushHeaders`, build Engine options only from `getSample(sampleId).cobolSource`, `fields`, `getTranslation(sampleId, variant).candidate`, `caseCount`, optional `seed`, `timeBudgetMs`, `signal`, `onProgress`, `oracle: adapter.port`; map outcomes (`completed` with score gives `report`; `inconclusive`, `oracle_unavailable` give `error`, the latter also `probe.markUnavailable()`; Engine throw gives `engine_config` or `internal_error` with the cause logged); `finally` clears timers, ends the response once, releases the slot
     - Run typecheck and lint
     - _Requirements: 7.10, 8.1, 8.2, 8.3, 8.4, 8.5, 8.7, 8.8, 8.9, 8.10, 9.1, 9.2, 9.5_
-  - [ ] 9.2 Extend `prove-runner.ts`: abort, budget, backstop, watchdog
+  - [x] 9.2 Extend `prove-runner.ts`: abort, budget, backstop, watchdog
     - `AbortController`; `res.on("close")` and `req.on("close")` before the final event set `clientGone` and abort; the backstop timer aborts at `timeBudgetMs + abortBackstopGraceMs`; an exit watchdog starts at abort and, after `engineExitGraceMs` without an Engine return, writes the `timeout` error, calls `probe.markUnavailable()` and `adapter.reset()`, and releases the slot; a run ended by budget or abort (not disconnect) still sends a `report` with `complete: false`
     - Run typecheck and lint
     - _Requirements: 8.12, 9.2, 9.3, 9.4, 9.5_

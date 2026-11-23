@@ -442,6 +442,18 @@
         "chatSessionId": "sess_d2532051-d98a-453f-b132-e43475a81610",
         "timestamp": 1795430341101
       }
+    ],
+    "9.2 Extend `prove-runner.ts`: abort, budget, backstop, watchdog": [
+      {
+        "executionId": "e2c26b49-1066-4649-bf35-2ab1b520c681",
+        "chatSessionId": "sess_36f1ba70-ff73-419d-82c9-c6904e3177c2",
+        "timestamp": 1795430438714
+      },
+      {
+        "executionId": "e2c26b49-1066-4649-bf35-2ab1b520c681",
+        "chatSessionId": "sess_36f1ba70-ff73-419d-82c9-c6904e3177c2",
+        "timestamp": 1795430569763
+      }
     ]
   }
 }
