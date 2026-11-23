@@ -1,4 +1,4 @@
-import type { IncomingMessage, ServerResponse } from "node:http";
+import type { ServerResponse } from "node:http";
 import { EquivalenceConfigError } from "../equivalence/index.js";
 import type { EquivalenceOptions, OraclePort } from "../equivalence/index.js";
 import type { runEquivalence } from "../equivalence/index.js";
@@ -9,11 +9,6 @@ import type { ProbeController } from "./probe.js";
 import type { OracleAdapter } from "./oracle-adapter.js";
 import type { ServerConfig, ServerLogger, Timings } from "./types.js";
 import type { ErrorWire, ProgressWire, ProveRequest, ReportWire } from "./wire.js";
-
-/** The client side of a request. Only the request object is needed. */
-export interface ClientLink {
-  readonly req: IncomingMessage;
-}
 
 export interface RunSlot {
   /** Synchronous: returns true and takes the slot, or returns false. */
@@ -111,7 +106,7 @@ export interface ProveRunnerDeps {
 
 export interface ProveRunner {
   /** Handles a validated request on `res`. Never throws. */
-  readonly handle: (req: ProveRequest, res: ServerResponse, link: ClientLink) => Promise<void>;
+  readonly handle: (req: ProveRequest, res: ServerResponse) => Promise<void>;
   readonly abortActive: () => void;
   /** Resolves when no run is active. */
   readonly idle: () => Promise<void>;
@@ -176,7 +171,7 @@ export function createProveRunner(deps: ProveRunnerDeps): ProveRunner {
     }
   };
 
-  const handle = async (req: ProveRequest, res: ServerResponse, link: ClientLink): Promise<void> => {
+  const handle = async (req: ProveRequest, res: ServerResponse): Promise<void> => {
     const token = slot.acquire();
     if (token === null) {
       sendBusy(res);
