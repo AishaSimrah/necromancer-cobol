@@ -182,7 +182,7 @@ Rules for every task:
     - `toProgressWire`, `toReportWire(report, echo)`, `toEngineErrorWire`: explicit allowlist literals, no spreads. `toReportWire` throws unless `outcome === "completed"` and `matchScore !== undefined`; passes `matchScore` through unchanged; `complete = !aborted && !budgetReached`; copies `shrunkExamples` field by field; never reads `inconclusiveCases`, `oracleMessage`, `oracleStatus`, `shrinkOracleCalls`, `containsInconclusive`
     - Run typecheck and lint
     - _Requirements: 8.3, 8.5, 8.6, 8.7, 8.8, 8.10, 8.12_
-  - [~] 8.5 Write tests in `tests/server/mappers.test.ts`
+  - [x] 8.5 Write tests in `tests/server/mappers.test.ts`
     - **Property 7: Progress events never carry a score**
     - **Property 8: Report mapping is an allowlist that passes the Engine's score through**
     - **Property 9 (mapper part): Only a completed Engine outcome can produce a score, and error events never contain one**
@@ -191,7 +191,7 @@ Rules for every task:
     - _Requirements: 8.3, 8.5 to 8.10, 8.12_
 
 - [ ] 9. Prove runner and POST /api/prove
-  - [ ] 9.1 Create `src/server/prove-runner.ts` (slot, writer, normal path)
+  - [x] 9.1 Create `src/server/prove-runner.ts` (slot, writer, normal path)
     - `RunSlot` with synchronous `tryTake` and a per-run `Symbol` token so `release` is idempotent and a late release cannot free a newer run
     - `NdjsonWriter` (`progress`, `final`, `end`): drops writes when closed or `clientGone`; `res.write` returning false makes `progress` return a promise resolved by `drain` or `close`; `final` sets `closed` before writing; one `JSON.stringify` line per event
     - `handle`: take the slot, `200` with `application/x-ndjson; charset=utf-8`, `Cache-Control: no-store`, `X-Accel-Buffering: no`, `flushHeaders`, build Engine options only from `getSample(sampleId).cobolSource`, `fields`, `getTranslation(sampleId, variant).candidate`, `caseCount`, optional `seed`, `timeBudgetMs`, `signal`, `onProgress`, `oracle: adapter.port`; map outcomes (`completed` with score gives `report`; `inconclusive`, `oracle_unavailable` give `error`, the latter also `probe.markUnavailable()`; Engine throw gives `engine_config` or `internal_error` with the cause logged); `finally` clears timers, ends the response once, releases the slot

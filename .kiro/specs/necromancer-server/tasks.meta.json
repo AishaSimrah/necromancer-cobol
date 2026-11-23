@@ -19,6 +19,10 @@
     "3.4 Write tests in `tests/server/headers.test.ts`": {
       "status": "passed",
       "lastRunTimestamp": 1795352967375
+    },
+    "8.5 Write tests in `tests/server/mappers.test.ts`": {
+      "status": "passed",
+      "lastRunTimestamp": 1795430206236
     }
   },
   "executionHistory": {
@@ -413,6 +417,30 @@
         "executionId": "2aff510c-689c-44df-82ce-e96654d69834",
         "chatSessionId": "sess_28786475-c318-4a1d-a5ad-7e2761529311",
         "timestamp": 1795429993559
+      }
+    ],
+    "8.5 Write tests in `tests/server/mappers.test.ts`": [
+      {
+        "executionId": "f58ba2fa-b244-4217-b10e-63c9769be669",
+        "chatSessionId": "sess_d3d9cc53-86cc-4109-8852-78e27e5021e2",
+        "timestamp": 1795430129981
+      },
+      {
+        "executionId": "f58ba2fa-b244-4217-b10e-63c9769be669",
+        "chatSessionId": "sess_d3d9cc53-86cc-4109-8852-78e27e5021e2",
+        "timestamp": 1795430216115
+      }
+    ],
+    "9.1 Create `src/server/prove-runner.ts` (slot, writer, normal path)": [
+      {
+        "executionId": "085b1105-4c5f-4fac-8767-a7a25f9fd590",
+        "chatSessionId": "sess_d2532051-d98a-453f-b132-e43475a81610",
+        "timestamp": 1795430246193
+      },
+      {
+        "executionId": "085b1105-4c5f-4fac-8767-a7a25f9fd590",
+        "chatSessionId": "sess_d2532051-d98a-453f-b132-e43475a81610",
+        "timestamp": 1795430341101
       }
     ]
   }
