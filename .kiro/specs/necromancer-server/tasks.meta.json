@@ -371,6 +371,25 @@
         "chatSessionId": "sess_0aea9467-97e8-4876-96f6-9b9061da8652",
         "timestamp": 1795429631763
       }
+    ],
+    "8.2 Create `src/server/validate.ts`": [
+      {
+        "executionId": "6a87d40b-23b4-4dcd-b958-65a3504dd108",
+        "chatSessionId": "sess_5037d1c7-c3f3-4835-9915-eeb85d1483c6",
+        "timestamp": 1795429680521
+      },
+      {
+        "executionId": "6a87d40b-23b4-4dcd-b958-65a3504dd108",
+        "chatSessionId": "sess_5037d1c7-c3f3-4835-9915-eeb85d1483c6",
+        "timestamp": 1795429748640
+      }
+    ],
+    "8.3 Write tests in `tests/server/validate.test.ts`": [
+      {
+        "executionId": "4fc16917-a6c8-4b12-9f9e-23a54e445997",
+        "chatSessionId": "sess_13debbfc-02ce-4200-bfad-039a3aeaf8bc",
+        "timestamp": 1795429779884
+      }
     ]
   }
 }

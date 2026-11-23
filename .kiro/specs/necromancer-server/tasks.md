@@ -169,11 +169,11 @@ Rules for every task:
     - `checkJsonContentType` (`/^application\/json(?:\s*;\s*charset=utf-8)?$/i`), `readBodyLimited(req, 1024)` that counts bytes per chunk and stops past the limit (413 with `Connection: close`, `req.destroy()` on `res` finish), a `Content-Length` over 1024 gives 413 without reading, `parseJsonObject` with `TextDecoder("utf-8", { fatal: true })` and a plain-object check
     - Run typecheck and lint
     - _Requirements: 7.1, 7.2, 7.3_
-  - [ ] 8.2 Create `src/server/validate.ts`
+  - [x] 8.2 Create `src/server/validate.ts`
     - `validateProveRequest(body: unknown, limits)` total over `unknown`: own keys via `Object.keys`, subset of `sampleId`, `variant`, `caseCount`, `seed`; first unknown key named in the message (JSON-quoted, cut to 40 characters); `sampleId` and `variant` via `Array.includes`; `caseCount` absent gives default, else safe integer in `[100, maxCaseCount]`; `seed` absent gives `undefined`, else int32 integer, `-0` normalized; reads with `Object.hasOwn`; failures carry the codes and fixed messages of the Error Handling table
     - Run typecheck and lint
     - _Requirements: 7.3, 7.4, 7.5, 7.6, 7.7, 7.8, 7.10_
-  - [ ]* 8.3 Write tests in `tests/server/validate.test.ts`
+  - [-] 8.3 Write tests in `tests/server/validate.test.ts`
     - **Property 2 (validator part): Prove request validation is total and side-effect free on rejection**
     - **Validates: Requirements 7.3, 7.4, 7.5, 7.6, 7.7, 7.8**
     - fast-check over `fc.jsonValue()` and arbitrary objects with random keys including `__proto__`, `constructor`, `toString`: result is a valid `ProveRequest` (catalog `sampleId` and `variant`, `caseCount` integer in range, `seed` absent or int32) or a 400 failure naming the field or key; example per rule (strings, floats, `NaN`, unsafe integers, 99, 2001, seed 2147483648, `-0`); the message states the range in force
