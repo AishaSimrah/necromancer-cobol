@@ -186,12 +186,11 @@ export function createProveRunner(deps: ProveRunnerDeps): ProveRunner {
     const ac = new AbortController();
     active = ac;
     const onGone = (): void => {
-      if (writer.isClosed()) return;
+      if (res.writableEnded) return;
       writer.markClientGone();
       ac.abort();
     };
     res.on("close", onGone);
-    link.req.on("close", onGone);
     let backstop: NodeJS.Timeout | undefined;
     let watchdog: NodeJS.Timeout | undefined;
     const onAbort = (): void => {
@@ -231,7 +230,6 @@ export function createProveRunner(deps: ProveRunnerDeps): ProveRunner {
       clearTimeout(watchdog);
       ac.signal.removeEventListener("abort", onAbort);
       res.off("close", onGone);
-      link.req.off("close", onGone);
       writer.end();
       if (active === ac) active = null;
       slot.release(token);
