@@ -173,12 +173,12 @@ Rules for every task:
     - `validateProveRequest(body: unknown, limits)` total over `unknown`: own keys via `Object.keys`, subset of `sampleId`, `variant`, `caseCount`, `seed`; first unknown key named in the message (JSON-quoted, cut to 40 characters); `sampleId` and `variant` via `Array.includes`; `caseCount` absent gives default, else safe integer in `[100, maxCaseCount]`; `seed` absent gives `undefined`, else int32 integer, `-0` normalized; reads with `Object.hasOwn`; failures carry the codes and fixed messages of the Error Handling table
     - Run typecheck and lint
     - _Requirements: 7.3, 7.4, 7.5, 7.6, 7.7, 7.8, 7.10_
-  - [-] 8.3 Write tests in `tests/server/validate.test.ts`
+  - [x] 8.3 Write tests in `tests/server/validate.test.ts`
     - **Property 2 (validator part): Prove request validation is total and side-effect free on rejection**
     - **Validates: Requirements 7.3, 7.4, 7.5, 7.6, 7.7, 7.8**
     - fast-check over `fc.jsonValue()` and arbitrary objects with random keys including `__proto__`, `constructor`, `toString`: result is a valid `ProveRequest` (catalog `sampleId` and `variant`, `caseCount` integer in range, `seed` absent or int32) or a 400 failure naming the field or key; example per rule (strings, floats, `NaN`, unsafe integers, 99, 2001, seed 2147483648, `-0`); the message states the range in force
     - _Requirements: 7.3 to 7.8, 13.5_
-  - [ ] 8.4 Create `src/server/mappers.ts`
+  - [-] 8.4 Create `src/server/mappers.ts`
     - `toProgressWire`, `toReportWire(report, echo)`, `toEngineErrorWire`: explicit allowlist literals, no spreads. `toReportWire` throws unless `outcome === "completed"` and `matchScore !== undefined`; passes `matchScore` through unchanged; `complete = !aborted && !budgetReached`; copies `shrunkExamples` field by field; never reads `inconclusiveCases`, `oracleMessage`, `oracleStatus`, `shrinkOracleCalls`, `containsInconclusive`
     - Run typecheck and lint
     - _Requirements: 8.3, 8.5, 8.6, 8.7, 8.8, 8.10, 8.12_

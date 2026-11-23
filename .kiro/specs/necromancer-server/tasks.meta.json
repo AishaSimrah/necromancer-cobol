@@ -389,6 +389,18 @@
         "executionId": "4fc16917-a6c8-4b12-9f9e-23a54e445997",
         "chatSessionId": "sess_13debbfc-02ce-4200-bfad-039a3aeaf8bc",
         "timestamp": 1795429779884
+      },
+      {
+        "executionId": "4fc16917-a6c8-4b12-9f9e-23a54e445997",
+        "chatSessionId": "sess_13debbfc-02ce-4200-bfad-039a3aeaf8bc",
+        "timestamp": 1795429884434
+      }
+    ],
+    "8.4 Create `src/server/mappers.ts`": [
+      {
+        "executionId": "2aff510c-689c-44df-82ce-e96654d69834",
+        "chatSessionId": "sess_28786475-c318-4a1d-a5ad-7e2761529311",
+        "timestamp": 1795429916016
       }
     ]
   }
