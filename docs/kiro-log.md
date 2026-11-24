@@ -112,3 +112,53 @@ Ordering `naive < subtle < 1` holds for all three samples. All three `subtle` sc
 - `interest.naive.ts`, `payroll.naive.ts`: none after creation (one commit each, 0.132 and 0.195 met the two-group rule on the first run).
 - `tax.naive.ts`: one comment-only change in task 10.5 (`ffe07d9`): the marker on the `income` line went from `CURSE:tax-whole-unit-rounding` to `CURSE:tax-unsigned-income`. No behavior change; the score stayed 0.26.
 - No naive file was made worse to meet the two-group rule, so the INTEREST copy-equivalence test keeps both halves (`correct` and `naive`).
+
+## Spec 3: necromancer-server (task 13.3): deployment and app image
+
+### Render settings
+- Service type: Web Service, runtime Docker, plan Free. Dockerfile path `Dockerfile.app`, build context the repo root.
+- Port: 10000 (`PORT` default and `EXPOSE 10000`). Health check path: `/api/health` (always answers 200; the body says `ok` or `degraded`).
+- One container holds the server, the Worker and GnuCOBOL. Runs as uid 10001.
+
+### Environment variables
+| Variable | Default | Rule |
+|---|---|---|
+| `PORT` | 10000 | 1..65535 |
+| `NECROMANCER_DEFAULT_CASE_COUNT` | 1000 | 100 up to the maximum |
+| `NECROMANCER_MAX_CASE_COUNT` | 2000 | up to 100000 |
+| `NECROMANCER_TIME_BUDGET_MS` | 60000 | 1000..3600000 |
+| `NECROMANCER_WORK_ROOT` | `$HOME/work` (`/home/necro/work`) | absolute path, must allow executing files |
+
+An invalid value stops the server at startup with a message that names the variable.
+
+### Build and run
+```
+docker build -f Dockerfile.app -t necromancer-app .
+docker run -d --name necromancer -p 10000:10000 --tmpfs /tmp necromancer-app
+curl http://localhost:10000/api/health?probe=1
+docker rm -f necromancer
+```
+`--tmpfs /tmp` is the recommended way to run it. A fully locked-down run also works: `--read-only --tmpfs /tmp --tmpfs /home/necro/work:rw,exec,nosuid,uid=10001,gid=10001,mode=0700,size=128m`. The work directory must not be mounted `noexec`; if it is, health stays `degraded` and the log names the path. `scripts/check-app-image.sh` runs these configurations (it needs a real bash; on this Windows host bash is the WSL stub, so the checks below were run by hand in PowerShell).
+
+### Measurements (Windows host, Docker Engine 29.9.2, Docker Desktop, 3.718 GiB visible to containers)
+| Figure | Value |
+|---|---|
+| Image size | 630,770,691 bytes (about 631 MB); build about 76 s with a warm layer cache (about 85 s on the first build) |
+| GnuCOBOL | `cobc` 3.1.2.0, reported in `/api/health` |
+| Startup | first `/api/health` answered 0.85 s to 1.3 s after `docker run -d` (server `uptimeMs` 266 to 451 ms); one cold Docker Desktop start took 3.4 to 3.7 s, of which the server needed under 0.7 s |
+| First health body | `degraded` / `unavailable` until the first probe finishes; `ok` / `ready` about 0.5 s later (`uptimeMs` 881 to 901) |
+| Idle memory (`docker stats --no-stream`, about 3 s after the probe) | 27 to 40 MiB: 40.0 default Work_Root, 34.9 `--tmpfs /tmp`, 27.8 read-only; 27.3 to 31.4 on the 2000-case reruns |
+| Memory during a 2000-case run (`caseCount` 2000, sample `interest`, variant `correct`, `--tmpfs /tmp`) | peak sampled 73.8 MiB in the first run and 68.6 MiB in the second (9 to 11 samples, one per 200 ms or more); back to 50 to 57 MiB after the run |
+| Result of that run | `matchScore` 1, `complete` true, 2000 of 2000 cases run, 0 mismatches |
+
+Memory is far below the 512 MB limit of the Render free plan. The peak figure comes from sampling `docker stats`, so a shorter spike could be missed.
+
+Other image checks (all passed):
+- `GET /api/samples/interest` returns `cobolSource` (1201 characters) and three non-empty translations (`correct` 1016, `subtle` 1153, `naive` 844), so the catalog paths resolve from `/app/dist/server/server.js`.
+- `docker top` shows `node dist/server/server.js` and its child Worker `node /opt/oracle/worker.js --work-root /home/necro/work`, both uid 10001.
+- `--tmpfs /tmp:rw,noexec` with `NECROMANCER_WORK_ROOT=/tmp/work`: health is `degraded` even after `?probe=1`, the log has `work root /tmp/work does not allow executing files (noexec mount?)`, and the server keeps listening.
+
+### Trust boundary (Req 10.9)
+The server relies on no user-provided COBOL ever reaching the Phase A Oracle. `POST /api/prove` accepts only a catalog `sampleId`, a `variant`, `caseCount` and `seed`. The COBOL compiled is always `getSample(sampleId).cobolSource` and the candidate is always the catalog's. Phase A has no per-program user separation, no `prlimit` and no network isolation: the Worker runs as the same uid as the server, in the same container, with the container's network. Accepting uploaded COBOL would need all three first. Static `public/` and the JSON catalog routes are the only other surface.
+
+The earlier scratch file `docs/app-image-observations.md` was folded into this entry and removed.

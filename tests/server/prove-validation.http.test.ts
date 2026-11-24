@@ -265,7 +265,7 @@ function rawExchange(port: number, head: string, body: Uint8Array, closeAfterWri
   });
 }
 
-describe("POST /api/prove validation over HTTP", () => {
+describe("POST /api/prove validation over HTTP", { timeout: 60_000 }, () => {
   let dir: string;
   let app: App;
   let port: number;

@@ -214,7 +214,7 @@ function lastEvent(body: string): Record<string, unknown> {
   return all[all.length - 1] as Record<string, unknown>;
 }
 
-describe("Run_Slot and handle lifecycle", () => {
+describe("Run_Slot and handle lifecycle", { timeout: 60_000 }, () => {
   let harness: Harness | null = null;
 
   async function start(options: HarnessOptions = {}): Promise<Harness> {

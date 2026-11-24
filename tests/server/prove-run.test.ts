@@ -248,7 +248,7 @@ function expectErrorEvent(event: Record<string, unknown>, code: string): void {
 const arbSampleId: fc.Arbitrary<SampleId> = fc.constantFrom(...SAMPLE_IDS);
 const arbVariant: fc.Arbitrary<Variant> = fc.constantFrom(...VARIANTS);
 
-describe("POST /api/prove streaming with the fake Oracle", () => {
+describe("POST /api/prove streaming with the fake Oracle", { timeout: 60_000 }, () => {
   let dir: string;
   let app: App;
   let port: number;

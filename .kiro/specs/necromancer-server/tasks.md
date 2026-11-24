@@ -258,7 +258,7 @@ Rules for every task:
   - [x] 13.2 Update steering files
     - `.kiro/steering/tech.md`: replace the Front end and Back end lines and the Deployment line as in the design (static files in `public/`, plain Node `node:http` server built with esbuild, no framework, Render free Docker web service with `Dockerfile.app`, one container); `.kiro/steering/structure.md`: add `/src/server/`, `/public/`, `Dockerfile.app`, describe `Dockerfile` as the Oracle test image, replace the `/src/app/ UI (Next.js)` line with `/public/`; no other lines or files change
     - _Requirements: 12.1, 12.2, 12.3_
-  - [ ] 13.3 Add the `docs/kiro-log.md` entry
+  - [x] 13.3 Add the `docs/kiro-log.md` entry
     - Render settings (Docker, port 10000, health check path `/api/health`), image size, startup time, idle memory and memory at the maximum `caseCount` (measure a 2000-case run with `docker stats` and update `docs/app-image-observations.md`), the environment variables with defaults, the build and run commands including `docker run --tmpfs /tmp`, and the statement that the server relies on no user COBOL reaching the Phase A Oracle; then remove or fold `docs/app-image-observations.md` into the entry
     - _Requirements: 10.9, 11.9, 14.1_
   - [ ] 13.4 Final verification
