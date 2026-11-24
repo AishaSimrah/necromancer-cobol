@@ -255,7 +255,7 @@ Rules for every task:
     - Delete the TODO and add `describe("deployment: Dockerfile.app")` that reads `Dockerfile.app` and asserts on the final stage (text after the last `FROM`): copies of `cobol-samples/`, `src/translator/translations/` and `public/` to the App_Root paths; server bundle at `/app/dist/server/server.js`; worker at `/opt/oracle/worker.js` with `--chmod=0555`; exec-form `CMD ["node", "dist/server/server.js"]`; `NECROMANCER_IN_ORACLE_IMAGE=1`; non-root `USER` (not `root`, not `0`); no `COPY . .` and no `node_modules` in the final stage; `HEALTHCHECK`, `EXPOSE 10000`, `PORT=10000`, `WORKDIR /app`; first `FROM` contains `node:22.11.0-bookworm-slim@sha256:`, last `FROM ubuntu:24.04`; the Oracle `Dockerfile` assertion stays
     - With the existing `parseIgnoreRules` and `isIgnored`: `public`, `public/index.html`, the three `.cbl` files and every file from `readdirSync("src/translator/translations")` are not ignored
     - _Requirements: 11.10, 11.6_
-  - [ ] 13.2 Update steering files
+  - [x] 13.2 Update steering files
     - `.kiro/steering/tech.md`: replace the Front end and Back end lines and the Deployment line as in the design (static files in `public/`, plain Node `node:http` server built with esbuild, no framework, Render free Docker web service with `Dockerfile.app`, one container); `.kiro/steering/structure.md`: add `/src/server/`, `/public/`, `Dockerfile.app`, describe `Dockerfile` as the Oracle test image, replace the `/src/app/ UI (Next.js)` line with `/public/`; no other lines or files change
     - _Requirements: 12.1, 12.2, 12.3_
   - [ ] 13.3 Add the `docs/kiro-log.md` entry

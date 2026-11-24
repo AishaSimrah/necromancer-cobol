@@ -10,7 +10,10 @@
 The translation .ts files and cobol-samples/*.cbl are read at runtime (the UI shows their source), so any deployed image must copy src/translator/translations/ and cobol-samples/.
 /src/oracle/       compiles and runs COBOL via cobc, returns stdout
 /src/equivalence/  input generators, comparison, match score (fast-check)
-/src/app/          UI (Next.js)
+/src/server/       HTTP server, routes, prove runner, oracle adapter
+/public/           static UI files served by the server
+Dockerfile.app     app image (server, Worker and GnuCOBOL in one container)
+Dockerfile         Oracle test image
 /tests/            unit and property tests
 /tests/translator/ catalog unit tests, property tests, and real-Oracle verification
 ```
