@@ -23,6 +23,10 @@
     "8.5 Write tests in `tests/server/mappers.test.ts`": {
       "status": "passed",
       "lastRunTimestamp": 1795430206236
+    },
+    "9.5 Write tests in `tests/server/prove-run.test.ts`": {
+      "status": "passed",
+      "lastRunTimestamp": 1795515958309
     }
   },
   "executionHistory": {
@@ -484,6 +488,30 @@
         "executionId": "06f2bd63-7622-4d6e-9136-2c910a757585",
         "chatSessionId": "sess_eb7b3426-68d0-4b12-86b3-c76b6b848227",
         "timestamp": 1795515531060
+      }
+    ],
+    "9.5 Write tests in `tests/server/prove-run.test.ts`": [
+      {
+        "executionId": "989b587f-7af6-42c0-bdf9-36b75a7d359a",
+        "chatSessionId": "sess_850ed9fe-5f70-4303-b293-289258f44f54",
+        "timestamp": 1795515789349
+      },
+      {
+        "executionId": "989b587f-7af6-42c0-bdf9-36b75a7d359a",
+        "chatSessionId": "sess_850ed9fe-5f70-4303-b293-289258f44f54",
+        "timestamp": 1795516079459
+      }
+    ],
+    "9.6 Write tests in `tests/server/concurrency.test.ts`": [
+      {
+        "executionId": "de727267-afdb-456c-97e9-9e521834edf9",
+        "chatSessionId": "sess_5685731f-848b-4e75-b3bf-00ff50ce876e",
+        "timestamp": 1795516198874
+      },
+      {
+        "executionId": "de727267-afdb-456c-97e9-9e521834edf9",
+        "chatSessionId": "sess_5685731f-848b-4e75-b3bf-00ff50ce876e",
+        "timestamp": 1795516459380
       }
     ]
   }

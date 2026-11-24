@@ -212,14 +212,14 @@ Rules for every task:
     - fast-check with `fc.uint8Array()` bodies and random content types and lengths over real HTTP; every rejection is a 4xx JSON `{type:"error",code,message}` (not a stream, no score) with the Run_Slot free and the fake backend call count 0
     - Examples: 415, 413 by header, 413 by chunked body, 413 by a lying `Content-Length`, 400 per bad field and per unknown key, 404 unknown sample id, 405 with `Allow`; extend the header property of 3.4 to 413 and 415 responses
     - _Requirements: 7.1 to 7.9, 13.1, 13.5_
-  - [ ]* 9.5 Write tests in `tests/server/prove-run.test.ts`
+  - [x]* 9.5 Write tests in `tests/server/prove-run.test.ts`
     - **Property 9 (stream part): Only a completed Engine outcome can produce a score, and error events never contain one**
     - **Property 10: NDJSON framing**
     - **Property 13: Only catalog COBOL and the catalog Candidate reach the Oracle**
     - **Validates: Requirements 8.1, 8.2, 8.4, 8.7, 8.8, 8.9, 8.10, 4.7, 7.10**
     - Fake Oracle backend with the real Engine and real Candidate: every line is valid JSON, progress lines first and non-decreasing `completed`, exactly one final line, nothing after it, the report has every field of Req 8.5, progress lines have no key containing `score`; every `compileCobol` source equals `getSample(id).cobolSource` and the Candidate is the catalog's; Oracle unavailable (fake `environment_error` and failing probe) gives 503 with a single `error` line and no `matchScore` in the body; Engine throw gives an `error` event and a free slot; inconclusive and `oracle_unavailable` outcomes give `error` events; backpressure with a slow reader
     - _Requirements: 8.1 to 8.11, 13.2, 13.3_
-  - [ ]* 9.6 Write tests in `tests/server/concurrency.test.ts`
+  - [x]* 9.6 Write tests in `tests/server/concurrency.test.ts`
     - **Property 11: Run_Slot is taken and released exactly once on every exit path**
     - **Property 12: Every compiled handle is released**
     - **Validates: Requirements 9.1, 9.2, 9.3, 9.4, 9.5, 9.6**
