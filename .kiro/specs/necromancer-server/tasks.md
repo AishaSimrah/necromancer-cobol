@@ -206,7 +206,7 @@ Rules for every task:
     - In `routes.ts`: `proveRoute` in the order method, content type (415), `Content-Length` (413), limited read (413), JSON object (400), `validateProveRequest`, then `runner.handle`; in `app.ts`: wire the runner and make `shutdown()` call `abortActive()` and wait for `idle()` before `backend.shutdown()`
     - Run typecheck and lint
     - _Requirements: 1.5, 7.1, 7.2, 7.8, 7.9, 8.11, 9.1, 9.6_
-  - [ ]* 9.4 Write tests in `tests/server/prove-validation.http.test.ts`
+  - [x]* 9.4 Write tests in `tests/server/prove-validation.http.test.ts`
     - **Property 2 (HTTP part): Prove request validation is total and side-effect free on rejection**
     - **Validates: Requirements 7.1, 7.2, 7.3, 7.4, 7.5, 7.6, 7.7, 7.8**
     - fast-check with `fc.uint8Array()` bodies and random content types and lengths over real HTTP; every rejection is a 4xx JSON `{type:"error",code,message}` (not a stream, no score) with the Run_Slot free and the fake backend call count 0
