@@ -234,7 +234,7 @@ Rules for every task:
     - The configured `timeBudgetMs` reaches the Engine as `timeBudgetMs` (small injected budget so the test runs in milliseconds); a run ended by budget or abort gives a `report` with `complete: false` and `budgetReached` or `aborted` true and the score of the cases that ran; a normal run gives `complete: true`; configured default and maximum `caseCount` are applied (default used when absent, max enforced, message states the range in force)
     - _Requirements: 7.6, 8.12, 9.4, 13.3, 15.1_
 
-- [ ] 10. Checkpoint - prove route
+- [x] 10. Checkpoint - prove route
   - Run `npm run typecheck`, `npm run lint`, `npm test` and `scripts/run-samples.sh`. Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 11. Real-Oracle integration tests
