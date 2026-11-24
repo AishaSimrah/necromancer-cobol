@@ -261,7 +261,7 @@ Rules for every task:
   - [x] 13.3 Add the `docs/kiro-log.md` entry
     - Render settings (Docker, port 10000, health check path `/api/health`), image size, startup time, idle memory and memory at the maximum `caseCount` (measure a 2000-case run with `docker stats` and update `docs/app-image-observations.md`), the environment variables with defaults, the build and run commands including `docker run --tmpfs /tmp`, and the statement that the server relies on no user COBOL reaching the Phase A Oracle; then remove or fold `docs/app-image-observations.md` into the entry
     - _Requirements: 10.9, 11.9, 14.1_
-  - [ ] 13.4 Final verification
+  - [x] 13.4 Final verification
     - Run `npm run typecheck`, `npm run lint`, `npm test` and `scripts/run-samples.sh` (the sample equivalence suite); fix any failure in the new code, never in `src/equivalence/`, `src/oracle/` or `src/translator/`
     - _Requirements: 13.10_
 
