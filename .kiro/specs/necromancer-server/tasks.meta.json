@@ -551,6 +551,25 @@
         "chatSessionId": "sess_354961ca-906e-4d6c-804d-615507458ae0",
         "timestamp": 1795517967332
       }
+    ],
+    "12.1 Write tests in `tests/server/bundle.test.ts`": [
+      {
+        "executionId": "634b080a-3b07-4aaa-8d91-59dc573d3097",
+        "chatSessionId": "sess_80b23501-6780-44a7-a8fa-b230361849c2",
+        "timestamp": 1795518100312
+      },
+      {
+        "executionId": "634b080a-3b07-4aaa-8d91-59dc573d3097",
+        "chatSessionId": "sess_80b23501-6780-44a7-a8fa-b230361849c2",
+        "timestamp": 1795518213479
+      }
+    ],
+    "12. Built-bundle test": [
+      {
+        "executionId": "634b080a-3b07-4aaa-8d91-59dc573d3097",
+        "chatSessionId": "sess_80b23501-6780-44a7-a8fa-b230361849c2",
+        "timestamp": 1795518213749
+      }
     ]
   }
 }

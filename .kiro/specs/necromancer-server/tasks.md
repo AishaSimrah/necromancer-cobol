@@ -245,8 +245,8 @@ Rules for every task:
     - Run the file, typecheck and lint
     - _Requirements: 4.7, 13.6, 13.7, 13.8, 13.9_
 
-- [ ] 12. Built-bundle test
-  - [ ]* 12.1 Write tests in `tests/server/bundle.test.ts`
+- [x] 12. Built-bundle test
+  - [x] 12.1 Write tests in `tests/server/bundle.test.ts`
     - Runs `npm run build:server` (a build failure fails the test, never skips); copies `dist/server/server.js` to `<tmp>/dist/server/server.js` and the data to `<tmp>/cobol-samples/`, `<tmp>/src/translator/translations/`, `<tmp>/public/`; starts the bundle as a child process on a free port with `NECROMANCER_WORK_ROOT` in the temp dir; `GET /api/samples/interest` returns a non-empty `cobolSource` equal to `cobol-samples/interest.cbl` on disk and three non-empty translation `source` values each equal to the matching file in `src/translator/translations/`; `/api/health` has the documented shape (oracle may be `unavailable` here); no data copy exists next to the bundle; the child is killed in `afterAll`
     - _Requirements: 1.8, 13.11_
 
