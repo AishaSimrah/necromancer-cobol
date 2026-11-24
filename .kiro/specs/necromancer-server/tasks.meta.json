@@ -532,6 +532,25 @@
         "chatSessionId": "sess_45ed2dd8-97d7-41ec-b65f-c0b54098699f",
         "timestamp": 1795517589178
       }
+    ],
+    "11.1 Write tests in `tests/server/integration.test.ts`": [
+      {
+        "executionId": "61ae564d-ea9f-42f5-9f07-546487718403",
+        "chatSessionId": "sess_354961ca-906e-4d6c-804d-615507458ae0",
+        "timestamp": 1795517670073
+      },
+      {
+        "executionId": "61ae564d-ea9f-42f5-9f07-546487718403",
+        "chatSessionId": "sess_354961ca-906e-4d6c-804d-615507458ae0",
+        "timestamp": 1795517967077
+      }
+    ],
+    "11. Real-Oracle integration tests": [
+      {
+        "executionId": "61ae564d-ea9f-42f5-9f07-546487718403",
+        "chatSessionId": "sess_354961ca-906e-4d6c-804d-615507458ae0",
+        "timestamp": 1795517967332
+      }
     ]
   }
 }

@@ -237,8 +237,8 @@ Rules for every task:
 - [x] 10. Checkpoint - prove route
   - Run `npm run typecheck`, `npm run lint`, `npm test` and `scripts/run-samples.sh`. Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 11. Real-Oracle integration tests
-  - [ ]* 11.1 Write tests in `tests/server/integration.test.ts`
+- [x] 11. Real-Oracle integration tests
+  - [x]* 11.1 Write tests in `tests/server/integration.test.ts`
     - One file, one app, one module-level Oracle client. `beforeAll` runs a preflight that throws an `Error` naming the missing piece: in Docker mode, `docker version` fails gives "Docker daemon is not running or not reachable", `docker image inspect necromancer-oracle` fails gives "Oracle_Image 'necromancer-oracle' is missing: run docker build -t necromancer-oracle ."; in In_Image_Mode (`NECROMANCER_IN_ORACLE_IMAGE=1`), `cobc --version` fails gives "cobc not found", a missing `/opt/oracle/worker.js` gives "worker bundle /opt/oracle/worker.js missing". No skip, `skipIf`, `runIf`, `todo` or early return
     - `createApp` with the real backend (`import * as oracle`), real catalog and real Engine; `workRoot` is `/work` in Docker mode; `afterAll` calls `app.shutdown()` so `oracle.shutdown()` runs
     - Over HTTP with a fixed `seed` and a `caseCount` that fits the test timeout: `interest/correct` gives `matchScore === 1` and `complete: true`; `interest/naive` gives `matchScore < 1` and a non-empty `mismatches` list whose items each have `input`, `oracleOutput`, `candidateOutput`, `group`; `interest/subtle` gives `naive < matchScore < 1` for the same seed; `GET /api/health?probe=1` gives `oracle: "ready"` and a `cobcVersion` starting with `3.1.2`
