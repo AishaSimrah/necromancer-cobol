@@ -230,7 +230,7 @@ Rules for every task:
     - **Validates: Requirements 1.6, 15.6**
     - fast-check over body bytes and query strings; the captured logger lines contain neither; request log format `METHOD path status Nms`; only `PORT` and the three numeric settings are ever logged from the environment
     - _Requirements: 1.6, 15.6_
-  - [ ]* 9.8 Write tests in `tests/server/budget.test.ts`
+  - [x]* 9.8 Write tests in `tests/server/budget.test.ts`
     - The configured `timeBudgetMs` reaches the Engine as `timeBudgetMs` (small injected budget so the test runs in milliseconds); a run ended by budget or abort gives a `report` with `complete: false` and `budgetReached` or `aborted` true and the score of the cases that ran; a normal run gives `complete: true`; configured default and maximum `caseCount` are applied (default used when absent, max enforced, message states the range in force)
     - _Requirements: 7.6, 8.12, 9.4, 13.3, 15.1_
 

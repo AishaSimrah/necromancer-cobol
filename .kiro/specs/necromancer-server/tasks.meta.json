@@ -513,6 +513,18 @@
         "chatSessionId": "sess_5685731f-848b-4e75-b3bf-00ff50ce876e",
         "timestamp": 1795516459380
       }
+    ],
+    "9.8 Write tests in `tests/server/budget.test.ts`": [
+      {
+        "executionId": "393a3dbf-8168-4abc-98ad-c9af4f686c33",
+        "chatSessionId": "sess_45ed2dd8-97d7-41ec-b65f-c0b54098699f",
+        "timestamp": 1795516873192
+      },
+      {
+        "executionId": "393a3dbf-8168-4abc-98ad-c9af4f686c33",
+        "chatSessionId": "sess_45ed2dd8-97d7-41ec-b65f-c0b54098699f",
+        "timestamp": 1795517244993
+      }
     ]
   }
 }
