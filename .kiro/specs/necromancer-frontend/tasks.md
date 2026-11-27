@@ -23,7 +23,7 @@ Rules for every task:
 
 ## Tasks
 
-- [ ] 1. Build pipeline
+- [x] 1. Build pipeline
   - [x] 1.1 Add npm scripts, font dev dependencies, `scripts/copy-fonts.mjs` and placeholder `src/frontend/main.ts`
     - `package.json`: add `build:frontend`, `build:fonts`, `typecheck` (both projects) and extend `build` as in the design. Add `@fontsource/cinzel` and `@fontsource/jetbrains-mono` to `devDependencies` only; `dependencies` stays `decimal.js` only
     - `scripts/copy-fonts.mjs`: copy the three latin `.woff2` files to `public/fonts/jetbrains-mono-400.woff2`, `jetbrains-mono-700.woff2`, `cinzel-400.woff2`; exit non-zero with the missing source path on stderr if any is missing; imports from `node:fs` and `node:path` only
@@ -37,7 +37,7 @@ Rules for every task:
     - `vitest.config.ts`: add `globalSetup: ["tests/setup/build-frontend.ts"]`
     - Run `npm run typecheck` and `npx vitest --run` on a clean `public/` to confirm the build runs once
     - _Requirements: 1.2, 12.1, 12.7, 12.10_
-  - [ ] 1.3 Update `Dockerfile.app`, `scripts/check-app-image.sh`, `.gitignore`, `.dockerignore` and add a placeholder `public/decor/skeleton.svg`
+  - [x] 1.3 Update `Dockerfile.app`, `scripts/check-app-image.sh`, `.gitignore`, `.dockerignore` and add a placeholder `public/decor/skeleton.svg`
     - `Dockerfile.app` build stage: plain `npm ci`, copy `scripts/copy-fonts.mjs`, `src/`, `public/`, run `build:worker`, `build:server`, `build:frontend`, `build:fonts`. Runtime stage: `COPY --from=build --chmod=a+rX /build/public/ ./public/`. The runtime image never installs `@fontsource/*`
     - `scripts/check-app-image.sh`: also request `/app.js`, `/app.css`, `/fonts/jetbrains-mono-400.woff2` and `/decor/skeleton.svg` and check status 200
     - `.gitignore`: `public/app.js`, `public/app.js.map`, `public/fonts/`. `.dockerignore`: same three entries. `.kiro/` is never ignored

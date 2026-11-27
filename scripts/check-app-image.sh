@@ -83,6 +83,17 @@ stop() {
   docker rm -f "$1" >/dev/null
 }
 
+# Requests each static asset and fails unless the status is 200.
+check_static_assets() {
+  local name="$1" url path code
+  url="$(host_url "$name")"
+  for path in /app.js /app.css /fonts/jetbrains-mono-400.woff2 /decor/skeleton.svg; do
+    code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 5 "$url$path" || true)"
+    [ "$code" = "200" ] || fail "static asset $path returned HTTP ${code:-none}, expected 200"
+    echo "asset ok: $path"
+  done
+}
+
 expect_ready() {
   local label="$1"
   shift
@@ -94,6 +105,7 @@ expect_ready() {
     fail "${label}: oracle not ready within ${POLL_SECONDS}s"
   fi
   echo "health: $body"
+  check_static_assets "$name"
   report_memory "$name"
   stop "$name"
   echo "ok: ${label}"

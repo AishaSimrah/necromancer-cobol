@@ -10,5 +10,8 @@ cobol-samples/bin
 .env
 .env.local
 deploy-test
+public/app.js
+public/app.js.map
+public/fonts/
 Dockerfile
 Dockerfile.app

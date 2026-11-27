@@ -10,8 +10,13 @@ WORKDIR /build
 COPY package.json package-lock.json tsconfig.json ./
 RUN npm ci
 
+COPY scripts/copy-fonts.mjs ./scripts/copy-fonts.mjs
 COPY src/ ./src/
-RUN npm run build:worker && npm run build:server
+COPY public/ ./public/
+RUN npm run build:worker \
+ && npm run build:server \
+ && npm run build:frontend \
+ && npm run build:fonts
 
 # Stage 2: runtime. GnuCOBOL 3.1.2 from the Ubuntu 24.04 archive, Node copied from stage 1.
 FROM ubuntu:24.04
@@ -34,7 +39,7 @@ RUN groupadd --gid 10001 necro \
 
 WORKDIR /app
 COPY --from=build --chmod=a+rX /build/dist/server/server.js ./dist/server/server.js
-COPY --chmod=a+rX public/ ./public/
+COPY --from=build --chmod=a+rX /build/public/ ./public/
 # Only the .cbl sources are needed at runtime (not cobol-samples/bin).
 COPY --chmod=a+rX cobol-samples/*.cbl ./cobol-samples/
 COPY --chmod=a+rX src/translator/translations/ ./src/translator/translations/
