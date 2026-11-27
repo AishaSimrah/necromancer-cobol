@@ -1,0 +1,17 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Add npm scripts, font dev dependencies, `scripts/copy-fonts.mjs` and placeholder `src/frontend/main.ts`": [
+      {
+        "executionId": "bdb3ca07-15e9-4ded-bf4b-bf96065d019e",
+        "chatSessionId": "sess_d2f8aa19-6427-435a-b14c-b7cf534f1967",
+        "timestamp": 1795784052511
+      },
+      {
+        "executionId": "bdb3ca07-15e9-4ded-bf4b-bf96065d019e",
+        "chatSessionId": "sess_d2f8aa19-6427-435a-b14c-b7cf534f1967",
+        "timestamp": 1795784436285
+      }
+    ]
+  }
+}

@@ -4,6 +4,10 @@ dist/
 build/
 .next/
 coverage/
+# Generated frontend bundle and copied fonts
+public/app.js
+public/app.js.map
+public/fonts/
 
 # Secrets (never commit API keys)
 .env

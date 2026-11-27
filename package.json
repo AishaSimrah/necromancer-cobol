@@ -8,12 +8,17 @@
   "scripts": {
     "build:worker": "esbuild src/oracle/worker/main.ts --bundle --platform=node --target=node22 --format=cjs --outfile=dist/worker.js",
     "build:server": "esbuild src/server/main.ts --bundle --platform=node --target=node22 --format=esm --outfile=dist/server/server.js --sourcemap=external",
-    "typecheck": "tsc --noEmit",
+    "build:frontend": "esbuild src/frontend/main.ts --bundle --platform=browser --target=es2022 --format=esm --outfile=public/app.js --sourcemap=external",
+    "build:fonts": "node scripts/copy-fonts.mjs",
+    "build": "npm run build:worker && npm run build:server && npm run build:frontend && npm run build:fonts",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.frontend.json",
     "lint": "eslint .",
     "test": "vitest --run"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
+    "@fontsource/cinzel": "5.3.0",
+    "@fontsource/jetbrains-mono": "5.3.0",
     "@types/node": "22.20.5",
     "esbuild": "0.28.2",
     "eslint": "10.14.0",
