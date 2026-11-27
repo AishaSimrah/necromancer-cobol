@@ -48,7 +48,7 @@ Rules for every task:
     - `tests/frontend/build-frontend.setup.test.ts`: `runBuild` calls the two commands in order; a throwing runner propagates and the second command is not run after the first fails
     - _Requirements: 1.7, 1.9_
 
-- [ ] 2. Core modules in `src/frontend/core/`
+- [x] 2. Core modules in `src/frontend/core/`
   - [x] 2.1 Implement `ndjson.ts` and `classify-line.ts`
     - `createLineSplitter()` with `push` and `flush` as in the design (one buffered partial line, split on `"\n"`)
     - `classifyLine(rawLine)` returning `progress | report | error | unreadable` with explicit `typeof` and `Array.isArray` guards; wire types imported from `src/server/wire.ts` as types only
@@ -108,7 +108,7 @@ Rules for every task:
     - File: `tests/frontend/score-format.test.ts`
     - Exact string for several `n`; the line and the three headline strings do not match `/proven|proof|guarantee|certain/i`
     - _Requirements: 6.6_
-  - [ ] 2.12 Implement `announce.ts`, `wake.ts`, `decor-spec.ts` and `selection.ts`
+  - [x] 2.12 Implement `announce.ts`, `wake.ts`, `decor-spec.ts` and `selection.ts`
     - `ANNOUNCE_MIN_INTERVAL_MS`, `shouldAnnounce`; `WAKE_DELAY_MS`, `wakeVisible`
     - `DecorationKind`, `decorationAttrs(kind)`: file-backed kinds get `src` (`/decor/<kind>.svg`), `alt=""`, `aria-hidden="true"`, `data-decoration`, `class`; `fog` has no `src` or `alt`; never `style` or `tabindex`
     - `Selection` interface (`sampleId`, `variant`)

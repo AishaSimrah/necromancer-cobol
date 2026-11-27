@@ -115,6 +115,25 @@
         "chatSessionId": "sess_b9feb66d-db08-4c7f-9878-de7eb75e0d84",
         "timestamp": 1795786991717
       }
+    ],
+    "2.12 Implement `announce.ts`, `wake.ts`, `decor-spec.ts` and `selection.ts`": [
+      {
+        "executionId": "cde0214a-06fd-4ab9-9bfd-399412891990",
+        "chatSessionId": "sess_36434cf8-8d58-4966-be82-f1149aed35a4",
+        "timestamp": 1795787088267
+      },
+      {
+        "executionId": "cde0214a-06fd-4ab9-9bfd-399412891990",
+        "chatSessionId": "sess_36434cf8-8d58-4966-be82-f1149aed35a4",
+        "timestamp": 1795787173402
+      }
+    ],
+    "2. Core modules in `src/frontend/core/`": [
+      {
+        "executionId": "cde0214a-06fd-4ab9-9bfd-399412891990",
+        "chatSessionId": "sess_36434cf8-8d58-4966-be82-f1149aed35a4",
+        "timestamp": 1795787173687
+      }
     ]
   }
 }
