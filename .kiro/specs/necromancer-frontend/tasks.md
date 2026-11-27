@@ -85,7 +85,7 @@ Rules for every task:
     - `ritualGhostCount` (integer 2..12, non-decreasing), `ritualSpeedStep` (1..4 from the same ratio), `verdictGhostCount` (0 at score 1, else `min(20, displayed)`)
     - `ROW_RISE_LIMIT = 20`, `rowRiseClass(index)` returning `row-rise row-rise-<index>` for `index < 20`, else `undefined`
     - _Requirements: 6.5, 6.6, 6.7, 7.3, 8.2, 8.3, 9.1, 9.2, 9.3, 12.3, 12.5, 12.6_
-  - [ ] 2.8 Write property tests for the score formatter
+  - [x] 2.8 Write property tests for the score formatter
     - File: `tests/frontend/score-format.property.test.ts`
     - **Property 4: Match-score formatting never rounds up and is exact only at 1**
     - **Property 5: Headline classification matches the fixed score bands**

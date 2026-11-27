@@ -103,6 +103,18 @@
         "chatSessionId": "sess_8b78f07c-edf6-4227-b8d7-a6ea2f921b4f",
         "timestamp": 1795786621831
       }
+    ],
+    "2.8 Write property tests for the score formatter": [
+      {
+        "executionId": "c20e02e7-71a2-491a-bcc9-cb024b2fc9ba",
+        "chatSessionId": "sess_b9feb66d-db08-4c7f-9878-de7eb75e0d84",
+        "timestamp": 1795786807082
+      },
+      {
+        "executionId": "c20e02e7-71a2-491a-bcc9-cb024b2fc9ba",
+        "chatSessionId": "sess_b9feb66d-db08-4c7f-9878-de7eb75e0d84",
+        "timestamp": 1795786991717
+      }
     ]
   }
 }
