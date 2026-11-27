@@ -49,7 +49,7 @@ Rules for every task:
     - _Requirements: 1.7, 1.9_
 
 - [ ] 2. Core modules in `src/frontend/core/`
-  - [ ] 2.1 Implement `ndjson.ts` and `classify-line.ts`
+  - [x] 2.1 Implement `ndjson.ts` and `classify-line.ts`
     - `createLineSplitter()` with `push` and `flush` as in the design (one buffered partial line, split on `"\n"`)
     - `classifyLine(rawLine)` returning `progress | report | error | unreadable` with explicit `typeof` and `Array.isArray` guards; wire types imported from `src/server/wire.ts` as types only
     - _Requirements: 4.1, 4.7, 12.1_

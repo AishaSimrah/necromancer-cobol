@@ -43,6 +43,18 @@
         "chatSessionId": "sess_b2b8fb71-b54b-40bb-ab11-05e4b53a7b44",
         "timestamp": 1795785280453
       }
+    ],
+    "2.1 Implement `ndjson.ts` and `classify-line.ts`": [
+      {
+        "executionId": "42366df6-17aa-4218-b24b-a35fbccbe3aa",
+        "chatSessionId": "sess_6d1e7688-e4ef-4810-8ccd-98a415e5abed",
+        "timestamp": 1795785649221
+      },
+      {
+        "executionId": "42366df6-17aa-4218-b24b-a35fbccbe3aa",
+        "chatSessionId": "sess_6d1e7688-e4ef-4810-8ccd-98a415e5abed",
+        "timestamp": 1795785734269
+      }
     ]
   }
 }
