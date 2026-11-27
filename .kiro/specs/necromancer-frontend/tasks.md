@@ -65,7 +65,7 @@ Rules for every task:
     - **Validates: Requirements 4.7**
     - Unit examples: a valid progress, report and error line classify to their kinds; object missing a required field is unreadable
     - _Requirements: 4.7_
-  - [ ] 2.4 Implement `view-state.ts` and `busy-retry.ts`
+  - [x] 2.4 Implement `view-state.ts` and `busy-retry.ts`
     - `ViewState`, `DisplayError`, `StreamEvent`, `initialRitualState`, `isTerminal`, `reduceStreamEvent` with absorbing terminal states, `report` assigned only from a `complete === true` report, `incompleteReport` for `complete === false`
     - `BUSY_RETRY_INTERVAL_MS`, `BUSY_RETRY_MAX`, `initialBusyState`, `nextBusyStep` (at most 7 requests, `wait` attempt 1..6, `give-up` only when the 6th retry answers busy, no `send` after cancel)
     - _Requirements: 4.3, 4.4, 4.8, 4.10, 6.1, 6.2, 6.12, 7.8, 7.14, 7.16, 7.17_
