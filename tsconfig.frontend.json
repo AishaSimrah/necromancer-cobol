@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM"]
+  },
+  "include": ["src/frontend/**/*.ts", "src/server/wire.ts", "tests/frontend/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}

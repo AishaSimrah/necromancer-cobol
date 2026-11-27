@@ -30,7 +30,7 @@ Rules for every task:
     - `src/frontend/main.ts`: trivial placeholder (for example sets `document.title`) so `npm run build:frontend` produces `public/app.js`
     - Run `npm install`, `npm run build:frontend`, `npm run build:fonts`
     - _Requirements: 1.2, 1.7, 1.9_
-  - [ ] 1.2 Split TypeScript projects and add the Vitest globalSetup
+  - [x] 1.2 Split TypeScript projects and add the Vitest globalSetup
     - `tsconfig.json`: add `src/frontend/**` and `tests/frontend/**` to `exclude`
     - New `tsconfig.frontend.json` extending `tsconfig.json` with `lib: ["ES2022", "DOM"]`, `include` of `src/frontend/**/*.ts`, `src/server/wire.ts`, `tests/frontend/**/*.ts`
     - `tests/setup/build-frontend.ts`: named export `runBuild(run)` calling `run("npm run build:frontend")` then `run("npm run build:fonts")`; default `setup()` using `execSync(command, { cwd: <repo root>, stdio: "inherit" })` and rethrowing an `Error` that names the failing command

@@ -5,5 +5,6 @@ export default defineConfig({
     include: ["tests/**/*.test.ts"],
     passWithNoTests: true,
     environment: "node",
+    globalSetup: ["tests/setup/build-frontend.ts"],
   },
 });

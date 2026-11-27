@@ -12,6 +12,18 @@
         "chatSessionId": "sess_d2f8aa19-6427-435a-b14c-b7cf534f1967",
         "timestamp": 1795784436285
       }
+    ],
+    "1.2 Split TypeScript projects and add the Vitest globalSetup": [
+      {
+        "executionId": "1c22d626-35aa-4bfd-80fc-b7144323453f",
+        "chatSessionId": "sess_02f55650-429c-4dff-b7c5-a94fbbb0d84f",
+        "timestamp": 1795784524080
+      },
+      {
+        "executionId": "1c22d626-35aa-4bfd-80fc-b7144323453f",
+        "chatSessionId": "sess_02f55650-429c-4dff-b7c5-a94fbbb0d84f",
+        "timestamp": 1795784850163
+      }
     ]
   }
 }
