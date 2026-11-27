@@ -80,7 +80,7 @@ Rules for every task:
     - **Property 9: Busy retry stays within bounds, never sends after cancel, and gives up exactly at the sixth busy retry**
     - **Validates: Requirements 7.8, 7.16, 7.17**
     - _Requirements: 7.8, 7.16, 7.17_
-  - [ ] 2.7 Implement `score-format.ts`, `ghost-count.ts` and `row-rise.ts`
+  - [x] 2.7 Implement `score-format.ts`, `ghost-count.ts` and `row-rise.ts`
     - `formatMatchScore` (integer tenths, clamped to 999 below 1, never `toFixed`), `headlineFor` (`>= 1`, `>= 0.9`, else), `perfectScoreLine(n)` returning exactly `No mismatches in ${n} conclusive cases.`
     - `ritualGhostCount` (integer 2..12, non-decreasing), `ritualSpeedStep` (1..4 from the same ratio), `verdictGhostCount` (0 at score 1, else `min(20, displayed)`)
     - `ROW_RISE_LIMIT = 20`, `rowRiseClass(index)` returning `row-rise row-rise-<index>` for `index < 20`, else `undefined`

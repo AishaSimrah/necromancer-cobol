@@ -91,6 +91,18 @@
         "chatSessionId": "sess_3691fb18-0ca3-43b7-afde-7d572ddd09a3",
         "timestamp": 1795786455841
       }
+    ],
+    "2.7 Implement `score-format.ts`, `ghost-count.ts` and `row-rise.ts`": [
+      {
+        "executionId": "58c9031a-ba73-49f9-b853-4a3e23dde4b3",
+        "chatSessionId": "sess_8b78f07c-edf6-4227-b8d7-a6ea2f921b4f",
+        "timestamp": 1795786515749
+      },
+      {
+        "executionId": "58c9031a-ba73-49f9-b853-4a3e23dde4b3",
+        "chatSessionId": "sess_8b78f07c-edf6-4227-b8d7-a6ea2f921b4f",
+        "timestamp": 1795786621831
+      }
     ]
   }
 }
