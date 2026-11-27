@@ -55,6 +55,18 @@
         "chatSessionId": "sess_6d1e7688-e4ef-4810-8ccd-98a415e5abed",
         "timestamp": 1795785734269
       }
+    ],
+    "2.2 Write property test for the NDJSON splitter": [
+      {
+        "executionId": "b25cb642-1cf5-42a6-be2f-4ecd5caf5c54",
+        "chatSessionId": "sess_d4bd4d4d-7140-4918-a9d8-72634de31cb0",
+        "timestamp": 1795785880997
+      },
+      {
+        "executionId": "b25cb642-1cf5-42a6-be2f-4ecd5caf5c54",
+        "chatSessionId": "sess_d4bd4d4d-7140-4918-a9d8-72634de31cb0",
+        "timestamp": 1795786063767
+      }
     ]
   }
 }

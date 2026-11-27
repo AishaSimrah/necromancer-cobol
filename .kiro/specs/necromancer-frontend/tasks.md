@@ -53,7 +53,7 @@ Rules for every task:
     - `createLineSplitter()` with `push` and `flush` as in the design (one buffered partial line, split on `"\n"`)
     - `classifyLine(rawLine)` returning `progress | report | error | unreadable` with explicit `typeof` and `Array.isArray` guards; wire types imported from `src/server/wire.ts` as types only
     - _Requirements: 4.1, 4.7, 12.1_
-  - [ ] 2.2 Write property test for the NDJSON splitter
+  - [x] 2.2 Write property test for the NDJSON splitter
     - File: `tests/frontend/ndjson.property.test.ts`
     - **Property 1: NDJSON splitting round-trips across arbitrary chunk boundaries**
     - **Validates: Requirements 4.1, 12.2**
