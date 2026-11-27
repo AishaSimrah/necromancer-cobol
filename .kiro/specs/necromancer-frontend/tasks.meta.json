@@ -79,6 +79,18 @@
         "chatSessionId": "sess_faf8ba28-1466-43b8-bb63-b2ab54ed1f98",
         "timestamp": 1795786250572
       }
+    ],
+    "2.5 Write property test for the view-state reducer": [
+      {
+        "executionId": "5d36367e-67c8-4e97-8769-7aadfbaebd81",
+        "chatSessionId": "sess_3691fb18-0ca3-43b7-afde-7d572ddd09a3",
+        "timestamp": 1795786337690
+      },
+      {
+        "executionId": "5d36367e-67c8-4e97-8769-7aadfbaebd81",
+        "chatSessionId": "sess_3691fb18-0ca3-43b7-afde-7d572ddd09a3",
+        "timestamp": 1795786455841
+      }
     ]
   }
 }

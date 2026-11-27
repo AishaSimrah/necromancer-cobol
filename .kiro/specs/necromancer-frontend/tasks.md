@@ -69,7 +69,7 @@ Rules for every task:
     - `ViewState`, `DisplayError`, `StreamEvent`, `initialRitualState`, `isTerminal`, `reduceStreamEvent` with absorbing terminal states, `report` assigned only from a `complete === true` report, `incompleteReport` for `complete === false`
     - `BUSY_RETRY_INTERVAL_MS`, `BUSY_RETRY_MAX`, `initialBusyState`, `nextBusyStep` (at most 7 requests, `wait` attempt 1..6, `give-up` only when the 6th retry answers busy, no `send` after cancel)
     - _Requirements: 4.3, 4.4, 4.8, 4.10, 6.1, 6.2, 6.12, 7.8, 7.14, 7.16, 7.17_
-  - [ ] 2.5 Write property test for the view-state reducer
+  - [x] 2.5 Write property test for the view-state reducer
     - File: `tests/frontend/view-state.property.test.ts`
     - **Property 3: The reducer exposes a report only if the first terminal event is a Complete_Report**
     - **Validates: Requirements 4.3, 4.4, 4.8, 4.10, 6.1, 6.2, 6.12, 7.14, 7.16**
